@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AriUMModel", "..\AriUMModel\AriUMModel\AriUMModel.csproj", "{C50145E6-A244-4F1F-B41F-90D1925B4A00}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AriUMConsole", "..\AriUMConsole\AriUMConsole\AriUMConsole.csproj", "{3EBBDC18-3B30-4967-8FD0-FF1BFD77F5D6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AriUMWebApi", "..\AriUMWebApi\AriUMWebApi.csproj", "{F7567BD0-B3EE-4ADA-8BFE-6588BFD15F75}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C50145E6-A244-4F1F-B41F-90D1925B4A00}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C50145E6-A244-4F1F-B41F-90D1925B4A00}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C50145E6-A244-4F1F-B41F-90D1925B4A00}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C50145E6-A244-4F1F-B41F-90D1925B4A00}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3EBBDC18-3B30-4967-8FD0-FF1BFD77F5D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3EBBDC18-3B30-4967-8FD0-FF1BFD77F5D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3EBBDC18-3B30-4967-8FD0-FF1BFD77F5D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3EBBDC18-3B30-4967-8FD0-FF1BFD77F5D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F7567BD0-B3EE-4ADA-8BFE-6588BFD15F75}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7567BD0-B3EE-4ADA-8BFE-6588BFD15F75}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7567BD0-B3EE-4ADA-8BFE-6588BFD15F75}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7567BD0-B3EE-4ADA-8BFE-6588BFD15F75}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

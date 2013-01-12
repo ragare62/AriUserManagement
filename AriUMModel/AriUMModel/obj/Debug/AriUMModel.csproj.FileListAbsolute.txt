@@ -1,0 +1,8 @@
+C:\App_NET\AriUserManagement\AriUMModel\AriUMModel\bin\Debug\AriUMModel.dll.config
+C:\App_NET\AriUserManagement\AriUMModel\AriUMModel\bin\Debug\AriUMModel.dll
+C:\App_NET\AriUserManagement\AriUMModel\AriUMModel\bin\Debug\AriUMModel.pdb
+C:\App_NET\AriUserManagement\AriUMModel\AriUMModel\bin\Debug\Telerik.OpenAccess.35.Extensions.dll
+C:\App_NET\AriUserManagement\AriUMModel\AriUMModel\bin\Debug\Telerik.OpenAccess.35.Extensions.xml
+C:\App_NET\AriUserManagement\AriUMModel\AriUMModel\obj\Debug\AriUMModel.dll
+C:\App_NET\AriUserManagement\AriUMModel\AriUMModel\obj\Debug\AriUMModel.pdb
+C:\App_NET\AriUserManagement\AriUMModel\AriUMModel\obj\Debug\AriUMModel.csprojResolveAssemblyReference.cache

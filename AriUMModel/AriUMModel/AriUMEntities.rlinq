@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DomainModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="2.0.0.0" name="AriUMContext" namespace="AriUMModel" showPropertiesCompartment="true" xmlns="http://www.telerik.com/ORM">
+  <orm:orm name="AriUMContext" backend="mysql" xmlns:orm="http://tempuri.org/ORM">
+    <orm:namespace name="AriUMModel" default="true">
+      <orm:class name="User" uniqueId="2b92cc60-e61c-481d-a3be-4c612f2a8ac5">
+        <orm:table name="usr" />
+        <orm:identity>
+          <orm:key-generator name="autoinc" />
+          <orm:single-field field-name="_userId" />
+        </orm:identity>
+        <orm:field name="_userId" property="UserId" uniqueId="9feb9a1e-5e20-45c0-9fb4-fc5e23aafae1" type="System.Int32">
+          <orm:column name="user_id" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" converter="OpenAccessRuntime.Data.IntConverter" backend-calculated="true" ado-type="Int32" />
+        </orm:field>
+        <orm:field name="_name" property="Name" uniqueId="d020bd7d-71d1-47e6-b543-9173141db6ce" type="System.String">
+          <orm:column name="nme" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        </orm:field>
+        <orm:field name="_email" property="Email" uniqueId="7f3b30ee-d9ef-42f6-b833-21b2f2ffcc4d" type="System.String">
+          <orm:column name="email" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        </orm:field>
+        <orm:field name="_password" property="Password" uniqueId="cc41e9bc-b2dd-455f-bda9-66bfb24999ea" type="System.String">
+          <orm:column name="passwd" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        </orm:field>
+        <orm:field name="_userGroup" property="UserGroup" behavior="readwrite" uniqueId="138e2cb2-a1dc-42fd-9100-fb1491d8e61a" type="AriUMModel.UserGroup">
+          <orm:reference uniqueId="5404109f-41a6-42e3-bbd2-c6c1f215d6ae" />
+        </orm:field>
+      </orm:class>
+      <orm:class name="UserGroup" uniqueId="4af136ee-741e-4285-96b1-7f4e4f3796a0">
+        <orm:table name="UserGroup" />
+        <orm:identity>
+          <orm:key-generator name="autoinc" />
+          <orm:single-field field-name="_userGroupId" />
+        </orm:identity>
+        <orm:field name="_userGroupId" property="UserGroupId" uniqueId="6eb67018-4798-4473-8d3d-28d92a784ce5" type="System.Int32">
+          <orm:column name="user_group_id" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" converter="OpenAccessRuntime.Data.IntConverter" backend-calculated="true" ado-type="Int32" />
+        </orm:field>
+        <orm:field name="_name" property="Name" uniqueId="c7ba0bb5-368b-49cf-8e68-d266708c9cbe" type="System.String">
+          <orm:column name="nme" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        </orm:field>
+        <orm:field name="_users" property="Users" behavior="readwrite" uniqueId="3cdf28e7-a610-4815-aa0f-db938170687e" type="AriUMModel.User">
+          <orm:collection element-class="AriUMModel.User" inverse-field="_userGroup" order-by="" uniqueId="5404109f-41a6-42e3-bbd2-c6c1f215d6ae" />
+        </orm:field>
+      </orm:class>
+    </orm:namespace>
+    <orm:schema schema="">
+      <orm:table name="usr">
+        <orm:column name="user_id" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" converter="OpenAccessRuntime.Data.IntConverter" backend-calculated="true" ado-type="Int32" />
+        <orm:column name="nme" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        <orm:column name="email" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        <orm:column name="passwd" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+      </orm:table>
+      <orm:table name="UserGroup">
+        <orm:column name="user_group_id" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" converter="OpenAccessRuntime.Data.IntConverter" backend-calculated="true" ado-type="Int32" />
+        <orm:column name="nme" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+      </orm:table>
+    </orm:schema>
+    <orm:relational-naming-settings>
+      <orm:remove-camel-case>False</orm:remove-camel-case>
+      <orm:source-strategy>Property</orm:source-strategy>
+    </orm:relational-naming-settings>
+  </orm:orm>
+  <ModelSettings xmlns="">
+    <AppConfigConnectionPropertyName>AriUMDBConnection</AppConfigConnectionPropertyName>
+    <AppConfigConnectionString>server=localhost;user id=root;password=aritel;database=AriUMDB</AppConfigConnectionString>
+    <NamingSettings>
+      <ClassRules>
+        <CaseMode>PascalCase</CaseMode>
+        <PluralizationMode>Singularize</PluralizationMode>
+      </ClassRules>
+      <FieldRules>
+        <AddPrefix>_</AddPrefix>
+        <CaseMode>CamelCase</CaseMode>
+      </FieldRules>
+      <PropertyRules>
+        <CaseMode>PascalCase</CaseMode>
+      </PropertyRules>
+    </NamingSettings>
+    <CodeGenerationSettings>
+      <MappingDefinitionType>Xml</MappingDefinitionType>
+      <GenerateMultipleFiles>false</GenerateMultipleFiles>
+    </CodeGenerationSettings>
+    <SchemaUpdateSettings>
+      <NamePrefix>2013-1-0-1</NamePrefix>
+      <ExecuteScript>true</ExecuteScript>
+      <DeploymentProject>AriUMModel</DeploymentProject>
+      <DeploymentDirectory>SQL\</DeploymentDirectory>
+      <UpdateDatabaseOperation>Migrate</UpdateDatabaseOperation>
+    </SchemaUpdateSettings>
+    <BackendConfigurationSettings>
+      <BackendConfiguration>
+        <Backend>MySql</Backend>
+        <ProviderName>MySql.Data.MySqlClient</ProviderName>
+      </BackendConfiguration>
+    </BackendConfigurationSettings>
+  </ModelSettings>
+  <Types>
+    <DomainClass Id="2b92cc60-e61c-481d-a3be-4c612f2a8ac5" name="User" namespace="AriUMModel" showPropertiesCompartment="true" identityMechanism="DatabaseServerCalculated" showNavigationCompartment="true" showImplementationCompartment="true">
+      <Property Id="9feb9a1e-5e20-45c0-9fb4-fc5e23aafae1" name="UserId" type="System.Int32" label="UserId : System.Int32" identity="true" fieldName="_userId" />
+      <Property Id="d020bd7d-71d1-47e6-b543-9173141db6ce" name="Name" label="Name : String" fieldName="_name" />
+      <Property Id="7f3b30ee-d9ef-42f6-b833-21b2f2ffcc4d" name="Email" label="Email : String" fieldName="_email" />
+      <Property Id="cc41e9bc-b2dd-455f-bda9-66bfb24999ea" name="Password" label="Password : String" fieldName="_password" />
+      <AssociationTargets>
+        <Association Id="5404109f-41a6-42e3-bbd2-c6c1f215d6ae" SourceMultiplicity="ZeroOne" name="UserHasUserGroup">
+          <DomainClassMoniker name="/AriUMContext/UserGroup" />
+          <targetNavigationalProperty>
+            <associationDefinesTargetProperty Id="0192f084-b70e-4432-b51e-cc1f271db890">
+              <NavigationalPropertyMoniker name="/AriUMContext/UserGroup/Users" />
+            </associationDefinesTargetProperty>
+          </targetNavigationalProperty>
+          <sourceNavigationalProperty>
+            <associationDefinesSourceProperty Id="74b08505-df14-44a4-a70a-6848fa64ed46">
+              <NavigationalPropertyMoniker name="/AriUMContext/User/UserGroup" />
+            </associationDefinesSourceProperty>
+          </sourceNavigationalProperty>
+        </Association>
+      </AssociationTargets>
+      <navigationalProperties>
+        <classHasNavigationalProperties Id="6ab92b4c-3909-453a-8df2-69b39b80487e">
+          <NavigationalProperty Id="138e2cb2-a1dc-42fd-9100-fb1491d8e61a" name="UserGroup" type="UserGroup" label="UserGroup : UserGroup" nullable="true" kind="Persistent" fieldName="_userGroup" isDependent="false" isManaged="false" />
+        </classHasNavigationalProperties>
+      </navigationalProperties>
+    </DomainClass>
+    <DomainClass Id="4af136ee-741e-4285-96b1-7f4e4f3796a0" name="UserGroup" namespace="AriUMModel" showPropertiesCompartment="true" identityMechanism="DatabaseServerCalculated" showNavigationCompartment="true" showImplementationCompartment="true">
+      <Property Id="6eb67018-4798-4473-8d3d-28d92a784ce5" name="UserGroupId" type="System.Int32" label="UserGroupId : System.Int32" identity="true" fieldName="_userGroupId" />
+      <Property Id="c7ba0bb5-368b-49cf-8e68-d266708c9cbe" name="Name" label="Name : String" fieldName="_name" />
+      <navigationalProperties>
+        <classHasNavigationalProperties Id="9c390160-36b1-4f98-9632-ad5061c31e54">
+          <NavigationalProperty Id="3cdf28e7-a610-4815-aa0f-db938170687e" name="Users" type="IList&lt;User&gt;" label="Users : IList&lt;User&gt;" nullable="true" kind="Persistent" fieldName="_users" isDependent="false" isManaged="false" />
+        </classHasNavigationalProperties>
+      </navigationalProperties>
+    </DomainClass>
+  </Types>
+  <domainContext>
+    <domainModelHasDomainContext Id="be944f3b-0231-4ef4-9a06-8b484afbfd69">
+      <domainContainer name="AriUMContext" namespace="AriUMModel" showPropertiesCompartment="true">
+        <entitySetProperty name="Users" namespace="AriUMModel" type="User" label="Users : IQueryable&lt;AriUMModel.User&gt;" />
+        <entitySetProperty name="UserGroups" namespace="AriUMModel" type="UserGroup" label="UserGroups : IQueryable&lt;AriUMModel.UserGroup&gt;" />
+      </domainContainer>
+    </domainModelHasDomainContext>
+  </domainContext>
+</DomainModel>
