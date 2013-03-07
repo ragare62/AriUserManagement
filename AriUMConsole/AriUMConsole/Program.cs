@@ -21,6 +21,10 @@ namespace AriUMConsole
                         case "exit":
                             Console.WriteLine("Goodbye...");
                             break;
+                        case "create":
+                            Console.WriteLine("Creating registers...");
+                            CntConsole.CreateDefaultRegisters();
+                            break;
                         default:
                             Console.WriteLine("What?");
                             break;

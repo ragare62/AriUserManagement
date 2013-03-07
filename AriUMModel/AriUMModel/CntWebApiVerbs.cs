@@ -6,36 +6,37 @@ using System.Threading.Tasks;
 
 namespace AriUMModel
 {
-    public  partial class CntWebApiVerbs:IWebApiVerbs
+    public static  partial class CntWebApiVerbs
     {
         #region User
-        public  IList<User> GetUsers(AriUMContext ctx)
+        public static  IList<User> GetUsers(AriUMContext ctx)
         {
             return (from u in ctx.Users
                     select u).ToList<User>();
         }
 
-        public  User GetUser(int id, AriUMContext ctx)
+        public static  User GetUser(int id, AriUMContext ctx)
         {
             return (from u in ctx.Users
                     where u.UserId == id
                     select u).FirstOrDefault<User>();
         }
 
-        public  User PostUser(User user, AriUMContext ctx)
+        public static  User PostUser(User user, AriUMContext ctx)
         {
             ctx.Add(user);
             ctx.SaveChanges();
             return user;
         }
 
-        public  User PutUser(User user, AriUMContext ctx)
+        public static  User PutUser(User user, AriUMContext ctx)
         {
+            ctx.AttachCopy<User>(user);
             ctx.SaveChanges();
             return user;
         }
 
-        public  bool DeleteUser(User user, AriUMContext ctx)
+        public static  bool DeleteUser(User user, AriUMContext ctx)
         {
             ctx.Delete(user);
             ctx.SaveChanges();
@@ -44,33 +45,34 @@ namespace AriUMModel
         #endregion 
 
         #region UserGroup
-        public  IList<UserGroup> GetUserGroups(AriUMContext ctx)
+        public static  IList<UserGroup> GetUserGroups(AriUMContext ctx)
         {
             return (from uG in ctx.UserGroups
                     select uG).ToList<UserGroup>();
         }
 
-        public  UserGroup GetUserGroup(int id, AriUMContext ctx)
+        public static  UserGroup GetUserGroup(int id, AriUMContext ctx)
         {
             return (from uG in ctx.UserGroups
                     where uG.UserGroupId == id
                     select uG).FirstOrDefault<UserGroup>();
         }
 
-        public  UserGroup PostUserGroup(UserGroup userGroup, AriUMContext ctx)
+        public static  UserGroup PostUserGroup(UserGroup userGroup, AriUMContext ctx)
         {
             ctx.Add(userGroup);
             ctx.SaveChanges();
             return userGroup;
         }
 
-        public  UserGroup PutUserGroup(UserGroup userGroup, AriUMContext ctx)
+        public static  UserGroup PutUserGroup(UserGroup userGroup, AriUMContext ctx)
         {
+            ctx.AttachCopy<UserGroup>(userGroup);
             ctx.SaveChanges();
             return userGroup;
         }
 
-        public  bool DeleteUserGroup(UserGroup userGroup, AriUMContext ctx)
+        public static  bool DeleteUserGroup(UserGroup userGroup, AriUMContext ctx)
         {
             ctx.Delete(userGroup);
             ctx.SaveChanges();

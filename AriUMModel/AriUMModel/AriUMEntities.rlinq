@@ -36,9 +36,6 @@
         <orm:field name="_name" property="Name" uniqueId="c7ba0bb5-368b-49cf-8e68-d266708c9cbe" type="System.String">
           <orm:column name="nme" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
         </orm:field>
-        <orm:field name="_users" property="Users" behavior="readwrite" uniqueId="3cdf28e7-a610-4815-aa0f-db938170687e" type="AriUMModel.User">
-          <orm:collection element-class="AriUMModel.User" inverse-field="_userGroup" order-by="" uniqueId="5404109f-41a6-42e3-bbd2-c6c1f215d6ae" />
-        </orm:field>
       </orm:class>
     </orm:namespace>
     <orm:schema schema="">
@@ -101,11 +98,6 @@
       <AssociationTargets>
         <Association Id="5404109f-41a6-42e3-bbd2-c6c1f215d6ae" SourceMultiplicity="ZeroOne" name="UserHasUserGroup">
           <DomainClassMoniker name="/AriUMContext/UserGroup" />
-          <targetNavigationalProperty>
-            <associationDefinesTargetProperty Id="0192f084-b70e-4432-b51e-cc1f271db890">
-              <NavigationalPropertyMoniker name="/AriUMContext/UserGroup/Users" />
-            </associationDefinesTargetProperty>
-          </targetNavigationalProperty>
           <sourceNavigationalProperty>
             <associationDefinesSourceProperty Id="74b08505-df14-44a4-a70a-6848fa64ed46">
               <NavigationalPropertyMoniker name="/AriUMContext/User/UserGroup" />
@@ -122,11 +114,6 @@
     <DomainClass Id="4af136ee-741e-4285-96b1-7f4e4f3796a0" name="UserGroup" namespace="AriUMModel" showPropertiesCompartment="true" identityMechanism="DatabaseServerCalculated" showNavigationCompartment="true" showImplementationCompartment="true">
       <Property Id="6eb67018-4798-4473-8d3d-28d92a784ce5" name="UserGroupId" type="System.Int32" label="UserGroupId : System.Int32" identity="true" fieldName="_userGroupId" />
       <Property Id="c7ba0bb5-368b-49cf-8e68-d266708c9cbe" name="Name" label="Name : String" fieldName="_name" />
-      <navigationalProperties>
-        <classHasNavigationalProperties Id="9c390160-36b1-4f98-9632-ad5061c31e54">
-          <NavigationalProperty Id="3cdf28e7-a610-4815-aa0f-db938170687e" name="Users" type="IList&lt;User&gt;" label="Users : IList&lt;User&gt;" nullable="true" kind="Persistent" fieldName="_users" isDependent="false" isManaged="false" />
-        </classHasNavigationalProperties>
-      </navigationalProperties>
     </DomainClass>
   </Types>
   <domainContext>
