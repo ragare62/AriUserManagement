@@ -19,6 +19,7 @@
         <script src="Scripts/kendo/2012.3.1114/cultures/kendo.culture.es-ES.min.js"></script>
         <!-- Ariadna  -->
         <script src="Scripts/ariadna/ariadna.common.js"></script>
+        <script src="Scripts/ariadna/ariadna.localization.es-ES.js"></script>
     </head>
     <body>
         <header>
@@ -28,7 +29,7 @@
             <div class="container-fluid">
                 <div class="row-fluid">
                     <div class="span12">
-                        <p class="text-success">User groups</p>
+                        <h2 class="text-success">Grupos de usuarios</h2>
                     </div>
                 </div>
                 <div class="row-fluid">
@@ -57,14 +58,14 @@
                             read: {
                                 url: "http://localhost:50827/api/usergroups",
                                 dataType: "json",
-                                //contentType: "application/json"
-                                type: "GET"
+                                type: "GET",
+                                contentType: "application/json"
                             },
                             create: {
                                 url: "http://localhost:50827/api/usergroups",
                                 dataType:"json",
-                                //contentType: "application/json"
-                                type: "POST"
+                                type: "POST",
+                                contentType: "application/json"
                             },
                             update: {
                                 url: function (data) {
@@ -72,16 +73,16 @@
                                     return myUrl;
                                 },
                                 dataType: "json",
-                                //contentType: "application/json"
-                                type: "PUT"
+                                type: "PUT",
+                                contentType: "application/json"
                             },
                             destroy: {
                                 url: function (data) {
                                     return "http://localhost:50827/api/usergroups/" + data.UserGroupId;
                                 },
                                 dataType: "json",
-                                //contentType: "application/json"
-                                type: "DELETE"
+                                type: "DELETE",
+                                contentType: "application/json"
                             },
                             parameterMap: function (data, type) {
                                 if (type != "GET")
@@ -92,31 +93,33 @@
                             model: {
                                 id: "UserGroupId",
                                 fields: {
-                                    UserGroupId: { type: "number" },
-                                    Name: { type: "string" }
+                                    UserGroupId: { type: "number", editable: false },
+                                    Name: { type: "string", editable: true, nullable: true, validation: { required: true, message: {required:"Campo requerido"} } }
                                 }
                             }
                         },
-                        pageSize: 10,
-                        serverFiltering: true,
-                        serverPaging: true,
-                        serverSorting: true
+                        pageSize: 10
                     });
                     // grid columns
                     var userGroupCL = [
                         { field: "UserGroupId", title: "IDM" },
                         { field: "Name", title: "Name" },
-                        { command:["edit","destroy"],title:"Actions"}
+                        {
+                            command: ari_command_es_ES,
+                            title: "Acciones"
+                        }
                     ];
                     // building grid
                     $("#grid").kendoGrid({
                         dataSource:userGroupDS,
                         columns: userGroupCL,
-                        toolbar: ["create"],
+                        toolbar: [{ name: "create", text: "Nuevo registro" }],
                         editable: "inline",
-                        pageable: true,
+                        pageable: ari_pageable_es_ES,
                         sortable: true,
-                        filterable: true
+                        groupable: ari_groupable_es_ES,
+                        filterable: ari_filterable_es_ES,
+                        columnMenu: ari_columnMenu_es_ES
                     });
                 });
             })(jQuery);
