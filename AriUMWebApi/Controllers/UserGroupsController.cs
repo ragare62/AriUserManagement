@@ -27,6 +27,7 @@ namespace AriUMWebApi.Controllers
         // GET api/usergroups/5
         public virtual UserGroup Get(int id)
         {
+
             using (AriUMContext ctx = new AriUMContext("AriUMDBConnection"))
             {
                 UserGroup userGroup = CntWebApiVerbs.GetUserGroup(id, ctx);

@@ -1,0 +1,125 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <title>USG2</title>
+        <meta name="viewport" content="width=device-with, initial-scale=1.0" />
+        <!-- Bootstrap styles -->
+        <link href="Content/bootstrap.min.css" rel="stylesheet" media="screen" />
+        <!-- Kendo styles -->
+        <link href="Content/kendo/2012.3.1114/kendo.common.min.css" rel="stylesheet" />
+        <link href="Content/kendo/2012.3.1114/kendo.metro.min.css" rel="stylesheet" />
+
+        <!-- JQuery -->
+        <script src="Scripts/kendo/2012.3.1114/jquery.min.js"></script>
+        <!-- Bootstrap -->
+        <script src="Scripts/bootstrap.min.js"></script>
+        <!-- Kendo -->
+        <script src="Scripts/kendo/2012.3.1114/kendo.web.min.js"></script>
+        <script src="Scripts/kendo/2012.3.1114/cultures/kendo.culture.es-ES.min.js"></script>
+        <!-- Ariadna  -->
+        <script src="Scripts/ariadna/ariadna.common.js"></script>
+    </head>
+    <body>
+        <header>
+            <!--#include file="/Menu.html" --> 
+        </header>
+        <div id="MainArea">
+            <div class="container-fluid">
+                <div class="row-fluid">
+                    <div class="span12">
+                        <p class="text-success">User groups</p>
+                    </div>
+                </div>
+                <div class="row-fluid">
+                    <div id="grid" class="span12"></div>
+                </div>
+            </div>
+
+        </div>
+        <footer>
+
+        </footer>
+
+        <!-- In page treatment -->
+        <script type="text/javascript">
+            (function ($) {
+                $(document).ready(function () {
+                    // culture Spanish - Spain
+                    kendo.culture("es-ES");
+                    // building menu and bindind select event
+                    $("#menu").kendoMenu({
+                        select:ari_onMenuSelect
+                    });
+                    // remote dataSource
+                    var userGroupDS = new kendo.data.DataSource({
+                        transport: {
+                            read: {
+                                url: "http://localhost:50827/api/usergroups",
+                                dataType: "json",
+                                //contentType: "application/json"
+                                type: "GET"
+                            },
+                            create: {
+                                url: "http://localhost:50827/api/usergroups",
+                                dataType:"json",
+                                //contentType: "application/json"
+                                type: "POST"
+                            },
+                            update: {
+                                url: function (data) {
+                                    var myUrl = "http://localhost:50827/api/usergroups/" + data.UserGroupId;
+                                    return myUrl;
+                                },
+                                dataType: "json",
+                                //contentType: "application/json"
+                                type: "PUT"
+                            },
+                            destroy: {
+                                url: function (data) {
+                                    return "http://localhost:50827/api/usergroups/" + data.UserGroupId;
+                                },
+                                dataType: "json",
+                                //contentType: "application/json"
+                                type: "DELETE"
+                            },
+                            parameterMap: function (data, type) {
+                                if (type != "GET")
+                                    return kendo.stringify(data);
+                            }
+                        },
+                        schema: {
+                            model: {
+                                id: "UserGroupId",
+                                fields: {
+                                    UserGroupId: { type: "number" },
+                                    Name: { type: "string" }
+                                }
+                            }
+                        },
+                        pageSize: 10,
+                        serverFiltering: true,
+                        serverPaging: true,
+                        serverSorting: true
+                    });
+                    // grid columns
+                    var userGroupCL = [
+                        { field: "UserGroupId", title: "IDM" },
+                        { field: "Name", title: "Name" },
+                        { command:["edit","destroy"],title:"Actions"}
+                    ];
+                    // building grid
+                    $("#grid").kendoGrid({
+                        dataSource:userGroupDS,
+                        columns: userGroupCL,
+                        toolbar: ["create"],
+                        editable: "inline",
+                        pageable: true,
+                        sortable: true,
+                        filterable: true
+                    });
+                });
+            })(jQuery);
+        </script>
+    </body>
+</html>

@@ -15,7 +15,13 @@
             <!--#include file="/Menu.html" --> 
         </header>
         <div id="MainArea">
-
+            <div class="container-fluid">
+                <div class="row-fluid">
+                    <div class="span12 lead">
+                        <p class="text-success">Main page</p>
+                    </div>
+                </div>
+            </div>
         </div>
         <footer>
 
@@ -27,16 +33,16 @@
         <!-- Kendo -->
         <script src="Scripts/kendo/2012.3.1114/kendo.web.min.js"></script>
         <script src="Scripts/kendo/2012.3.1114/cultures/kendo.culture.es-ES.min.js"></script>
+        <!-- Ariadna  -->
+        <script src="Scripts/ariadna/ariadna.common.js"></script>
+        <!-- In page treatment -->
         <script type="text/javascript">
             (function ($) {
                 $(document).ready(function () {
                     // Culture Spanish - Spain
                     kendo.culture("es-ES");
-                    function onMenuSelect(e) {
-                        alert("Select");
-                    }
                     $("#menu").kendoMenu({
-                        select:onMenuSelect
+                        select:ari_onMenuSelect
                     });
                 });
             })(jQuery);
