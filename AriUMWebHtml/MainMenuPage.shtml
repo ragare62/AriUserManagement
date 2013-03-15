@@ -18,7 +18,7 @@
             <div class="container-fluid">
                 <div class="row-fluid">
                     <div class="span12 lead">
-                        <p class="text-success">Main page</p>
+                        <h2 class="text-success">Main page</h2>
                     </div>
                 </div>
             </div>

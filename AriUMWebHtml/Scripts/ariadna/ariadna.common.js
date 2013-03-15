@@ -11,7 +11,7 @@ function ari_onMenuSelect(e) {
 		    window.open(url, '_self');
 			break;
 		case "Users":
-		    url = "MainMenuPage.shtml";
+		    url = "UserGrid.shtml";
 		    window.open(url, '_self');
 		    break;
 	    case "Home":
