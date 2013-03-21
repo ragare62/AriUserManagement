@@ -19,7 +19,7 @@ function ari_onMenuSelect(e) {
 	        window.open(url, '_self');
 	        break;
 	    default:
-	        alert(vText + " L:" + vText.lenght());
+	        alert(vText);
 	        break;
 	}
 }
