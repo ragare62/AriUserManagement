@@ -105,7 +105,7 @@
                                     Name: { type: "string", editable: true, nullable: true, validation: { required: true }},
                                     Email: { type: "string", editable: true },
                                     Password: { type: "string", editable: true },
-                                    UserGroup: { filterable: false, sortable: false, defaultValue: { UserGroupId: 1, Name: "MIO" } }
+                                    UserGroup: { filterable: false, sortable: false, defaultValue: { UserGroupId: 0, Name: "" } }
                                 }
                             }
                         },
@@ -117,7 +117,7 @@
                         { field: "Name", title: "Name"},
                         { field: "Email", title: "Email" },
                         { field: "Password", title: "Password" },
-                        { field: "UserGroup", title: "Group", template: "#=UserGroup.Name#", editor: userGroupDropDownEditor },
+                        { field: "UserGroup", title: "Group", template: "#=UserGroup?UserGroup.Name:''#", editor: userGroupDropDownEditor },
                         {
                             command: ari_command_es_ES,
                             title: "Acciones"
