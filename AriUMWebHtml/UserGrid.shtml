@@ -122,7 +122,7 @@
                         {
                             command: ari_command_es_ES,
                             title: "Acciones"
-                        }
+                        },
                     ];
                     // building grid
                     $("#grid").kendoGrid({
@@ -148,6 +148,9 @@
                                 }
                             }
                         });
+                    }
+                    function showMyEditor(e) {
+                        alert("Inside MyEditor");
                     }
                 });
             })(jQuery);

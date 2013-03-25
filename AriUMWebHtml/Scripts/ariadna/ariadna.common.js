@@ -24,5 +24,9 @@ function ari_onMenuSelect(e) {
 	}
 }
 
+function ari_windowOpen(url) {
+    window.open(url, '_self');
+}
+
 // USER GROUP MANAGEMENT (UGM)
 // UGM DataSource: It's binding to a webapi

@@ -21,7 +21,9 @@
           <orm:column name="passwd" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
         </orm:field>
         <orm:field name="_userGroup" property="UserGroup" behavior="readwrite" uniqueId="138e2cb2-a1dc-42fd-9100-fb1491d8e61a" type="AriUMModel.UserGroup">
-          <orm:reference uniqueId="5404109f-41a6-42e3-bbd2-c6c1f215d6ae" />
+          <orm:reference uniqueId="5404109f-41a6-42e3-bbd2-c6c1f215d6ae">
+            <orm:column nullable="true" scale="0" length="0" sql-type="integer" name="user_group_id" ado-type="" />
+          </orm:reference>
         </orm:field>
       </orm:class>
       <orm:class name="UserGroup" uniqueId="4af136ee-741e-4285-96b1-7f4e4f3796a0">
@@ -44,6 +46,7 @@
         <orm:column name="nme" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
         <orm:column name="email" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
         <orm:column name="passwd" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        <orm:column nullable="true" scale="0" length="0" sql-type="integer" name="user_group_id" ado-type="" />
       </orm:table>
       <orm:table name="UserGroup">
         <orm:column name="user_group_id" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" converter="OpenAccessRuntime.Data.IntConverter" backend-calculated="true" ado-type="Int32" />

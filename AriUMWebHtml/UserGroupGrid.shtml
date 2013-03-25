@@ -43,9 +43,18 @@
         </footer>
 
         <!-- In page treatment -->
+        <script type="text/x-kendo-template" id="template_new">
+            <button class="k-button" onclick="ari_windowOpen('UserGroupForm.shtml');"><span class="k-icon k-i-plus"></span> Nuevo registro</button>
+        </script>
+        <script type="text/x-kendo-template" id="template_edit">
+            <button class="k-button"><span class="k-icon k-i-pencil"></span> Editar registro</button>
+        </script>
         <script type="text/javascript">
             (function ($) {
                 $(document).ready(function () {
+                    // templates
+                    var t_new = kendo.template($("#template_new").html());
+                    var t_edit = kendo.template($("#template_edit").html());
                     // culture Spanish - Spain
                     kendo.culture("es-ES");
                     // building menu and bindind select event
@@ -100,21 +109,32 @@
                         },
                         pageSize: 10
                     });
+                    //var t_edit = "#=UserGroupid#";
                     // grid columns
                     var userGroupCL = [
                         { field: "UserGroupId", title: "IDM" },
                         { field: "Name", title: "Name" },
                         {
-                            command: ari_command_es_ES,
+                            command: [{ name:"edit",text:"Editar",click: ari_test }, { name: "destroy", text: "Eliminar" }],
                             title: "Acciones"
                         }
                     ];
+                    function ari_test(e) {
+                        e.preventDefault();
+                        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+                        alert("Test fired");
+                        var url = "UserGroupForm.shtml?UserGroupId=" + dataItem.UserGroupId;
+                        ari_windowOpen(url);
+                    }
+                    function ari_test2(e) {
+                        alert("Test fired 2");
+                    }
                     // building grid
                     $("#grid").kendoGrid({
                         dataSource:userGroupDS,
                         columns: userGroupCL,
-                        toolbar: [{ name: "create", text: "Nuevo registro" }],
-                        editable: "inline",
+                        toolbar: [{text: "Nuevo registro", template:t_new }],
+                        editable: {name:"inline", confirmation:"¿Seguro que desea borrar este registro?"},
                         pageable: ari_pageable_es_ES,
                         sortable: true,
                         groupable: ari_groupable_es_ES,

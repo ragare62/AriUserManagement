@@ -131,7 +131,7 @@
             <typeparam name="T">Type that is queried against.</typeparam>
             <param name="args">A variable number of expressions that identify the fields or properties to be retrieved. The expressions should identify fields or properties that represent one-to-one or one-to-many relationships.</param>
             <example>
-            In the follwoing example the Supplier and Category for all the Products are loaded. As a result, successive access to the Supplier or Category
+            In the following example the Supplier and Category for all the Products are loaded. As a result, successive access to the Supplier or Category
             property on a Product object does not trigger a new database query.
             <code title="Example1" description="" lang="CS">NorthwindDataContext db = new NorthwindDataContext();
             FetchStrategy fetchStrategy = new FetchStrategy();
@@ -156,7 +156,7 @@
             <summary>Retrieves specified data related to the main target by using a variable number of lambda expressions.</summary>
             <param name="args">A variable number of lambda expressions that identify the related material.</param>
             <example>
-            In the follwoing example the Supplier and Category for all the Products are loaded. As a result, successive access to the Supplier or Category
+            In the following example the Supplier and Category for all the Products are loaded. As a result, successive access to the Supplier or Category
             property on a Product object does not trigger a new database query.
             <code title="Example1" description="" lang="CS">NorthwindDataContext db = new NorthwindDataContext();
             FetchStrategy fetchStrategy = new FetchStrategy();
@@ -176,6 +176,58 @@
             	Console.WriteLine(vbTab &amp; "Supplier's Company Name: {0}", p.Supplier.CompanyName)
             	Console.WriteLine(vbTab &amp; "Category Name: {0}", p.Category.CategoryName)
             Next</code></example>
+        </member>
+        <member name="M:Telerik.OpenAccess.FetchOptimization.FetchStrategy.LoadWith``1(System.String[])">
+             <summary>Specifies which sub-objects to retrieve by using a string representation of the properties.</summary>
+             <typeparam name="T">Type that is queried against.</typeparam>
+            <param name="paths">The properties that must be loaded together with the object.</param>
+             <example>
+             In the following example the Supplier and Category for all the Products are loaded. As a result, successive access to the Supplier or Category
+             property on a Product object does not trigger a new database query.
+             <code title="Example1" description="" lang="CS">NorthwindDataContext db = new NorthwindDataContext();
+             FetchStrategy fetchStrategy = new FetchStrategy();
+             fetchStrategy.LoadWith&lt;Product&gt;("Category","Supplier");
+             db.FetchStrategy = fetchStrategy;
+             foreach (Product p in db.Products)
+             {
+                Console.WriteLine("Product ID: {0}", p.ProductID);
+                Console.WriteLine("\tSupplier's Company Name: {0}", p.Supplier.CompanyName);
+                Console.WriteLine("\tCategory Name: {0}", p.Category.CategoryName);
+             }</code><code title="Example1" description="" lang="VB.NET">Dim db As New NorthwindDataContext()
+             Dim fetchStrategy As New FetchStrategy()
+             fetchStrategy.LoadWith(Of Product)("Category", "Supplier")
+             db.FetchStrategy = fetchStrategy
+             For Each p As Product In db.Products
+             	Console.WriteLine("Product ID: {0}", p.ProductID)
+             	Console.WriteLine(vbTab &amp; "Supplier's Company Name: {0}", p.Supplier.CompanyName)
+             	Console.WriteLine(vbTab &amp; "Category Name: {0}", p.Category.CategoryName)
+             Next</code></example>
+        </member>
+        <member name="M:Telerik.OpenAccess.FetchOptimization.FetchStrategy.LoadWith(System.String,System.String[])">
+             <summary>Retrieves specified data related to the main target by using a variable number of lambda expressions.</summary>
+             <param name="typeName">Type that is queried against.</param>
+            <param name="paths">The properties that must be loaded together with the object.</param>
+             <example>
+             In the following example the Supplier and Category for all the Products are loaded. As a result, successive access to the Supplier or Category
+             property on a Product object does not trigger a new database query.
+             <code title="Example1" description="" lang="CS">NorthwindDataContext db = new NorthwindDataContext();
+             FetchStrategy fetchStrategy = new FetchStrategy();
+             fetchStrategy.LoadWith("Northwind.Product","Category","Supplier");
+             db.FetchStrategy = fetchStrategy;
+             foreach (Product p in db.Products)
+             {
+                Console.WriteLine("Product ID: {0}", p.ProductID);
+                Console.WriteLine("\tSupplier's Company Name: {0}", p.Supplier.CompanyName);
+                Console.WriteLine("\tCategory Name: {0}", p.Category.CategoryName);
+             }</code><code title="Example1" description="" lang="VB.NET">Dim db As New NorthwindDataContext()
+             Dim fetchStrategy As New FetchStrategy()
+             fetchStrategy.LoadWith("Northwind.Product","Category","Supplier")
+             db.FetchStrategy = fetchStrategy
+             For Each p As Product In db.Products
+             	Console.WriteLine("Product ID: {0}", p.ProductID)
+             	Console.WriteLine(vbTab &amp; "Supplier's Company Name: {0}", p.Supplier.CompanyName)
+             	Console.WriteLine(vbTab &amp; "Category Name: {0}", p.Category.CategoryName)
+             Next</code></example>
         </member>
         <member name="P:Telerik.OpenAccess.FetchOptimization.FetchStrategy.MaxFetchDepth">
             <summary>Gets or sets tha maximum fetch depth.
@@ -317,6 +369,23 @@
             </summary>
             <param name="columnName">The column name to be used.</param>
             <param name="sqlColumnType">The sql type of the sequence column.</param>
+        </member>
+        <member name="T:Telerik.OpenAccess.Metadata.Fluent.CommonMethodExtensions">
+            <summary>
+            Provides common extension methods.
+            </summary>
+        </member>
+        <member name="M:Telerik.OpenAccess.Metadata.Fluent.CommonMethodExtensions.HasFieldName``1(``0,System.String)">
+            <summary>
+            Specify the field name that this property relates to.
+            </summary>
+            <param name="configuration">The configuration to be extended.</param>
+            <param name="fieldName">The name of the field.</param>
+        </member>
+        <member name="M:Telerik.OpenAccess.Metadata.Fluent.CommonMethodExtensions.IsNotNullable``1(``0)">
+            <summary>
+            Specifies that the property is not nullable.
+            </summary>               
         </member>
         <member name="T:Telerik.OpenAccess.Metadata.Fluent.Advanced.StringArrayPropertyExtensions">
             <summary>
@@ -513,12 +582,6 @@
             </summary>
             <param name="primitiveMember">The primitive member used to specify the properties.</param>
         </member>
-        <member name="M:Telerik.OpenAccess.Metadata.Fluent.CharacterPropertyConfiguration.HasFieldName(System.String)">
-            <summary>
-            Specify the field name that this property relates to.
-            </summary>
-            <param name="fieldName">The name of the field.</param>
-        </member>
         <member name="M:Telerik.OpenAccess.Metadata.Fluent.CharacterPropertyConfiguration.ToColumn(System.String)">
             <summary>
             Specify the column name that this property is mapped to.
@@ -547,11 +610,6 @@
             <summary>
             Specifies that the property is nullable.
             </summary>
-        </member>
-        <member name="M:Telerik.OpenAccess.Metadata.Fluent.CharacterPropertyConfiguration.IsNotNullable">
-            <summary>
-            Specifies that the property is not nullable.
-            </summary>               
         </member>
         <member name="M:Telerik.OpenAccess.Metadata.Fluent.CharacterPropertyConfiguration.IsVersion">
             <summary>
@@ -637,17 +695,6 @@
             <summary>
             Specifies that the property is nullable.
             </summary>
-        </member>
-        <member name="M:Telerik.OpenAccess.Metadata.Fluent.ByteArrayPropertyConfiguration.IsNotNullable">
-            <summary>
-            Specifies that the property is not nullable.
-            </summary>               
-        </member>
-        <member name="M:Telerik.OpenAccess.Metadata.Fluent.ByteArrayPropertyConfiguration.HasFieldName(System.String)">
-            <summary>
-            Specify the field name that this property relates to.
-            </summary>
-            <param name="fieldName">The name of the field.</param>
         </member>
         <member name="M:Telerik.OpenAccess.Metadata.Fluent.ByteArrayPropertyConfiguration.ToColumn(System.String)">
             <summary>
@@ -749,12 +796,6 @@
             <param name="mappingConfiguration">The mapping configuration object that contains this object.</param>
             <param name="memberInfo">The member info object that defining this property or field.</param>
         </member>
-        <member name="M:Telerik.OpenAccess.Metadata.Fluent.DecimalPropertyConfiguration.HasFieldName(System.String)">
-            <summary>
-            Specify the field name that this property relates to.
-            </summary>
-            <param name="fieldName">The name of the field.</param>
-        </member>
         <member name="M:Telerik.OpenAccess.Metadata.Fluent.DecimalPropertyConfiguration.ToColumn(System.String)">
             <summary>
             Specify the column name that this property is mapped to.
@@ -771,11 +812,6 @@
             <summary>
             Specifies that the property is nullable.
             </summary>
-        </member>
-        <member name="M:Telerik.OpenAccess.Metadata.Fluent.DecimalPropertyConfiguration.IsNotNullable">
-            <summary>
-            Specifies that the property is not nullable.
-            </summary>               
         </member>
         <member name="M:Telerik.OpenAccess.Metadata.Fluent.DecimalPropertyConfiguration.IsVersion">
             <summary>
@@ -995,21 +1031,10 @@
             </summary>
             <param name="structConfiguration">The object containing the struct mapping.</param>
         </member>
-        <member name="M:Telerik.OpenAccess.Metadata.Fluent.StructPropertyConfiguration`1.HasFieldName(System.String)">
-            <summary>
-            Specify the field name that this property relates to.
-            </summary>
-            <param name="fieldName">The name of the field.</param>
-        </member>
         <member name="M:Telerik.OpenAccess.Metadata.Fluent.StructPropertyConfiguration`1.IsNullable">
             <summary>
             Specifies that the property is nullable.
             </summary>
-        </member>
-        <member name="M:Telerik.OpenAccess.Metadata.Fluent.StructPropertyConfiguration`1.IsNotNullable">
-            <summary>
-            Specifies that the property is not nullable.
-            </summary>               
         </member>
         <member name="M:Telerik.OpenAccess.Metadata.Fluent.StructPropertyConfiguration`1.AsTransient">
             <summary>
@@ -1551,6 +1576,30 @@
             Gets or sets whether the index is clustered.
             </summary>
         </member>
+        <member name="M:Telerik.OpenAccess.Metadata.Fluent.MetaIndexConfiguration.VerifyColumnMappings(Telerik.OpenAccess.Metadata.Fluent.FluentMetadataSource)">
+            <summary>
+            Checks all specified column mappings and resoves them if needed
+            </summary>
+            <param name="fluentMetadataSource">The metadata source</param>
+        </member>
+        <member name="M:Telerik.OpenAccess.Metadata.Fluent.MetaIndexConfiguration.GetTableUsedByMembers(Telerik.OpenAccess.Metadata.Fluent.FluentMetadataSource,Telerik.OpenAccess.Metadata.Relational.MetaTable)">
+            <summary>
+            Get the table used for this index. The table could differ from the one defined on the class since splitted columns 
+            could be used. It must be ensured that the columns belong to the same table.
+            </summary>
+            <param name="table">The defined MetaTable for the class used</param>
+            <param name="fluentMetadataSource">The metadata source</param>
+            <returns>The MetaTable used by the columns in the index</returns>
+        </member>
+        <member name="M:Telerik.OpenAccess.Metadata.Fluent.MetaIndexConfiguration.CheckInconsitentColumnMappings(Telerik.OpenAccess.Metadata.Fluent.FluentMetadataSource,System.Int32,System.Collections.Generic.List{Telerik.OpenAccess.Metadata.Fluent.IndexColumnConfiguration},Telerik.OpenAccess.Metadata.Relational.MetaTable)">
+            <summary>
+            Checks that all members of this index map to the same table
+            </summary>
+            <param name="fluentMetadataSource">The metadata source</param>
+            <param name="columnCount">Number of columns in the index</param>
+            <param name="columnMappings">The column definitions</param>
+            <param name="table">The table that belongs to the class that contains the index</param>
+        </member>
         <member name="M:Telerik.OpenAccess.Metadata.Fluent.MetaIndexConfiguration.IsUnique">
             <summary>
             Specifies that the defined index is unique.
@@ -1719,16 +1768,6 @@
             <param name="tableName">The name of the table.</param>
             <param name="joinTableMap">Expression specifying the join table and endpoints for the relation.</param>
         </member>
-        <member name="M:Telerik.OpenAccess.Metadata.Fluent.Advanced.DictionaryPropertyExtensions.HasFieldName``3(Telerik.OpenAccess.Metadata.Fluent.DictionaryPropertyConfiguration{``0,``1,``2},System.String)">
-            <summary>
-            Specify the field name that this property relates to.
-            </summary>
-            <typeparam name="TEntity">The declaring type.</typeparam>
-            <typeparam name="TKey">The type of the dictionary key.</typeparam>
-            <typeparam name="TValue">The type of the dictionary value.</typeparam>
-            <param name="configuration">The primitive dictionary configuration object.</param>
-            <param name="fieldName">The name of the field.</param>
-        </member>
         <member name="M:Telerik.OpenAccess.Metadata.Fluent.Advanced.DictionaryPropertyExtensions.WithDictionaryValue``3(Telerik.OpenAccess.Metadata.Fluent.PrimitiveDictionaryPropertyConfiguration{``0,``1,``2},System.String)">
             <summary>
             Specifies the column for the dictionary value.
@@ -1847,16 +1886,6 @@
             <typeparam name="TValue">The type of the dictionary value.</typeparam>
             <param name="configuration">The primitive dictionary configuration object.</param>
             <param name="dataAccessKind">The data access kind for the persistent type.</param>
-        </member>
-        <member name="M:Telerik.OpenAccess.Metadata.Fluent.Advanced.DictionaryPropertyExtensions.HasFieldName``3(Telerik.OpenAccess.Metadata.Fluent.PrimitiveDictionaryPropertyConfiguration{``0,``1,``2},System.String)">
-            <summary>
-            Specify the field name that this property relates to.
-            </summary>
-            <typeparam name="TEntity">The declaring type.</typeparam>
-            <typeparam name="TKey">The type of the dictionary key.</typeparam>
-            <typeparam name="TValue">The type of the dictionary value.</typeparam>
-            <param name="configuration">The primitive dictionary configuration object.</param>
-            <param name="fieldName">The name of the field.</param>
         </member>
         <member name="T:Telerik.OpenAccess.Metadata.Fluent.DictionaryPropertyConfiguration`3">
             <summary>
@@ -1982,15 +2011,6 @@
             <typeparam name="TInverse">The type of the array.</typeparam>
             <param name="configuration">The configuration object for this array.</param>
             <param name="dataAccessKind">The data access kind for the persistent type.</param>
-        </member>
-        <member name="M:Telerik.OpenAccess.Metadata.Fluent.Advanced.ArrayPropertyExtensions.HasFieldName``2(Telerik.OpenAccess.Metadata.Fluent.ArrayPropertyConfiguration{``0,``1},System.String)">
-            <summary>
-            Specify the field name that this property relates to.
-            </summary>
-            <typeparam name="TEntity">The declaring type.</typeparam>
-            <typeparam name="TInverse">The type of the array.</typeparam>
-            <param name="configuration">The primitive dictionary configuration object.</param>
-            <param name="fieldName">The name of the field.</param>
         </member>
         <member name="T:Telerik.OpenAccess.Metadata.Fluent.Artificial.ArtificialExtensions">
             <summary>
@@ -2548,13 +2568,6 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Telerik.OpenAccess.Metadata.Fluent.ArtificialNavigationPropertyConfiguration.HasFieldName(System.String)">
-            <summary>
-            Specify the field name that this property relates to.
-            </summary>
-            <param name="fieldName">The name of the field.</param>
-            <returns></returns>
-        </member>
         <member name="M:Telerik.OpenAccess.Metadata.Fluent.ArtificialNavigationPropertyConfiguration.IsRequired">
             <summary>
             Specifies that this navigation property requires a value.
@@ -2667,12 +2680,6 @@
             <param name="columnName">The column name this property is mapped to.</param>
             <param name="memberInfo">The member info object that defining this property or field.</param>
         </member>
-        <member name="M:Telerik.OpenAccess.Metadata.Fluent.DateTimePropertyConfiguration.HasFieldName(System.String)">
-            <summary>
-            Specify the field name that this property relates to.
-            </summary>
-            <param name="fieldName">The name of the field.</param>
-        </member>
         <member name="M:Telerik.OpenAccess.Metadata.Fluent.DateTimePropertyConfiguration.ToColumn(System.String)">
             <summary>
             Specify the column name that this property is mapped to.
@@ -2689,11 +2696,6 @@
             <summary>
             Specifies that the property is nullable.
             </summary>
-        </member>
-        <member name="M:Telerik.OpenAccess.Metadata.Fluent.DateTimePropertyConfiguration.IsNotNullable">
-            <summary>
-            Specifies that the property is not nullable.
-            </summary>               
         </member>
         <member name="M:Telerik.OpenAccess.Metadata.Fluent.DateTimePropertyConfiguration.IsCalculatedOn(Telerik.OpenAccess.Metadata.DateTimeAutosetMode)">
             <summary>
@@ -3152,12 +3154,6 @@
             </summary>
             <param name="dataAccessKind">The data access kind for the persistent type.</param>
         </member>
-        <member name="M:Telerik.OpenAccess.Metadata.Fluent.NavigationPropertyConfiguration`2.HasFieldName(System.String)">
-            <summary>
-            Specify the field name that this property relates to.
-            </summary>
-            <param name="fieldName">The name of the field.</param>
-        </member>
         <member name="M:Telerik.OpenAccess.Metadata.Fluent.NavigationPropertyConfiguration`2.ToColumn(System.String)">
             <summary>
             Specify the column name that this property is mapped to.
@@ -3239,12 +3235,6 @@
             <param name="mappingConfiguration">The mapping configuration object that contains this object.</param>
             <param name="memberInfo">The member info object that defining this property or field.</param>
         </member>
-        <member name="M:Telerik.OpenAccess.Metadata.Fluent.PrimitivePropertyConfiguration.HasFieldName(System.String)">
-            <summary>
-            Specify the field name that this property relates to.
-            </summary>
-            <param name="fieldName">The name of the field.</param>
-        </member>
         <member name="M:Telerik.OpenAccess.Metadata.Fluent.PrimitivePropertyConfiguration.ToColumn(System.String)">
             <summary>
             Specify the column name that this property is mapped to.
@@ -3261,11 +3251,6 @@
             <summary>
             Specifies that the property is nullable.
             </summary>
-        </member>
-        <member name="M:Telerik.OpenAccess.Metadata.Fluent.PrimitivePropertyConfiguration.IsNotNullable">
-            <summary>
-            Specifies that the property is not nullable.
-            </summary>               
         </member>
         <member name="M:Telerik.OpenAccess.Metadata.Fluent.PrimitivePropertyConfiguration.IsVersion">
             <summary>
@@ -3420,17 +3405,6 @@
             <summary>
             Specifies that the property is nullable.
             </summary>
-        </member>
-        <member name="M:Telerik.OpenAccess.Metadata.Fluent.StringPropertyConfiguration.IsNotNullable">
-            <summary>
-            Specifies that the property is not nullable.
-            </summary>               
-        </member>
-        <member name="M:Telerik.OpenAccess.Metadata.Fluent.StringPropertyConfiguration.HasFieldName(System.String)">
-            <summary>
-            Specify the field name that this property relates to.
-            </summary>
-            <param name="fieldName">The name of the field.</param>
         </member>
         <member name="M:Telerik.OpenAccess.Metadata.Fluent.StringPropertyConfiguration.ToColumn(System.String)">
             <summary>
@@ -3609,17 +3583,6 @@
             Specifies that the property is nullable.
             </summary>
         </member>
-        <member name="M:Telerik.OpenAccess.Metadata.Fluent.GenericPropertyConfiguration.IsNotNullable">
-            <summary>
-            Specifies that the property is not nullable.
-            </summary>               
-        </member>
-        <member name="M:Telerik.OpenAccess.Metadata.Fluent.GenericPropertyConfiguration.HasFieldName(System.String)">
-            <summary>
-            Specify the field name that this property relates to.
-            </summary>
-            <param name="fieldName">The name of the field.</param>
-        </member>
         <member name="M:Telerik.OpenAccess.Metadata.Fluent.GenericPropertyConfiguration.ToColumn(System.String)">
             <summary>
             Specify the column name that this property is mapped to.
@@ -3690,6 +3653,49 @@
             Determines whether this is an unary convert expression (much like Convert(x.Property))
             </summary>
             <param name="unary"></param>
+        </member>
+        <member name="T:Telerik.OpenAccess.OpenAccessContextExtensions">
+            <summary>
+            Provides .Net 3.5 specific extension methods for OpenAccessContext type
+            </summary>
+        </member>
+        <member name="M:Telerik.OpenAccess.OpenAccessContextExtensions.CreateInstance(Telerik.OpenAccess.OpenAccessContext,Telerik.OpenAccess.Metadata.MetaPersistentType)">
+            <summary>
+            Creates an instance of the specified persistent type. Returns the instance as object
+            </summary>
+            <remarks>The new entity instance is not added to the context. 
+            Before using SetFieldValue or FieldValue methods make sure the object is added to an OpenAccessContext</remarks>
+            <param name="context">Extension method target</param>
+            <param name="persistentType">Type of the entity that is to be created</param>
+            <returns>New entity instance of the specified type exposed as object</returns>
+        </member>
+        <member name="M:Telerik.OpenAccess.OpenAccessContextExtensions.CreateInstance(Telerik.OpenAccess.OpenAccessContext,System.String)">
+            <summary>
+            Creates an instance of the specified persistent type. Returns the instance as object
+            </summary>
+            <remarks>The new entity instance is not added to the context. 
+            Before using SetFieldValue or FieldValue methods make sure the object is added to an OpenAccessContext</remarks>
+            <param name="context">Extension method target</param>
+            <param name="persistentTypeFullName">Full type name of the entity that is to be created</param>
+            <returns>New entity instance of the specified type exposed as object</returns>
+        </member>
+        <member name="M:Telerik.OpenAccess.OpenAccessContextExtensions.GetAll(Telerik.OpenAccess.OpenAccessContext,Telerik.OpenAccess.Metadata.MetaPersistentType)">
+            <summary>
+            IQueryable endpoint for LINQ queries against artificial and non-artificial persistent types
+            </summary>
+            <remarks>PersistentType argument should be a valid persistent type that found in the context's MetadataContainer</remarks>
+            <param name="context">Context that provides the metadata for the current persistent type</param>
+            <param name="persistentType">Type to query against</param>
+            <returns>Object-based query object</returns>
+        </member>
+        <member name="M:Telerik.OpenAccess.OpenAccessContextExtensions.GetAll(Telerik.OpenAccess.OpenAccessContext,System.String)">
+            <summary>
+            IQueryable endpoint for LINQ queries against artificial and non-artificial persistent types
+            </summary>
+            <remarks>TypeFullName argument should be a valid type name that found in the context's MetadataContainer</remarks>
+            <param name="context">Context that provides the metadata for the current persistent type</param>
+            <param name="typeFullName">Full type name of the type to query against</param>
+            <returns>Object-based query object</returns>
         </member>
         <member name="T:Telerik.OpenAccess.IUnitOfWork">
             <summary>

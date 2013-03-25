@@ -22,3 +22,15 @@ C:\ProyectosNet\AriUserManagement\AriUMConsole\AriUMConsole\bin\Debug\AriUMModel
 C:\ProyectosNet\AriUserManagement\AriUMConsole\AriUMConsole\bin\Debug\Telerik.OpenAccess.35.Extensions.xml
 C:\ProyectosNet\AriUserManagement\AriUMConsole\AriUMConsole\bin\Debug\Telerik.OpenAccess.40.Extensions.xml
 C:\ProyectosNet\AriUserManagement\AriUMConsole\AriUMConsole\obj\Debug\AriUMConsole.pdb
+C:\Proyectos\AriUserManagement\AriUMConsole\AriUMConsole\bin\Debug\AriUMConsole.exe.config
+C:\Proyectos\AriUserManagement\AriUMConsole\AriUMConsole\obj\Debug\AriUMConsole.exe
+C:\Proyectos\AriUserManagement\AriUMConsole\AriUMConsole\obj\Debug\AriUMConsole.pdb
+C:\Proyectos\AriUserManagement\AriUMConsole\AriUMConsole\bin\Debug\AriUMConsole.exe
+C:\Proyectos\AriUserManagement\AriUMConsole\AriUMConsole\bin\Debug\AriUMConsole.pdb
+C:\Proyectos\AriUserManagement\AriUMConsole\AriUMConsole\bin\Debug\AriUMModel.dll
+C:\Proyectos\AriUserManagement\AriUMConsole\AriUMConsole\bin\Debug\Telerik.OpenAccess.35.Extensions.dll
+C:\Proyectos\AriUserManagement\AriUMConsole\AriUMConsole\bin\Debug\Telerik.OpenAccess.40.Extensions.dll
+C:\Proyectos\AriUserManagement\AriUMConsole\AriUMConsole\bin\Debug\AriUMModel.pdb
+C:\Proyectos\AriUserManagement\AriUMConsole\AriUMConsole\bin\Debug\Telerik.OpenAccess.35.Extensions.xml
+C:\Proyectos\AriUserManagement\AriUMConsole\AriUMConsole\bin\Debug\Telerik.OpenAccess.40.Extensions.xml
+C:\Proyectos\AriUserManagement\AriUMConsole\AriUMConsole\obj\Debug\AriUMConsole.csprojResolveAssemblyReference.cache
