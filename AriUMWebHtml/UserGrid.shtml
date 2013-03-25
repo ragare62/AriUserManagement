@@ -15,7 +15,8 @@
 
         <!--[if lt IE 10]>
         <!--iecors provides a jQuery ajax custom transport for IE8/9 XDR-->
-        <script src="Scripts/jquery.iecors.js"></script>
+        <!--<script src="Scripts/jquery.iecors.js"></script>-->
+        <script src="Scripts/xdr.js"></script>
         <![endif]-->
 
 
