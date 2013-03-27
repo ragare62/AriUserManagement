@@ -14,6 +14,8 @@
         <script src="Scripts/kendo/2012.3.1114/jquery.min.js"></script>
         <!-- Bootstrap -->
         <script src="Scripts/bootstrap.min.js"></script>
+        <!-- Bootbox -->
+        <script src="Scripts/bootbox.js"></script>
         <!-- Kendo -->
         <script src="Scripts/kendo/2012.3.1114/kendo.web.min.js"></script>
         <script src="Scripts/kendo/2012.3.1114/cultures/kendo.culture.es-ES.min.js"></script>
@@ -36,19 +38,20 @@
                     <div id="grid" class="span12"></div>
                 </div>
             </div>
-
         </div>
         <footer>
 
         </footer>
-
+        <div>
         <!-- In page treatment -->
         <script type="text/x-kendo-template" id="template_new">
             <button class="k-button" onclick="ari_windowOpen('UserGroupForm.shtml');"><span class="k-icon k-i-plus"></span> Nuevo registro</button>
         </script>
         <script type="text/x-kendo-template" id="template_edit">
-            <button class="k-button"><span class="k-icon k-i-pencil"></span> Editar registro</button>
+            <button class="k-button" onclick="ari_windowOpen('UserGroupForm.shtml?UserGroupId=#=UserGroupId#');"><span class="k-icon k-i-pencil"></span> Editar registro</button>
+            <button class="k-button" onclick="test('#=UserGroupId#','UserGroup');"><span class="k-icon k-i-close"></span> Eliminar registro</button>
         </script>
+
         <script type="text/javascript">
             (function ($) {
                 $(document).ready(function () {
@@ -109,32 +112,24 @@
                         },
                         pageSize: 10
                     });
-                    //var t_edit = "#=UserGroupid#";
-                    // grid columns
+
+
                     var userGroupCL = [
                         { field: "UserGroupId", title: "IDM" },
                         { field: "Name", title: "Name" },
                         {
-                            command: [{ name:"edit",text:"Editar",click: ari_test }, { name: "destroy", text: "Eliminar" }],
-                            title: "Acciones"
+                            template:t_edit
                         }
                     ];
-                    function ari_test(e) {
-                        e.preventDefault();
-                        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-                        alert("Test fired");
-                        var url = "UserGroupForm.shtml?UserGroupId=" + dataItem.UserGroupId;
-                        ari_windowOpen(url);
-                    }
-                    function ari_test2(e) {
-                        alert("Test fired 2");
-                    }
+
+
                     // building grid
                     $("#grid").kendoGrid({
                         dataSource:userGroupDS,
                         columns: userGroupCL,
-                        toolbar: [{text: "Nuevo registro", template:t_new }],
-                        editable: {name:"inline", confirmation:"¿Seguro que desea borrar este registro?"},
+                        toolbar: [{ text: "Nuevo registro", template: t_new }],
+                        editable: "inline",
+//                        editable: {update:false, destroy:true, confirmation:"¿Desea borrar este registro?"},
                         pageable: ari_pageable_es_ES,
                         sortable: true,
                         groupable: ari_groupable_es_ES,
@@ -144,5 +139,36 @@
                 });
             })(jQuery);
         </script>
+        <script type="text/javascript">
+            var entity;
+            var id;
+            function test(_id, _entitity) {
+                id = _id;
+                entity = _entitity;
+                bootbox.confirm("<span class='lead'>¿Desea eliminar este registro?</span>", "Cancelar", "Aceptar", response);
+            }
+            function response(arg) {
+                if (arg) {
+                    var linker = ari_generalLinker(entity);
+                    var url = linker.url + id;
+                    var html = linker.html;
+                    var options = {
+                        type: 'DELETE',
+                        url: url,
+                        dataType: 'json',
+                        success: function (data, textStatus) {
+                            bootbox.alert("<span class='text-success lead'>El registro se ha borrado correctamente</span>", "Aceptar", function () { ari_windowOpen(html); });
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            var message = "<span class='text-error lead'>Se ha producido un error</span>" +
+                                "<p class='text-warning'>" + jqXHR.responseText + "</p>";
+                            bootbox.alert(message, "Aceptar");
+                        }
+                    };
+                    $.ajax(options);
+                }
+            }
+        </script>
+            </div>
     </body>
 </html>
