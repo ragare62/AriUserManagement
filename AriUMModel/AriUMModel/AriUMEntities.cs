@@ -148,6 +148,19 @@ namespace AriUMModel
 		    }
 		}
 		
+		private int? _user_group_id;
+		public virtual int? User_group_id 
+		{ 
+		    get
+		    {
+		        return this._user_group_id;
+		    }
+		    set
+		    {
+		        this._user_group_id = value;
+		    }
+		}
+		
 		private UserGroup _userGroup;
 		public virtual UserGroup UserGroup 
 		{ 

@@ -25,6 +25,7 @@ namespace AriUMWebApi.Controllers
             }
         }
 
+
         // GET api/users/5
         public virtual User Get(int id)
         {
@@ -97,11 +98,11 @@ namespace AriUMWebApi.Controllers
                     }
                     else
                     {
-                        if (user.UserGroup != null)
-                        {
-                            int id2 = user.UserGroup.UserGroupId;
-                            user.UserGroup = CntWebApiVerbs.GetUserGroup(id2, ctx);
-                        }
+                        //if (user.UserGroup != null)
+                        //{
+                        //    int id2 = user.UserGroup.UserGroupId;
+                        //    user.UserGroup = CntWebApiVerbs.GetUserGroup(id2, ctx);
+                        //}
                         CntWebApiVerbs.PutUser(user, ctx);
                         return Request.CreateResponse(HttpStatusCode.NoContent);
                     }

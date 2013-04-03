@@ -25,6 +25,19 @@ namespace AriUMWebApi.Controllers
             }
         }
 
+        public IEnumerable<UserGroup> Get(string order)
+        {
+            using (AriUMContext ctx = new AriUMContext("AriUMDBConnection"))
+            {
+                IEnumerable<UserGroup> userGroups = (from ug in ctx.UserGroups
+                                                         orderby ug.Name
+                                                         select ug).ToList<UserGroup>();
+                FetchStrategy fs = new FetchStrategy();
+                IEnumerable<UserGroup> uGs = ctx.CreateDetachedCopy<IEnumerable<UserGroup>>(userGroups, fs);
+                return uGs;
+            }
+        }
+
         // GET api/usergroups/5
         public virtual UserGroup Get(int id)
         {

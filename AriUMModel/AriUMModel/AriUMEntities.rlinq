@@ -20,9 +20,12 @@
         <orm:field name="_password" property="Password" uniqueId="cc41e9bc-b2dd-455f-bda9-66bfb24999ea" type="System.String">
           <orm:column name="passwd" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
         </orm:field>
+        <orm:field name="_user_group_id" property="User_group_id" behavior="readwrite" uniqueId="4eba6fdd-69c1-4e4c-a2c7-8f6889bcbf3a" type="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]">
+          <orm:column name="user_group_id" sql-type="integer" nullable="true" length="0" scale="0" ado-type="" />
+        </orm:field>
         <orm:field name="_userGroup" property="UserGroup" behavior="readwrite" uniqueId="138e2cb2-a1dc-42fd-9100-fb1491d8e61a" type="AriUMModel.UserGroup">
           <orm:reference uniqueId="5404109f-41a6-42e3-bbd2-c6c1f215d6ae">
-            <orm:column nullable="true" scale="0" length="0" sql-type="integer" name="user_group_id" ado-type="" />
+            <orm:column name="user_group_id" sql-type="integer" nullable="true" length="0" scale="0" ado-type="" />
           </orm:reference>
         </orm:field>
       </orm:class>
@@ -46,7 +49,7 @@
         <orm:column name="nme" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
         <orm:column name="email" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
         <orm:column name="passwd" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
-        <orm:column nullable="true" scale="0" length="0" sql-type="integer" name="user_group_id" ado-type="" />
+        <orm:column name="user_group_id" sql-type="integer" nullable="true" length="0" scale="0" ado-type="" />
       </orm:table>
       <orm:table name="UserGroup">
         <orm:column name="user_group_id" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" converter="OpenAccessRuntime.Data.IntConverter" backend-calculated="true" ado-type="Int32" />
@@ -98,6 +101,7 @@
       <Property Id="d020bd7d-71d1-47e6-b543-9173141db6ce" name="Name" label="Name : String" fieldName="_name" />
       <Property Id="7f3b30ee-d9ef-42f6-b833-21b2f2ffcc4d" name="Email" label="Email : String" fieldName="_email" />
       <Property Id="cc41e9bc-b2dd-455f-bda9-66bfb24999ea" name="Password" label="Password : String" fieldName="_password" />
+      <Property Id="4eba6fdd-69c1-4e4c-a2c7-8f6889bcbf3a" name="User_group_id" type="Int32" label="User_group_id : Int32" nullable="true" kind="Persistent" fieldName="_user_group_id" />
       <AssociationTargets>
         <Association Id="5404109f-41a6-42e3-bbd2-c6c1f215d6ae" SourceMultiplicity="ZeroOne" name="UserHasUserGroup">
           <DomainClassMoniker name="/AriUMContext/UserGroup" />

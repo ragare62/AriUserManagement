@@ -33,7 +33,7 @@
             <div class="container-fluid">
                 <div class="row-fluid">
                     <div class="span12">
-                        <h3>Grupos de usuarios</h3>
+                        <h3>Usuarios</h3>
                     </div>
                 </div>
                 <div class="row-fluid">
@@ -46,7 +46,7 @@
 
         <!-- Templates -->
         <script type="text/x-kendo-template" id="template_new">
-            <a href="userGroupForm.html" class="btn btn-primary" title="Nuevo registro">
+            <a href="UserForm.html" class="btn btn-primary" title="Nuevo registro">
                 <i class="icon-plus icon-white"></i>
             </a>
             <button class="btn btn-primary" onclick="pageController();" title="Ultimo registro creado / editado">
@@ -55,10 +55,10 @@
         </script>
         <script type="tex/x-kendo-template" id="template_edit">
             <div class="pull-right">
-                <button class="btn btn-primary" onclick="grid_edit(#=UserGroupId#,'UserGroup');" title="Editar registro">
+                <button class="btn btn-primary" onclick="grid_edit(#=UserId#,'User');" title="Editar registro">
                     <i class="icon-pencil icon-white"></i>
                 </button>
-                <button class="btn btn-primary" onclick="grid_delete(#=UserGroupId#,'UserGroup','#=Name#');" title="Eliminar registro">
+                <button class="btn btn-primary" onclick="grid_delete(#=UserId#,'User','#=Name#');" title="Eliminar registro">
                     <i class="icon-minus icon-white"></i>
                 </button>
             </div>
@@ -72,13 +72,13 @@
                     //
                     cargaCabeceraPie();
                     // set title
-                    document.title = "Grupos de usuarios";
+                    document.title = "Usuarios";
             
                     // remote dataSource
                     var gridDS = new kendo.data.DataSource({
                         transport: {
                             read: {
-                                url: controller_url.userGroups,
+                                url: controller_url.users,
                                 dataType: "json",
                                 type: "GET",
                                 contentType: "application/json"
@@ -90,10 +90,13 @@
                         },
                         schema: {
                             model: {
-                                id: "UserGroupId",
+                                id: "UserId",
                                 fields: {
-                                    UserGroupId: { type: "number", editable: false },
-                                    Name: { type: "string", editable: true, nullable: true, validation: { required: true, message: { required: "Campo requerido" } } }
+                                    UserId: { type: "number", editable: false },
+                                    Name: { type: "string" },
+                                    Email: { type: "string" },
+                                    Password: { type: "string" },
+                                    UserGroup: {}
                                 }
                             }
                         },
@@ -101,8 +104,11 @@
                     });
             
                     var gridCL = [
-                        { field: "UserGroupId", title: "ID" },
-                        { field: "Name", title: "Name" },{
+                        { field: "UserId", title: "ID" },
+                        { field: "Name", title: "Nombre" },
+                        { field: "Email", title: "Correo" },
+                        { field: "UserGroup", title: "Grupo", template: "#=UserGroup?UserGroup.Name:''#"},
+                        {
                             template: t_edit
                         }
                     ];
@@ -148,7 +154,7 @@
             }
             function grid_edit(_id, _entitity) {
                 var page = $("#grid").data("kendoGrid").dataSource.page();
-                var url = "userGroupForm.html?UserGroupId=" + _id + "&page=" + page;
+                var url = "UserForm.html?UserId=" + _id + "&page=" + page;
                 ari_windowOpen(url);
             }
             function grid_delete(_id, _entitity, name) {
@@ -158,9 +164,7 @@
             }
             function deleteResponse(arg) {
                 if (arg) {
-                    var linker = ari_generalLinker(entity);
-                    var url = linker.url + id;
-                    var html = linker.html;
+                    var url = controller_url.users + id;
                     var options = {
                         type: 'DELETE',
                         url: url,
