@@ -1,4 +1,15 @@
-﻿
+﻿// gup stands from Get Url Parameters
+function gup(name) {
+    name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+    var regexS = "[\\?&]" + name + "=([^&#]*)";
+    var regex = new RegExp(regexS);
+    var results = regex.exec(window.location.href);
+    if (results == null)
+        return "";
+    else
+        return results[1];
+}
+
 // Función común en el arranque de cualqueir página
 function cargaCabeceraPie() {
     // culture Spanish - Spain
@@ -14,7 +25,7 @@ function cargaCabeceraPie() {
     // carga de la cabecera
     $.ajax({
         type: 'GET',
-        url: "http://localhost:49903/cabecera.html",
+        url: "cabecera.html",
         dataType: 'html',
         success: function (html, textStatus) {
             $("#cabecera").append(html);
@@ -23,7 +34,7 @@ function cargaCabeceraPie() {
     // carga el pie
     $.ajax({
         type: 'GET',
-        url: "http://localhost:49903/pie.html",
+        url: "pie.html",
         dataType: 'html',
         success: function (html, textStatus) {
             $("#pie").append(html);
@@ -32,7 +43,6 @@ function cargaCabeceraPie() {
 }
 
 function ari_windowOpen(url) {
-    alert(url);
     window.open(url, '_self');
 }
 

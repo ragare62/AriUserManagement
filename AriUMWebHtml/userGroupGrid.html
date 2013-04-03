@@ -23,6 +23,8 @@
         <!-- Ariadna  -->
         <script src="Scripts/ariadna/ariadna.um.js"></script>
         <script src="Scripts/ariadna/ariadna.localization.es-ES.js"></script>
+        <!-- Configuration via JSON -->
+        <script src="config.js"></script>
     </head>
     <body>
         <header id="cabecera">
@@ -44,16 +46,19 @@
 
         <!-- Templates -->
         <script type="text/x-kendo-template" id="template_new">
-            <a href="userGroupForm.html" class="btn btn-primary">
+            <a href="userGroupForm.html" class="btn btn-primary" title="Nuevo registro">
                 <i class="icon-plus icon-white"></i>
             </a>
+            <button class="btn btn-primary" onclick="pageController();" title="Ultimo registro creado / editado">
+                <i class="icon-move icon-white"></i>
+            </button>
         </script>
         <script type="tex/x-kendo-template" id="template_edit">
             <div class="pull-right">
-                <a href="userGroupForm.html?UserGroupId=#=UserGroupId#" class="btn btn-primary">
+                <button class="btn btn-primary" onclick="userGroupEdit(#=UserGroupId#,'UserGroup');" title="Editar registro">
                     <i class="icon-pencil icon-white"></i>
-                </a>
-                <button class="btn btn-primary" onclick="userGroupDelete(#=UserGroupId#,'UserGroup','#=Name#');">
+                </button>
+                <button class="btn btn-primary" onclick="userGroupDelete(#=UserGroupId#,'UserGroup','#=Name#');" title="Eliminar registro">
                     <i class="icon-minus icon-white"></i>
                 </button>
             </div>
@@ -66,25 +71,27 @@
                     var t_edit = kendo.template($("#template_edit").html());
                     //
                     cargaCabeceraPie();
+                    // set title
+                    document.title = "Grupos de usuarios";
             
                     // remote dataSource
                     var userGroupDS = new kendo.data.DataSource({
                         transport: {
                             read: {
-                                url: "http://localhost:50827/api/usergroups",
+                                url: controller_url.userGroups,
                                 dataType: "json",
                                 type: "GET",
                                 contentType: "application/json"
                             },
                             create: {
-                                url: "http://localhost:50827/api/usergroups",
+                                url: controller_url.userGroups,
                                 dataType: "json",
                                 type: "POST",
                                 contentType: "application/json"
                             },
                             update: {
                                 url: function (data) {
-                                    var myUrl = "http://localhost:50827/api/usergroups/" + data.UserGroupId;
+                                    var myUrl = controller_url.userGroups + data.UserGroupId;
                                     return myUrl;
                                 },
                                 dataType: "json",
@@ -93,7 +100,7 @@
                             },
                             destroy: {
                                 url: function (data) {
-                                    return "http://localhost:50827/api/usergroups/" + data.UserGroupId;
+                                    return controller_url.userGroups + data.UserGroupId;
                                 },
                                 dataType: "json",
                                 type: "DELETE",
@@ -140,6 +147,33 @@
         <script type="text/javascript">
             var entity;
             var id;
+            function pageController() {
+                // read page from url parameters
+                page = gup("page");
+                
+                if (page != "") {
+                    var pageN = parseInt(page);
+                    var ds = $("#grid").data("kendoGrid").dataSource;
+                    var totalPages = ds.totalPages();
+                    switch (pageN) {
+                        case 0:
+                            ds.page(totalPages);
+                            break;
+                        default:
+                            if (pageN <= totalPages) {
+                                ds.page(pageN);
+                            } else {
+                                ds.page(totalPages);
+                            }
+                            break;
+                    }
+                }
+            }
+            function userGroupEdit(_id, _entitity) {
+                var page = $("#grid").data("kendoGrid").dataSource.page();
+                var url = "userGroupForm.html?UserGroupId=" + _id + "&page=" + page;
+                ari_windowOpen(url);
+            }
             function userGroupDelete(_id, _entitity, name) {
                 id = _id;
                 entity = _entitity;
@@ -155,7 +189,7 @@
                         url: url,
                         dataType: 'json',
                         success: function (data, textStatus) {
-                            bootbox.alert("<h4 class='text-success'>El registro se ha borrado correctamente</h4>", "Aceptar", userGroupRefresh);
+                            userGroupRefresh();
                         }
                     };
                     $.ajax(options);
@@ -164,6 +198,11 @@
             function userGroupRefresh() {
                 var grid = $("#grid").data("kendoGrid");
                 grid.dataSource.read();
+            }
+            function modeNew() {
+                var grid = $("#grid").data("kendoGrid");
+                var totalPages = grid.dataSource.totalPages();
+                grid.dataSource.page(totalPages);
             }
         </script>
     </body>
