@@ -63,12 +63,26 @@
                 </button>
             </div>
         </script>
+        <script type="tex/x-kendo-template" id="template_editS">
+            <div class="pull-right">
+                <button class="btn btn-primary" onclick="grid_select(#=UserGroupId#,'UserGroup');" title="Seleccionar registro">
+                    <i class="icon-asterisk icon-white"></i>
+                </button>
+                <button class="btn btn-primary" onclick="grid_edit(#=UserGroupId#,'UserGroup');" title="Editar registro">
+                    <i class="icon-pencil icon-white"></i>
+                </button>
+                <button class="btn btn-primary" onclick="grid_delete(#=UserGroupId#,'UserGroup','#=Name#');" title="Eliminar registro">
+                    <i class="icon-minus icon-white"></i>
+                </button>
+            </div>
+        </script>
         <script type="text/javascript">
             (function ($) {
                 $(document).ready(function () {
                     // templates
                     var t_new = kendo.template($("#template_new").html());
                     var t_edit = kendo.template($("#template_edit").html());
+                    if (mode == "S") t_edit = kendo.template($("#template_editS").html());
                     //
                     cargaCabeceraPie();
                     // set title
@@ -124,6 +138,9 @@
         <script type="text/javascript">
             var entity;
             var id;
+            var page;
+            var caller = gup("caller");
+            var mode = gup("mode");
             function pageController() {
                 // read page from url parameters
                 page = gup("page");
@@ -150,6 +167,20 @@
                 var page = $("#grid").data("kendoGrid").dataSource.page();
                 var url = "userGroupForm.html?UserGroupId=" + _id + "&page=" + page;
                 ari_windowOpen(url);
+            }
+            function grid_select(_id, _entitity) {
+                // the idea is to select a register a return it to
+                // an external form defined by 'caller' variable (an url parameter)
+                var returnUrl = "#";
+                // Meaning of url parameters in return url
+                // mode = R (the form is called from an external search)
+                // UserGroupId = _id (the user group's selected's id)
+                switch (caller) {
+                    case "User":
+                        returnUrl = "userForm.html?mode=R&UserGroupId=" + _id;
+                        break;
+                }
+                ari_windowOpen(returnUrl);
             }
             function grid_delete(_id, _entitity, name) {
                 id = _id;

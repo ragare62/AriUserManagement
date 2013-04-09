@@ -25,7 +25,7 @@ namespace AriUMWebApi.Controllers
             }
         }
 
-        public IEnumerable<UserGroup> Get(string order)
+        public IEnumerable<UserGroup> GetOrdered(string order)
         {
             using (AriUMContext ctx = new AriUMContext("AriUMDBConnection"))
             {
@@ -38,6 +38,7 @@ namespace AriUMWebApi.Controllers
             }
         }
 
+
         // GET api/usergroups/5
         public virtual UserGroup Get(int id)
         {
@@ -45,6 +46,27 @@ namespace AriUMWebApi.Controllers
             using (AriUMContext ctx = new AriUMContext("AriUMDBConnection"))
             {
                 UserGroup userGroup = CntWebApiVerbs.GetUserGroup(id, ctx);
+                if (userGroup == null)
+                {
+                    throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
+                }
+                else
+                {
+                    FetchStrategy fs = new FetchStrategy();
+                    UserGroup uG = ctx.CreateDetachedCopy<UserGroup>(userGroup, fs);
+                    return uG;
+                }
+            }
+        }
+
+        // GET api/usergroups/?name='Name'
+        public virtual UserGroup GetByName(string name)
+        {
+            using (AriUMContext ctx = new AriUMContext("AriUMDBConnection"))
+            {
+                UserGroup userGroup = (from ug in ctx.UserGroups
+                                       where ug.Name == name
+                                       select ug).FirstOrDefault<UserGroup>();
                 if (userGroup == null)
                 {
                     throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));

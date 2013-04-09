@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <title>AriUM Scaffolding</title>
+        <!-- Bootstrap styles -->
+        <link href="Content/bootstrap.min.css" rel="stylesheet" media="screen" />
+        <!-- Kendo styles -->
+        <link href="Content/kendo/2012.3.1114/kendo.common.min.css" rel="stylesheet" />
+        <link href="Content/kendo/2012.3.1114/kendo.bootstrap.min.css" rel="stylesheet" />
+        <!-- Ariadna styles -->
+        <link href="Content/ariadna.css" rel="stylesheet" />
+
+        <!-- JQuery -->
+        <script src="Scripts/kendo/2012.3.1114/jquery.min.js"></script>
+        <!-- Bootstrap -->
+        <script src="Scripts/bootstrap.min.js"></script>
+        <!-- Bootbox -->
+        <script src="Scripts/bootbox.js"></script>
+        <!-- Kendo -->
+        <script src="Scripts/kendo/2012.3.1114/kendo.web.min.js"></script>
+        <script src="Scripts/kendo/2012.3.1114/cultures/kendo.culture.es-ES.min.js"></script>
+        <!-- Ariadna  -->
+        <script src="Scripts/ariadna/ariadna.um.js"></script>
+        <script src="Scripts/ariadna/ariadna.localization.es-ES.js"></script>
+        <!-- Configuration via JSON -->
+        <script src="config.js"></script>
+    </head>
+    <body>
+        <header id="cabecera">
+        </header>
+
+        <div id="cuerpo" style="min-height:400px;">
+            <div class="container-fluid">
+                <div class="row-fluid">
+                    <div class="span12">
+                        <h3>Test de ventanas [1]</h3>
+                    </div>
+                </div>
+                <div class="row-fluid">
+                    <div id="window" class="span12">
+
+                    </div>
+                </div>
+                <div class="row-fluid">
+                    <div id="btn1" class="span12">
+                        <button id="bnt1">Lanzar la ventana</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <footer id="pie">
+        </footer>
+
+        <script type="text/javascript">
+            (function ($) {
+                $(document).ready(function () {
+                    mWindow = $("#window");
+
+                    $("#bnt1").click(function () {
+                        mWindow.data("kendoWindow").open();
+                    });
+
+                    mWindow.kendoWindow({
+                        visible: false,
+                        content: "UserGroup.html"
+                    });
+                });
+            })(jQuery);
+        </script>
+        <script type="text/javascript">
+            var mWindow;
+            function myClose() {
+                mWindow.data("kendoWindow").close();
+            }
+        </script>
+    </body>
+</html>

@@ -98,11 +98,16 @@ namespace AriUMWebApi.Controllers
                     }
                     else
                     {
-                        //if (user.UserGroup != null)
-                        //{
-                        //    int id2 = user.UserGroup.UserGroupId;
-                        //    user.UserGroup = CntWebApiVerbs.GetUserGroup(id2, ctx);
-                        //}
+                        // In order to avoid chage the UserGroup name accidentally
+                        if (user.UserGroup != null)
+                        {
+                            int id2 = user.UserGroup.UserGroupId;
+                            UserGroup ug = CntWebApiVerbs.GetUserGroup(id2, ctx);
+                            if (ug.Name != user.UserGroup.Name)
+                            {
+                                user.UserGroup.Name = ug.Name;
+                            }
+                        }
                         CntWebApiVerbs.PutUser(user, ctx);
                         return Request.CreateResponse(HttpStatusCode.NoContent);
                     }

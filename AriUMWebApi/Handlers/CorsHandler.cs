@@ -34,11 +34,15 @@ namespace GlobalCORS_RC.Handlers
                     {
                         response.Headers.Add(AccessControlAllowMethods, accessControlRequestMethod);
                     }
-
-                    string requestedHeaders = string.Join(", ", request.Headers.GetValues(AccessControlRequestHeaders));
-                    if (!string.IsNullOrEmpty(requestedHeaders))
+                    // FireFox doesn't have AccessControlRequestHeaders
+                    bool controlFireFox = request.Headers.Contains(AccessControlRequestHeaders);
+                    if (controlFireFox)
                     {
-                        response.Headers.Add(AccessControlAllowHeaders, requestedHeaders);
+                        string requestedHeaders = string.Join(", ", request.Headers.GetValues(AccessControlRequestHeaders));
+                        if (!string.IsNullOrEmpty(requestedHeaders))
+                        {
+                            response.Headers.Add(AccessControlAllowHeaders, requestedHeaders);
+                        }
                     }
 
                     TaskCompletionSource<HttpResponseMessage> tcs = new TaskCompletionSource<HttpResponseMessage>();
