@@ -9,6 +9,7 @@ function templateUserGroupGrid() {
     if (mode == "S") {
         tNewUserGroup = kendo.template($("#tNewUserGroupS").html());
         tEditUserGroup = kendo.template($("#tEditUserGroupS").html());
+        $("#UserGroupGridTitle").html("Grupos de usuarios <i class='icon-search'></i>");
     }
 }
 
@@ -78,7 +79,8 @@ function builUserGroupGrid() {
     });
 }
 function gridUserGroupRefresh() {
-    var ds = $("#gridUserGroup").data("kendoGrid").dataSource;
+    var c = "#UserGroupGridContainer ";
+    var ds = $(c + "#gridUserGroup").data("kendoGrid").dataSource;
     var totalPages = ds.totalPages();
     ds.read();
     if (isNew)
@@ -105,8 +107,9 @@ function deleteResponse(arg) {
 function gridUserGroupSelect(id, name) {
     switch (caller) {
         case "UserForm":
-            $("#txtUserGroup").val(name);
-            $("#txtUserGroupId").val(id);
+            var c = "#UserFormContainer ";
+            $(c + "#txtUserGroup").val(name);
+            $(c + "#txtUserGroupId").val(id);
             $("#UserGroupGridContainer").hide();
             $("#UserFormContainer").show();
             break;

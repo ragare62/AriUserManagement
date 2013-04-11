@@ -1,4 +1,6 @@
-﻿function loadUserGroupForm() {
+﻿
+
+function loadUserGroupForm() {
     $.ajax({
         type: 'GET',
         url: "UserGroupForm.html",
@@ -10,13 +12,14 @@
 }
 
 function formUserGroupNew() {
+    var c = "#UserGroupFormContainer ";
     // Hide the grid show the form
     $("#UserGroupGridContainer").hide();
     $("#UserGroupFormContainer").show();
     isNew = true;
-    $("#txtId").val("");
-    $("#txtName").val("");
-    $("#txtName").focus();
+    $(c + "#txtId").val("");
+    $(c + "#txtName").val("");
+    $(c + "#txtName").focus();
 }
 function formUserGroupEdit(id) {
     // Hide the grid show the form
@@ -68,12 +71,14 @@ function formUserGroupCancel() {
     $("#UserGroupGridContainer").show();
 }
 function formUserGroupUnloadData() {
+    var c = "#UserGroupFormContainer ";
     var UserGroup = new Object();
-    UserGroup.UserGroupId = $("#txtId").val();
-    UserGroup.Name = $("#txtName").val();
+    UserGroup.UserGroupId = $(c + "#txtId").val();
+    UserGroup.Name = $(c + "#txtName").val();
     return UserGroup;
 }
 function formUserGroupLoadData(UserGroup) {
-    $("#txtId").val(UserGroup.UserGroupId);
-    $("#txtName").val(UserGroup.Name);
+    var c = "#UserGroupFormContainer ";
+    $(c +"#txtId").val(UserGroup.UserGroupId);
+    $(c + "#txtName").val(UserGroup.Name);
 }

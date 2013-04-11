@@ -26,8 +26,9 @@ var UserGroupAutoDS = new kendo.data.DataSource({
 });
 // Build user form
 function buildUserForm() {
+    var c = "#UserFormContainer ";
     // building autocomplete
-    $("#txtUserGroup").kendoAutoComplete({
+    $(c + "#txtUserGroup").kendoAutoComplete({
         dataTextField: "Name",
         dataSource: UserGroupAutoDS,
         select: function (e) {
@@ -51,17 +52,19 @@ function loadUserForm() {
 
 
 function formUserNew() {
+    var c = "#UserFormContainer ";
     // Hide the grid show the form
     $("#UserGridContainer").hide();
     $("#UserFormContainer").show();
     isNew = true;
-    $("#txtId").val("");
-    $("#txtName").val("");
-    $("#txtEmail").val("");
-    $("#txtUserGroup").val("");
-    $("#txtName").focus();
+    $(c + "#txtId").val("");
+    $(c + "#txtName").val("");
+    $(c + "#txtEmail").val("");
+    $(c + "#txtUserGroup").val("");
+    $(c + "#txtName").focus();
 }
 function formUserEdit(id) {
+    var c = "#UserFormContainer ";
     // Hide the grid show the form
     $("#UserGridContainer").hide();
     $("#UserFormContainer").show();
@@ -73,13 +76,14 @@ function formUserEdit(id) {
         dataType: 'json',
         success: function (data, textStatus) {
             formUserLoadData(data);
-            $("#txtName").focus();
+            $(c + "#txtName").focus();
         }
     };
     $.ajax(options);
 }
 function formUserAccept() {
-    var validator = $("#formUser").kendoValidator().data("kendoValidator");
+    var c = "#UserFormContainer ";
+    var validator = $(c + "#formUser").kendoValidator().data("kendoValidator");
     if (validator.validate()) {
         var User = formUserUnloadData();
         var url = controller_url.Users;
@@ -111,37 +115,40 @@ function formUserCancel() {
     $("#UserGridContainer").show();
 }
 function formUserUnloadData() {
+    var c = "#UserFormContainer ";
     var User = new Object();
-    User.UserId = $("#txtId").val();
-    User.Name = $("#txtName").val();
-    User.Email = $("#txtEmail").val();
-    var v = $("#txtUserGroupId").val();
-    var t = $("#txtUserGroup").val();
+    User.UserId = $(c + "#txtId").val();
+    User.Name = $(c + "#txtName").val();
+    User.Email = $(c + "#txtEmail").val();
+    var v = $(c + "#txtUserGroupId").val();
+    var t = $(c + "#txtUserGroup").val();
     if (v != "" && t != "") {
         User.UserGroup = new Object();
         User.UserGroup.UserGroupId = parseInt(v);
         User.UserGroup.Name = t;
     }
-    var p = $("#txtPassword1").val();
+    var p = $(c + "#txtPassword1").val();
     if (p != "") {
         User.Password = p;
     }
     return User;
 }
 function formUserLoadData(User) {
-    $("#txtId").val(User.UserId);
-    $("#txtName").val(User.Name);
-    $("#txtEmail").val(User.Email);
+    var c = "#UserFormContainer ";
+    $(c + "#txtId").val(User.UserId);
+    $(c + "#txtName").val(User.Name);
+    $(c + "#txtEmail").val(User.Email);
     if (User.UserGroup != null) {
-        $("#txtUserGroup").val(User.UserGroup.Name);
-        $("#txtUserGroupId").val(User.UserGroup.UserGroupId);
+        $(c + "#txtUserGroup").val(User.UserGroup.Name);
+        $(c + "#txtUserGroupId").val(User.UserGroup.UserGroupId);
     }
-    $("#txtPassword1").val(User.Password);
-    $("#txtPassword2").val(User.Password);
+    $(c + "#txtPassword1").val(User.Password);
+    $(c + "#txtPassword2").val(User.Password);
 }
 function formUserDataOk() {
-    var pass1 = $("#txtPassword1").val();
-    var pass2 = $("#txtPassword2").val();
+    var c = "#UserFormContainer ";
+    var pass1 = $(c + "#txtPassword1").val();
+    var pass2 = $(c + "#txtPassword2").val();
     if (pass1 != "" || pass2 != "") {
         if (pass1 != pass2) {
             var message = "<h4 class='text-warning'>AVISO:</h4>" +
