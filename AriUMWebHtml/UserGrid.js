@@ -15,7 +15,7 @@ function loadUserGrid() {
         url: "UserGrid.html",
         dataType: 'html',
         success: function (html, textStatus) {
-            $("#UserGridContainer").append(html);
+            $("#UserGridContainer").html(html);
             templatesUserGrid();
             builUserGrid();
         },

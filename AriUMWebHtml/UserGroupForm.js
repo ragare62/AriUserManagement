@@ -4,7 +4,7 @@
         url: "UserGroupForm.html",
         dataType: 'html',
         success: function (html, textStatus) {
-            $("#UserGroupFormContainer").append(html);
+            $("#UserGroupFormContainer").html(html);
         },
     });
 }

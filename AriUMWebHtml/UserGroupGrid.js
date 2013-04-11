@@ -6,8 +6,10 @@ var tEditUserGroup;
 function templateUserGroupGrid() {
     tNewUserGroup = kendo.template($("#tNewUserGroup").html());
     tEditUserGroup = kendo.template($("#tEditUserGroup").html());
-    if (mode == "S")
+    if (mode == "S") {
+        tNewUserGroup = kendo.template($("#tNewUserGroupS").html());
         tEditUserGroup = kendo.template($("#tEditUserGroupS").html());
+    }
 }
 
 // gridUserGroup datasource
@@ -50,7 +52,7 @@ function loadUserGroupGrid() {
         url: "UserGroupGrid.html",
         dataType: 'html',
         success: function (html, textStatus) {
-            $("#UserGroupGridContainer").append(html);
+            $("#UserGroupGridContainer").html(html);
             templateUserGroupGrid();
             builUserGroupGrid();
         },
@@ -100,6 +102,23 @@ function deleteResponse(arg) {
         $.ajax(options);
     }
 }
-function gridUserGroupSelect(id) {
-    alert("SELECT");
+function gridUserGroupSelect(id, name) {
+    switch (caller) {
+        case "UserForm":
+            $("#txtUserGroup").val(name);
+            $("#txtUserGroupId").val(id);
+            $("#UserGroupGridContainer").hide();
+            $("#UserFormContainer").show();
+            break;
+    }
+    caller = "";
+}
+function gridUserGroupExit() {
+    switch (caller) {
+        case "UserForm":
+            $("#UserGroupGridContainer").hide();
+            $("#UserFormContainer").show();
+            break;
+    }
+    caller = "";
 }

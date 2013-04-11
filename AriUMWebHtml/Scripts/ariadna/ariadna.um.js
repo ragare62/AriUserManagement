@@ -1,6 +1,7 @@
 ﻿// General variables
 var mode = "";
 var isNew = false;
+var caller = "";
 
 
 
@@ -37,7 +38,7 @@ function loadHeaderFooter() {
         url: "Header.html",
         dataType: 'html',
         success: function (html, textStatus) {
-            $("#header").append(html);
+            $("#header").html(html);
         },
     });
     // load footer
@@ -46,7 +47,7 @@ function loadHeaderFooter() {
         url: "Footer.html",
         dataType: 'html',
         success: function (html, textStatus) {
-            $("#footer").append(html);
+            $("#footer").html(html);
         },
     });
 }

@@ -17,6 +17,14 @@ UserGroupGrid:
         <i class="icon-plus icon-white"></i>
     </button>
 </script>
+<script type="text/x-kendo-template" id="tNewUserGroupS">
+    <button class="btn btn-primary" onclick="formUserGroupNew();" title="Nuevo registro">
+        <i class="icon-plus icon-white"></i>
+    </button>
+    <button class="btn btn-primary" onclick="gridUserGroupExit();" title="Volver al formulario">
+        <i class="icon-arrow-left icon-white"></i>
+    </button>
+</script>
 <script type="tex/x-kendo-template" id="tEditUserGroup">
     <div class="pull-right">
         <button class="btn btn-primary" onclick="formUserGroupEdit(#=UserGroupId#);" title="Editar registro">
@@ -29,7 +37,7 @@ UserGroupGrid:
 </script>
 <script type="tex/x-kendo-template" id="tEditUserGroupS">
     <div class="pull-right">
-        <button class="btn btn-primary" onclick="gridUserGroupSelect(#=UserGroupId#);" title="Seleccionar registro">
+        <button class="btn btn-primary" onclick="gridUserGroupSelect(#=UserGroupId#,'#=Name#');" title="Seleccionar registro">
             <i class="icon-share icon-white"></i>
         </button>
     </div>
