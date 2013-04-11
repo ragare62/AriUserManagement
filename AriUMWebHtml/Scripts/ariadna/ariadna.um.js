@@ -1,4 +1,10 @@
-﻿// gup stands from Get Url Parameters
+﻿// General variables
+var mode = "";
+var isNew = false;
+
+
+
+// gup stands from Get Url Parameters
 function gup(name) {
     name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
     var regexS = "[\\?&]" + name + "=([^&#]*)";
@@ -11,7 +17,7 @@ function gup(name) {
 }
 
 // Función común en el arranque de cualqueir página
-function cargaCabeceraPie() {
+function loadDefaults() {
     // culture Spanish - Spain
     kendo.culture("es-ES");
     // tratamiento común de AJAX
@@ -22,25 +28,63 @@ function cargaCabeceraPie() {
             bootbox.alert(message, "Aceptar");
         }
     });
-    // carga de la cabecera
+}
+
+function loadHeaderFooter() {
+    // load header
     $.ajax({
         type: 'GET',
-        url: "cabecera.html",
+        url: "Header.html",
         dataType: 'html',
         success: function (html, textStatus) {
-            $("#cabecera").append(html);
+            $("#header").append(html);
         },
     });
-    // carga el pie
+    // load footer
     $.ajax({
         type: 'GET',
-        url: "pie.html",
+        url: "Footer.html",
         dataType: 'html',
         success: function (html, textStatus) {
-            $("#pie").append(html);
+            $("#footer").append(html);
         },
     });
 }
+
+function loadUserGroupGrid() {
+    $.ajax({
+        type: 'GET',
+        url: "UserGroupGrid.html",
+        dataType: 'html',
+        success: function (html, textStatus) {
+            $("#gridUserGroup").append(html);
+        },
+    });
+}
+
+function loadUserGroupForm() {
+    $.ajax({
+        type: 'GET',
+        url: "UserGroupForm.html",
+        dataType: 'html',
+        success: function (html, textStatus) {
+            $("#formUserGroup").append(html);
+        },
+    });
+}
+
+function loadUserGrid() {
+    $.ajax({
+        type: 'GET',
+        url: "UserGrid.html",
+        dataType: 'html',
+        success: function (html, textStatus) {
+            $("#gridUser").append(html);
+        },
+    });
+}
+
+
 
 function ari_windowOpen(url) {
     window.open(url, '_self');
