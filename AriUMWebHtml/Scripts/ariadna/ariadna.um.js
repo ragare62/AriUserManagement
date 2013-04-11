@@ -51,41 +51,6 @@ function loadHeaderFooter() {
     });
 }
 
-function loadUserGroupGrid() {
-    $.ajax({
-        type: 'GET',
-        url: "UserGroupGrid.html",
-        dataType: 'html',
-        success: function (html, textStatus) {
-            $("#gridUserGroup").append(html);
-        },
-    });
-}
-
-function loadUserGroupForm() {
-    $.ajax({
-        type: 'GET',
-        url: "UserGroupForm.html",
-        dataType: 'html',
-        success: function (html, textStatus) {
-            $("#formUserGroup").append(html);
-        },
-    });
-}
-
-function loadUserGrid() {
-    $.ajax({
-        type: 'GET',
-        url: "UserGrid.html",
-        dataType: 'html',
-        success: function (html, textStatus) {
-            $("#gridUser").append(html);
-        },
-    });
-}
-
-
-
 function ari_windowOpen(url) {
     window.open(url, '_self');
 }

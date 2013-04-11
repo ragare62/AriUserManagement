@@ -1,4 +1,15 @@
-﻿function formUserGroupNew() {
+﻿function loadUserGroupForm() {
+    $.ajax({
+        type: 'GET',
+        url: "UserGroupForm.html",
+        dataType: 'html',
+        success: function (html, textStatus) {
+            $("#UserGroupFormContainer").append(html);
+        },
+    });
+}
+
+function formUserGroupNew() {
     // Hide the grid show the form
     $("#UserGroupGridContainer").hide();
     $("#UserGroupFormContainer").show();

@@ -43,7 +43,7 @@ function loadUserForm() {
         url: "UserForm.html",
         dataType: 'html',
         success: function (html, textStatus) {
-            $("#formUser").append(html);
+            $("#UserFormContainer").append(html);
             buildUserForm();
         },
     });
@@ -156,6 +156,7 @@ function formUserSearch(entitity) {
     switch (entitity) {
         case "UserGroup":
             mode = "S";
+            loadUserGroupGrid();
             $("#UserFormContainer").hide();
             $("#UserGroupGridContainer").show()
             break;
