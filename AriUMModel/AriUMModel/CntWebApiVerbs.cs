@@ -79,5 +79,77 @@ namespace AriUMModel
             return true;
         }
         #endregion 
+
+        #region Customer
+        public static IList<Customer> GetCustomers(AriUMContext ctx)
+        {
+            return (from uG in ctx.Customers
+                    select uG).ToList<Customer>();
+        }
+
+        public static Customer GetCustomer(int id, AriUMContext ctx)
+        {
+            return (from uG in ctx.Customers
+                    where uG.CustomerId == id
+                    select uG).FirstOrDefault<Customer>();
+        }
+
+        public static Customer PostCustomer(Customer customer, AriUMContext ctx)
+        {
+            ctx.Add(customer);
+            ctx.SaveChanges();
+            return customer;
+        }
+
+        public static Customer PutCustomer(Customer customer, AriUMContext ctx)
+        {
+            ctx.AttachCopy<Customer>(customer);
+            ctx.SaveChanges();
+            return customer;
+        }
+
+        public static bool DeleteCustomer(Customer customer, AriUMContext ctx)
+        {
+            ctx.Delete(customer);
+            ctx.SaveChanges();
+            return true;
+        }
+        #endregion 
+
+        #region Product
+        public static IList<Product> GetProducts(AriUMContext ctx)
+        {
+            return (from p in ctx.Products
+                    select p).ToList<Product>();
+        }
+
+        public static Product GetProduct(int id, AriUMContext ctx)
+        {
+            return (from p in ctx.Products
+                    where p.ProductId == id
+                    select p).FirstOrDefault<Product>();
+        }
+
+        public static Product PostProduct(Product product, AriUMContext ctx)
+        {
+            ctx.Add(product);
+            ctx.SaveChanges();
+            return product;
+        }
+
+        public static Product PutProduct(Product product, AriUMContext ctx)
+        {
+            ctx.AttachCopy<Product>(product);
+            ctx.SaveChanges();
+            return product;
+        }
+
+        public static bool DeleteProduct(Product product, AriUMContext ctx)
+        {
+            ctx.Delete(product);
+            ctx.SaveChanges();
+            return true;
+        }
+        #endregion 
     }
 }

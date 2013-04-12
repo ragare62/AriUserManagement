@@ -14,6 +14,10 @@ namespace AriUMWebApi.Controllers
     public class UserGroupsController : ApiController
     {
         // GET api/usergroups
+        /// <summary>
+        /// Get all user groups from the server
+        /// </summary>
+        /// <returns>A list of all user groups</returns>
         public IEnumerable<UserGroup> Get()
         {
             using (AriUMContext ctx = new AriUMContext("AriUMDBConnection"))
@@ -25,6 +29,11 @@ namespace AriUMWebApi.Controllers
             }
         }
 
+        /// <summary>
+        /// Get all user groups ordered alphabetically
+        /// </summary>
+        /// <param name="order">Indicates what order you want , so far it orders by name only</param>
+        /// <returns></returns>
         public IEnumerable<UserGroup> GetOrdered(string order)
         {
             using (AriUMContext ctx = new AriUMContext("AriUMDBConnection"))
@@ -39,7 +48,11 @@ namespace AriUMWebApi.Controllers
         }
 
 
-        // GET api/usergroups/5
+        /// <summary>
+        /// Get an individual user group
+        /// </summary>
+        /// <param name="id">User groups' id you want</param>
+        /// <returns>Use group object (XML/JSON)</returns>
         public virtual UserGroup Get(int id)
         {
 
@@ -59,7 +72,11 @@ namespace AriUMWebApi.Controllers
             }
         }
 
-        // GET api/usergroups/?name='Name'
+        /// <summary>
+        /// Gets the user group with a given name
+        /// </summary>
+        /// <param name="name">The name of the object</param>
+        /// <returns>User group object</returns>
         public virtual UserGroup GetByName(string name)
         {
             using (AriUMContext ctx = new AriUMContext("AriUMDBConnection"))
@@ -80,7 +97,11 @@ namespace AriUMWebApi.Controllers
             }
         }
 
-        // POST api/usergroups
+        /// <summary>
+        /// Creates a new user group
+        /// </summary>
+        /// <param name="userGroup">The user group that yo want to create</param>
+        /// <returns>Url related to the new object</returns>
         public virtual HttpResponseMessage Post(UserGroup userGroup)
         {
             if (userGroup == null)
@@ -107,7 +128,12 @@ namespace AriUMWebApi.Controllers
             return new Uri(this.Url.Link("DefaultApi", new { controller = controller, id = userGroupId }));
         }
 
-        // PUT api/usergroups/5
+        /// <summary>
+        /// Updates the given user group
+        /// </summary>
+        /// <param name="id">The id of the user group to be updated</param>
+        /// <param name="userGroup">User group with the modifications you want</param>
+        /// <returns></returns>
         public virtual HttpResponseMessage Put(int id, UserGroup userGroup)
         {
             if (userGroup == null || id != userGroup.UserGroupId)
@@ -133,7 +159,11 @@ namespace AriUMWebApi.Controllers
             }
         }
 
-        // DELETE api/usergroups/5
+        /// <summary>
+        /// Deletes the user group with a given id
+        /// </summary>
+        /// <param name="id">Id of the user group to be deleted</param>
+        /// <returns></returns>
         public virtual HttpResponseMessage Delete(int id)
         {
             using (AriUMContext ctx = new AriUMContext("AriUMDBConnection"))

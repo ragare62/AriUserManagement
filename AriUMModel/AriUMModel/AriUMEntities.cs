@@ -68,6 +68,22 @@ namespace AriUMModel
 	    	}
 		}
 		
+		public IQueryable<Customer> Customers 
+		{
+	    	get
+	    	{
+	        	return this.GetAll<Customer>();
+	    	}
+		}
+		
+		public IQueryable<Product> Products 
+		{
+	    	get
+	    	{
+	        	return this.GetAll<Product>();
+	    	}
+		}
+		
 		public static BackendConfiguration GetBackendConfiguration()
 		{
 			BackendConfiguration backend = new BackendConfiguration();
@@ -85,6 +101,16 @@ namespace AriUMModel
 		}
 
 		IQueryable<UserGroup> UserGroups 
+		{ 
+			get;
+		}
+
+		IQueryable<Customer> Customers 
+		{ 
+			get;
+		}
+
+		IQueryable<Product> Products 
 		{ 
 			get;
 		}
@@ -204,6 +230,176 @@ namespace AriUMModel
 		    set
 		    {
 		        this._name = value;
+		    }
+		}
+		
+	}
+}
+
+namespace AriUMModel	
+{
+	public partial class Customer
+	{
+		private int _customerId;
+		public virtual int CustomerId 
+		{ 
+		    get
+		    {
+		        return this._customerId;
+		    }
+		    set
+		    {
+		        this._customerId = value;
+		    }
+		}
+		
+		private string _name;
+		public virtual string Name 
+		{ 
+		    get
+		    {
+		        return this._name;
+		    }
+		    set
+		    {
+		        this._name = value;
+		    }
+		}
+		
+		private string _serialInvoice;
+		public virtual string SerialInvoice 
+		{ 
+		    get
+		    {
+		        return this._serialInvoice;
+		    }
+		    set
+		    {
+		        this._serialInvoice = value;
+		    }
+		}
+		
+		private string _address;
+		public virtual string Address 
+		{ 
+		    get
+		    {
+		        return this._address;
+		    }
+		    set
+		    {
+		        this._address = value;
+		    }
+		}
+		
+		private string _nif;
+		public virtual string Nif 
+		{ 
+		    get
+		    {
+		        return this._nif;
+		    }
+		    set
+		    {
+		        this._nif = value;
+		    }
+		}
+		
+		private string _city;
+		public virtual string City 
+		{ 
+		    get
+		    {
+		        return this._city;
+		    }
+		    set
+		    {
+		        this._city = value;
+		    }
+		}
+		
+		private string _state;
+		public virtual string State 
+		{ 
+		    get
+		    {
+		        return this._state;
+		    }
+		    set
+		    {
+		        this._state = value;
+		    }
+		}
+		
+		private string _country;
+		public virtual string Country 
+		{ 
+		    get
+		    {
+		        return this._country;
+		    }
+		    set
+		    {
+		        this._country = value;
+		    }
+		}
+		
+		private string _codPostal;
+		public virtual string CodPostal 
+		{ 
+		    get
+		    {
+		        return this._codPostal;
+		    }
+		    set
+		    {
+		        this._codPostal = value;
+		    }
+		}
+		
+	}
+}
+
+namespace AriUMModel	
+{
+	public partial class Product
+	{
+		private int _productId;
+		public virtual int ProductId 
+		{ 
+		    get
+		    {
+		        return this._productId;
+		    }
+		    set
+		    {
+		        this._productId = value;
+		    }
+		}
+		
+		private string _name;
+		public virtual string Name 
+		{ 
+		    get
+		    {
+		        return this._name;
+		    }
+		    set
+		    {
+		        this._name = value;
+		    }
+		}
+		
+		private decimal _price;
+		public virtual decimal Price 
+		{ 
+		    get
+		    {
+		        return this._price;
+		    }
+		    set
+		    {
+		        this._price = value;
 		    }
 		}
 		

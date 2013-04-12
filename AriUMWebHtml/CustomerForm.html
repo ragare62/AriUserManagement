@@ -1,0 +1,64 @@
+﻿<div class="row-fluid">
+    <div class="span12">
+        <h3>Cliente</h3>
+    </div>
+</div>
+<div class="row-fluid">
+    <div id="formCustomer" class="span12">
+        <div class="row-fluid">
+            <div class="span2">
+                <label>ID</label>
+                <input class="span12 k-text" type="text" id="txtId" name="Id" readonly="true" />
+            </div>
+            <div class="span10">
+                <label>Nombre</label>
+                <input class="span12 k-text" type="text" id="txtName" name="Name" required validationMessage="Se necesita un nombre" />
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="span3">
+                <label>NIF</label>
+                <input class="span12 k-text" type="text" id="txtNif" name="Nif" required validationMessage="Se necesita un NIF" />
+            </div>
+            <div class="span3">
+                <label>SERIE</label>
+                <input class="span12 k-text" type="text" id="txtSerialInvoice" name="SerialInvoice" required validationMessage="Se necesita una letra de serie" />
+            </div>
+            <div class="span6">
+                <label>Dirección</label>
+                <input class="span12 k-text" type="text" id="txtAddress" name="Address" required validationMessage="Se necesita una dirección" />
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="span4">
+                <label>Ciudad / Población</label>
+                <input class="span12 k-text" type="text" id="txtCity" name="City" required validationMessage="Se necesita una ciudad / población" />
+            </div>
+            <div class="span2">
+                <label>Código postal</label>
+                <input class="span12 k-text" type="text" id="txtCodPostal" name="CodPostal" required validationMessage="Se necesita un código postal" />
+            </div>
+            <div class="span3">
+                <label>Provincia / Estado</label>
+                <input class="span12 k-text" type="text" id="txtState" name="State" required validationMessage="Se necesita una provicia" />
+            </div>
+            <div class="span3">
+                <label>País</label>
+                <input class="span12 k-text" type="text" id="txtCountry" name="Country" required validationMessage="Se necesita una país" />
+            </div>
+        </div>
+
+        <div class="row-fluid">
+            <div class="pull-right">
+                <button id="accept" class="btn btn-primary" onclick="formCustomerAccept();" title="Guardar cambios">
+                    <i class="icon-ok icon-white"></i>
+                </button>
+                <button id="Button1" class="btn btn-primary" onclick="formCustomerCancel();" title="Guardar cambios">
+                    <i class="icon-arrow-left icon-white"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+                    

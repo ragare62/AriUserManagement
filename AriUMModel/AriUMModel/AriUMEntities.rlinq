@@ -42,6 +42,55 @@
           <orm:column name="nme" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
         </orm:field>
       </orm:class>
+      <orm:class name="Customer" use-default-mapping="true" uniqueId="60b5545d-df98-4800-bae4-a091cbc0ae22">
+        <orm:identity>
+          <orm:key-generator name="autoinc" />
+          <orm:single-field field-name="_customerId" />
+        </orm:identity>
+        <orm:field name="_customerId" property="CustomerId" uniqueId="8f3d6e49-cb35-4c63-97cc-da3c513e3532" type="System.Int32">
+          <orm:column name="CustomerId" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" converter="OpenAccessRuntime.Data.IntConverter" backend-calculated="true" ado-type="Int32" />
+        </orm:field>
+        <orm:field name="_name" property="Name" uniqueId="ff2e1f88-adcd-4304-96a7-be63c4fdcd4c" type="System.String">
+          <orm:column name="nme" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        </orm:field>
+        <orm:field name="_serialInvoice" property="SerialInvoice" uniqueId="29827944-787e-48e4-95eb-1a19d7b0c7f3" type="System.String">
+          <orm:column name="SerialInvoice" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        </orm:field>
+        <orm:field name="_address" property="Address" uniqueId="ea76a6ee-efc0-4eaa-b9ba-c8253f28043c" type="System.String">
+          <orm:column name="Address" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        </orm:field>
+        <orm:field name="_nif" property="Nif" uniqueId="9163d4ba-bf24-4ca7-a356-adec5d1ab49e" type="System.String">
+          <orm:column name="Nif" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        </orm:field>
+        <orm:field name="_city" property="City" uniqueId="f7ee47e3-f638-4f48-8470-024999dda088" type="System.String">
+          <orm:column name="City" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        </orm:field>
+        <orm:field name="_state" property="State" uniqueId="4b1f78cd-f4d9-43c5-a44f-a2deaef8bd66" type="System.String">
+          <orm:column name="stte" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        </orm:field>
+        <orm:field name="_country" property="Country" uniqueId="ed08e9f4-cbba-41c1-b3bc-4f99bb38e799" type="System.String">
+          <orm:column name="Country" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        </orm:field>
+        <orm:field name="_codPostal" property="CodPostal" uniqueId="bad0e155-e328-481d-8553-52fea44a28b0" type="System.String">
+          <orm:column name="CodPostal" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        </orm:field>
+      </orm:class>
+      <orm:class name="Product" uniqueId="54d7d734-619e-40ed-830d-187bd41d02f2">
+        <orm:table name="Product" />
+        <orm:identity>
+          <orm:key-generator name="autoinc" />
+          <orm:single-field field-name="_productId" />
+        </orm:identity>
+        <orm:field name="_productId" property="ProductId" uniqueId="04f805af-4155-4a77-a5bd-6ff65fc2ffce" type="System.Int32">
+          <orm:column name="ProductId" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" converter="OpenAccessRuntime.Data.IntConverter" backend-calculated="true" ado-type="Int32" />
+        </orm:field>
+        <orm:field name="_name" property="Name" uniqueId="e13df134-4f56-4012-ba5a-2d2a93100bd1" type="System.String">
+          <orm:column name="nme" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        </orm:field>
+        <orm:field name="_price" property="Price" uniqueId="32945680-fdf2-47a8-857b-931a09bea231" type="System.Decimal">
+          <orm:column name="Price" sql-type="decimal" nullable="false" length="10" scale="2" ado-type="Numeric" />
+        </orm:field>
+      </orm:class>
     </orm:namespace>
     <orm:schema schema="">
       <orm:table name="usr">
@@ -55,6 +104,11 @@
         <orm:column name="user_group_id" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" converter="OpenAccessRuntime.Data.IntConverter" backend-calculated="true" ado-type="Int32" />
         <orm:column name="nme" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
       </orm:table>
+      <orm:table name="Product">
+        <orm:column name="ProductId" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" converter="OpenAccessRuntime.Data.IntConverter" backend-calculated="true" ado-type="Int32" />
+        <orm:column name="nme" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        <orm:column name="Price" sql-type="decimal" nullable="false" length="10" scale="2" ado-type="Numeric" />
+      </orm:table>
     </orm:schema>
     <orm:relational-naming-settings>
       <orm:remove-camel-case>False</orm:remove-camel-case>
@@ -63,7 +117,7 @@
   </orm:orm>
   <ModelSettings xmlns="">
     <AppConfigConnectionPropertyName>AriUMDBConnection</AppConfigConnectionPropertyName>
-    <AppConfigConnectionString>server=localhost;user id=root;password=aritel;database=AriUMDB</AppConfigConnectionString>
+    <AppConfigConnectionString>server=localhost;user id=root;password=aritel;database=ariumdb</AppConfigConnectionString>
     <NamingSettings>
       <ClassRules>
         <CaseMode>PascalCase</CaseMode>
@@ -122,12 +176,30 @@
       <Property Id="6eb67018-4798-4473-8d3d-28d92a784ce5" name="UserGroupId" type="System.Int32" label="UserGroupId : System.Int32" identity="true" fieldName="_userGroupId" />
       <Property Id="c7ba0bb5-368b-49cf-8e68-d266708c9cbe" name="Name" label="Name : String" fieldName="_name" />
     </DomainClass>
+    <DomainClass Id="60b5545d-df98-4800-bae4-a091cbc0ae22" name="Customer" namespace="AriUMModel" showPropertiesCompartment="true" identityMechanism="DatabaseServerCalculated" showNavigationCompartment="true" showImplementationCompartment="true">
+      <Property Id="8f3d6e49-cb35-4c63-97cc-da3c513e3532" name="CustomerId" type="System.Int32" label="CustomerId : System.Int32" identity="true" fieldName="_customerId" />
+      <Property Id="ff2e1f88-adcd-4304-96a7-be63c4fdcd4c" name="Name" label="Name : String" fieldName="_name" />
+      <Property Id="29827944-787e-48e4-95eb-1a19d7b0c7f3" name="SerialInvoice" label="SerialInvoice : String" fieldName="_serialInvoice" />
+      <Property Id="ea76a6ee-efc0-4eaa-b9ba-c8253f28043c" name="Address" label="Address : String" fieldName="_address" />
+      <Property Id="9163d4ba-bf24-4ca7-a356-adec5d1ab49e" name="Nif" label="Nif : String" fieldName="_nif" />
+      <Property Id="f7ee47e3-f638-4f48-8470-024999dda088" name="City" label="City : String" fieldName="_city" />
+      <Property Id="4b1f78cd-f4d9-43c5-a44f-a2deaef8bd66" name="State" label="State : String" fieldName="_state" />
+      <Property Id="ed08e9f4-cbba-41c1-b3bc-4f99bb38e799" name="Country" label="Country : String" fieldName="_country" />
+      <Property Id="bad0e155-e328-481d-8553-52fea44a28b0" name="CodPostal" label="CodPostal : String" fieldName="_codPostal" />
+    </DomainClass>
+    <DomainClass Id="54d7d734-619e-40ed-830d-187bd41d02f2" name="Product" namespace="AriUMModel" showPropertiesCompartment="true" identityMechanism="DatabaseServerCalculated" showNavigationCompartment="true" showImplementationCompartment="true">
+      <Property Id="04f805af-4155-4a77-a5bd-6ff65fc2ffce" name="ProductId" type="System.Int32" label="ProductId : System.Int32" identity="true" fieldName="_productId" />
+      <Property Id="e13df134-4f56-4012-ba5a-2d2a93100bd1" name="Name" label="Name : String" fieldName="_name" />
+      <Property Id="32945680-fdf2-47a8-857b-931a09bea231" name="Price" type="Decimal" label="Price : Decimal" fieldName="_price" />
+    </DomainClass>
   </Types>
   <domainContext>
     <domainModelHasDomainContext Id="be944f3b-0231-4ef4-9a06-8b484afbfd69">
       <domainContainer name="AriUMContext" namespace="AriUMModel" showPropertiesCompartment="true">
         <entitySetProperty name="Users" namespace="AriUMModel" type="User" label="Users : IQueryable&lt;AriUMModel.User&gt;" />
         <entitySetProperty name="UserGroups" namespace="AriUMModel" type="UserGroup" label="UserGroups : IQueryable&lt;AriUMModel.UserGroup&gt;" />
+        <entitySetProperty name="Customers" namespace="AriUMModel" type="Customer" label="Customers : IQueryable&lt;AriUMModel.Customer&gt;" />
+        <entitySetProperty name="Products" namespace="AriUMModel" type="Product" label="Products : IQueryable&lt;AriUMModel.Product&gt;" />
       </domainContainer>
     </domainModelHasDomainContext>
   </domainContext>

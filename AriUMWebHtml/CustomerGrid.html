@@ -1,0 +1,44 @@
+﻿<!--
+CustomerGrid:  
+-->
+<div class="row-fluid">
+    <div class="span12">
+        <h3 id="CustomerGridTitle">Clientes</h3>
+    </div>
+</div>
+<div class="row-fluid">
+    <div id="gridCustomer" class="span12">
+
+    </div>
+</div>
+<!-- Templates used in this page -->
+<script type="text/x-kendo-template" id="tNewCustomer">
+    <button class="btn btn-primary" onclick="formCustomerNew();" title="Nuevo registro">
+        <i class="icon-plus icon-white"></i>
+    </button>
+</script>
+<script type="text/x-kendo-template" id="tNewCustomerS">
+    <button class="btn btn-primary" onclick="formCustomerNew();" title="Nuevo registro">
+        <i class="icon-plus icon-white"></i>
+    </button>
+    <button class="btn btn-primary" onclick="gridCustomerExit();" title="Volver al formulario">
+        <i class="icon-arrow-left icon-white"></i>
+    </button>
+</script>
+<script type="tex/x-kendo-template" id="tEditCustomer">
+    <div class="pull-right">
+        <button class="btn btn-primary" onclick="formCustomerEdit(#=CustomerId#);" title="Editar registro">
+            <i class="icon-pencil icon-white"></i>
+        </button>
+        <button class="btn btn-primary" onclick="gridCustomerDelete(#=CustomerId#,'#=Name#');" title="Eliminar registro">
+            <i class="icon-minus icon-white"></i>
+        </button>
+    </div>
+</script>
+<script type="tex/x-kendo-template" id="tEditCustomerS">
+    <div class="pull-right">
+        <button class="btn btn-primary" onclick="gridCustomerSelect(#=CustomerId#,'#=Name#');" title="Seleccionar registro">
+            <i class="icon-share icon-white"></i>
+        </button>
+    </div>
+</script>
