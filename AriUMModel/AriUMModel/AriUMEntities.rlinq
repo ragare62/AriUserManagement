@@ -42,7 +42,8 @@
           <orm:column name="nme" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
         </orm:field>
       </orm:class>
-      <orm:class name="Customer" use-default-mapping="true" uniqueId="60b5545d-df98-4800-bae4-a091cbc0ae22">
+      <orm:class name="Customer" uniqueId="60b5545d-df98-4800-bae4-a091cbc0ae22">
+        <orm:table name="Customer" />
         <orm:identity>
           <orm:key-generator name="autoinc" />
           <orm:single-field field-name="_customerId" />
@@ -74,6 +75,9 @@
         <orm:field name="_codPostal" property="CodPostal" uniqueId="bad0e155-e328-481d-8553-52fea44a28b0" type="System.String">
           <orm:column name="CodPostal" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
         </orm:field>
+        <orm:field name="_invoices" property="Invoices" behavior="readwrite" uniqueId="8fa10292-26e4-4a70-a866-174fc5ab5796" type="AriUMModel.Invoice">
+          <orm:collection element-class="AriUMModel.Invoice" inverse-field="_customer" order-by="" uniqueId="0b7d65b1-528c-4f53-b166-489743a4f6a2" />
+        </orm:field>
       </orm:class>
       <orm:class name="Product" uniqueId="54d7d734-619e-40ed-830d-187bd41d02f2">
         <orm:table name="Product" />
@@ -89,6 +93,61 @@
         </orm:field>
         <orm:field name="_price" property="Price" uniqueId="32945680-fdf2-47a8-857b-931a09bea231" type="System.Decimal">
           <orm:column name="Price" sql-type="decimal" nullable="false" length="10" scale="2" ado-type="Numeric" />
+        </orm:field>
+      </orm:class>
+      <orm:class name="Invoice" uniqueId="61b5fb62-3ee8-4764-ba84-a4d15ad42470">
+        <orm:table name="Invoice" />
+        <orm:identity>
+          <orm:key-generator name="autoinc" />
+          <orm:single-field field-name="_invoiceId" />
+        </orm:identity>
+        <orm:field name="_invoiceId" property="InvoiceId" uniqueId="3bf5e2b2-ede8-45b4-92f0-900c29c0a4b2" type="System.Int32">
+          <orm:column name="InvoiceId" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" converter="OpenAccessRuntime.Data.IntConverter" backend-calculated="true" ado-type="Int32" />
+        </orm:field>
+        <orm:field name="_invoiceDate" property="InvoiceDate" uniqueId="d9abe229-1e6e-4995-a540-8473ff92b7f4" type="System.DateTime">
+          <orm:column name="InvoiceDate" sql-type="datetime" nullable="false" length="0" scale="0" converter="OpenAccessRuntime.Data.Timestamp2DateTimeConverter" ado-type="DateTime" />
+        </orm:field>
+        <orm:field name="_serial" property="Serial" uniqueId="cbb71dd8-4450-4cb4-a2cb-3744c512bd48" type="System.String">
+          <orm:column name="srial" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        </orm:field>
+        <orm:field name="_invoiceNumber" property="InvoiceNumber" uniqueId="040727c8-49bc-47d6-b752-7126ae5ffecd" type="System.Int32">
+          <orm:column name="InvoiceNumber" sql-type="integer" nullable="false" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
+        </orm:field>
+        <orm:field name="_total" property="Total" uniqueId="454212fd-0477-4dcf-b93b-2db3a623d272" type="System.Decimal">
+          <orm:column name="ttal" sql-type="decimal" nullable="false" length="20" scale="10" ado-type="Numeric" />
+        </orm:field>
+        <orm:field name="_year" property="Year" uniqueId="96735566-b53a-4d40-97fe-cc93c89ca0be" type="System.Int32">
+          <orm:column name="yr" sql-type="integer" nullable="false" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
+        </orm:field>
+        <orm:field name="_customer" property="Customer" behavior="readwrite" uniqueId="262b0233-34f6-4252-9091-21bb5a2f1c24" type="AriUMModel.Customer">
+          <orm:reference uniqueId="0b7d65b1-528c-4f53-b166-489743a4f6a2" />
+        </orm:field>
+        <orm:field name="_invoiceLines" property="InvoiceLines" behavior="readwrite" uniqueId="f81ce1e6-21e2-4335-893e-3359322db863" type="AriUMModel.InvoiceLine">
+          <orm:collection element-class="AriUMModel.InvoiceLine" inverse-field="_invoice" order-by="" uniqueId="6886b5be-95cc-4031-9e46-27c0e2adf7d1" />
+        </orm:field>
+        <orm:index name="idx_Invoice_CustomerId">
+          <orm:columnMapping>
+            <orm:column name="CustomerId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
+          </orm:columnMapping>
+        </orm:index>
+      </orm:class>
+      <orm:class name="InvoiceLine" uniqueId="8ccc6c97-55aa-4eb4-9565-809f00ede902">
+        <orm:table name="InvoiceLine" />
+        <orm:identity>
+          <orm:key-generator name="autoinc" />
+          <orm:single-field field-name="_invoiceLineId" />
+        </orm:identity>
+        <orm:field name="_invoiceLineId" property="InvoiceLineId" uniqueId="59c544e0-5321-4b2d-916b-94324ff790e7" type="System.Int32">
+          <orm:column name="InvoiceLineId" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" converter="OpenAccessRuntime.Data.IntConverter" backend-calculated="true" ado-type="Int32" />
+        </orm:field>
+        <orm:field name="_quantity" property="Quantity" uniqueId="e039f581-46ab-4b3d-9d55-e27e3e36b557" type="System.Decimal">
+          <orm:column name="Quantity" sql-type="decimal" nullable="false" length="20" scale="10" ado-type="Numeric" />
+        </orm:field>
+        <orm:field name="_amount" property="Amount" uniqueId="50281b66-a504-4109-a01a-79b9f2e2e332" type="System.Decimal">
+          <orm:column name="Amount" sql-type="decimal" nullable="false" length="20" scale="10" ado-type="Numeric" />
+        </orm:field>
+        <orm:field name="_invoice" property="Invoice" behavior="readwrite" uniqueId="46ff9c31-30d9-4e41-bfc4-9a780dae68aa" type="AriUMModel.Invoice">
+          <orm:reference uniqueId="6886b5be-95cc-4031-9e46-27c0e2adf7d1" />
         </orm:field>
       </orm:class>
     </orm:namespace>
@@ -108,6 +167,36 @@
         <orm:column name="ProductId" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" converter="OpenAccessRuntime.Data.IntConverter" backend-calculated="true" ado-type="Int32" />
         <orm:column name="nme" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
         <orm:column name="Price" sql-type="decimal" nullable="false" length="10" scale="2" ado-type="Numeric" />
+      </orm:table>
+      <orm:table name="Customer">
+        <orm:column name="CustomerId" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" converter="OpenAccessRuntime.Data.IntConverter" backend-calculated="true" ado-type="Int32" />
+        <orm:column name="nme" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        <orm:column name="SerialInvoice" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        <orm:column name="Address" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        <orm:column name="Nif" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        <orm:column name="City" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        <orm:column name="stte" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        <orm:column name="Country" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        <orm:column name="CodPostal" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+      </orm:table>
+      <orm:table name="InvoiceLine">
+        <orm:column name="InvoiceLineId" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" converter="OpenAccessRuntime.Data.IntConverter" backend-calculated="true" ado-type="Int32" />
+        <orm:column name="Quantity" sql-type="decimal" nullable="false" length="20" scale="10" ado-type="Numeric" />
+        <orm:column name="Amount" sql-type="decimal" nullable="false" length="20" scale="10" ado-type="Numeric" />
+      </orm:table>
+      <orm:table name="Invoice">
+        <orm:column name="InvoiceId" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" converter="OpenAccessRuntime.Data.IntConverter" backend-calculated="true" ado-type="Int32" />
+        <orm:column name="InvoiceDate" sql-type="datetime" nullable="false" length="0" scale="0" converter="OpenAccessRuntime.Data.Timestamp2DateTimeConverter" ado-type="DateTime" />
+        <orm:column name="srial" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        <orm:column name="InvoiceNumber" sql-type="integer" nullable="false" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
+        <orm:column name="ttal" sql-type="decimal" nullable="false" length="20" scale="10" ado-type="Numeric" />
+        <orm:column name="CustomerId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
+        <orm:column name="yr" sql-type="integer" nullable="false" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
+        <orm:index name="idx_Invoice_CustomerId">
+          <orm:columnMapping>
+            <orm:column name="CustomerId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
+          </orm:columnMapping>
+        </orm:index>
       </orm:table>
     </orm:schema>
     <orm:relational-naming-settings>
@@ -186,11 +275,72 @@
       <Property Id="4b1f78cd-f4d9-43c5-a44f-a2deaef8bd66" name="State" label="State : String" fieldName="_state" />
       <Property Id="ed08e9f4-cbba-41c1-b3bc-4f99bb38e799" name="Country" label="Country : String" fieldName="_country" />
       <Property Id="bad0e155-e328-481d-8553-52fea44a28b0" name="CodPostal" label="CodPostal : String" fieldName="_codPostal" />
+      <navigationalProperties>
+        <classHasNavigationalProperties Id="8670e809-9043-4ad4-be66-fa64b7117346">
+          <NavigationalProperty Id="8fa10292-26e4-4a70-a866-174fc5ab5796" name="Invoices" type="IList&lt;Invoice&gt;" label="Invoices : IList&lt;Invoice&gt;" nullable="true" kind="Persistent" fieldName="_invoices" isDependent="false" isManaged="false" />
+        </classHasNavigationalProperties>
+      </navigationalProperties>
     </DomainClass>
     <DomainClass Id="54d7d734-619e-40ed-830d-187bd41d02f2" name="Product" namespace="AriUMModel" showPropertiesCompartment="true" identityMechanism="DatabaseServerCalculated" showNavigationCompartment="true" showImplementationCompartment="true">
       <Property Id="04f805af-4155-4a77-a5bd-6ff65fc2ffce" name="ProductId" type="System.Int32" label="ProductId : System.Int32" identity="true" fieldName="_productId" />
       <Property Id="e13df134-4f56-4012-ba5a-2d2a93100bd1" name="Name" label="Name : String" fieldName="_name" />
       <Property Id="32945680-fdf2-47a8-857b-931a09bea231" name="Price" type="Decimal" label="Price : Decimal" fieldName="_price" />
+    </DomainClass>
+    <DomainClass Id="61b5fb62-3ee8-4764-ba84-a4d15ad42470" name="Invoice" namespace="AriUMModel" showPropertiesCompartment="true" identityMechanism="DatabaseServerCalculated" showNavigationCompartment="true" showImplementationCompartment="true">
+      <Property Id="3bf5e2b2-ede8-45b4-92f0-900c29c0a4b2" name="InvoiceId" type="System.Int32" label="InvoiceId : System.Int32" identity="true" fieldName="_invoiceId" />
+      <Property Id="d9abe229-1e6e-4995-a540-8473ff92b7f4" name="InvoiceDate" type="DateTime" label="InvoiceDate : DateTime" fieldName="_invoiceDate" />
+      <Property Id="cbb71dd8-4450-4cb4-a2cb-3744c512bd48" name="Serial" label="Serial : String" fieldName="_serial" />
+      <Property Id="040727c8-49bc-47d6-b752-7126ae5ffecd" name="InvoiceNumber" type="Int32" label="InvoiceNumber : Int32" fieldName="_invoiceNumber" />
+      <Property Id="454212fd-0477-4dcf-b93b-2db3a623d272" name="Total" type="Decimal" label="Total : Decimal" fieldName="_total" />
+      <Property Id="96735566-b53a-4d40-97fe-cc93c89ca0be" name="Year" type="Int32" label="Year : Int32" fieldName="_year" />
+      <AssociationTargets>
+        <Association Id="0b7d65b1-528c-4f53-b166-489743a4f6a2" SourceMultiplicity="ZeroOne" name="InvoiceHasCustomer">
+          <DomainClassMoniker name="/AriUMContext/Customer" />
+          <targetNavigationalProperty>
+            <associationDefinesTargetProperty Id="f7116092-0644-44fa-a835-c2724a1ed765">
+              <NavigationalPropertyMoniker name="/AriUMContext/Customer/Invoices" />
+            </associationDefinesTargetProperty>
+          </targetNavigationalProperty>
+          <sourceNavigationalProperty>
+            <associationDefinesSourceProperty Id="aeacbcdc-4f7f-4e51-ae67-2967a8b7ff13">
+              <NavigationalPropertyMoniker name="/AriUMContext/Invoice/Customer" />
+            </associationDefinesSourceProperty>
+          </sourceNavigationalProperty>
+        </Association>
+      </AssociationTargets>
+      <navigationalProperties>
+        <classHasNavigationalProperties Id="08a008e0-5faf-4664-99cf-b20ccdf86116">
+          <NavigationalProperty Id="262b0233-34f6-4252-9091-21bb5a2f1c24" name="Customer" type="Customer" label="Customer : Customer" nullable="true" kind="Persistent" fieldName="_customer" isDependent="false" isManaged="false" />
+        </classHasNavigationalProperties>
+        <classHasNavigationalProperties Id="529cc45d-4a93-4826-baee-980ef30a390a">
+          <NavigationalProperty Id="f81ce1e6-21e2-4335-893e-3359322db863" name="InvoiceLines" type="IList&lt;InvoiceLine&gt;" label="InvoiceLines : IList&lt;InvoiceLine&gt;" nullable="true" kind="Persistent" fieldName="_invoiceLines" isDependent="false" isManaged="false" />
+        </classHasNavigationalProperties>
+      </navigationalProperties>
+    </DomainClass>
+    <DomainClass Id="8ccc6c97-55aa-4eb4-9565-809f00ede902" name="InvoiceLine" namespace="AriUMModel" showPropertiesCompartment="true" identityMechanism="DatabaseServerCalculated" showNavigationCompartment="true" showImplementationCompartment="true">
+      <Property Id="59c544e0-5321-4b2d-916b-94324ff790e7" name="InvoiceLineId" type="System.Int32" label="InvoiceLineId : System.Int32" identity="true" fieldName="_invoiceLineId" />
+      <Property Id="e039f581-46ab-4b3d-9d55-e27e3e36b557" name="Quantity" type="Decimal" label="Quantity : Decimal" fieldName="_quantity" />
+      <Property Id="50281b66-a504-4109-a01a-79b9f2e2e332" name="Amount" type="Decimal" label="Amount : Decimal" fieldName="_amount" />
+      <AssociationTargets>
+        <Association Id="6886b5be-95cc-4031-9e46-27c0e2adf7d1" SourceMultiplicity="ZeroOne" name="InvoiceLineHasInvoice">
+          <DomainClassMoniker name="/AriUMContext/Invoice" />
+          <targetNavigationalProperty>
+            <associationDefinesTargetProperty Id="ef6b2617-846f-4fe3-ba7c-21de602adf9c">
+              <NavigationalPropertyMoniker name="/AriUMContext/Invoice/InvoiceLines" />
+            </associationDefinesTargetProperty>
+          </targetNavigationalProperty>
+          <sourceNavigationalProperty>
+            <associationDefinesSourceProperty Id="048b7c99-f3e5-4341-98ea-2f4da1ab00dd">
+              <NavigationalPropertyMoniker name="/AriUMContext/InvoiceLine/Invoice" />
+            </associationDefinesSourceProperty>
+          </sourceNavigationalProperty>
+        </Association>
+      </AssociationTargets>
+      <navigationalProperties>
+        <classHasNavigationalProperties Id="a5e4da05-e5ed-44fd-a1b9-1209cf548aa3">
+          <NavigationalProperty Id="46ff9c31-30d9-4e41-bfc4-9a780dae68aa" name="Invoice" type="Invoice" label="Invoice : Invoice" nullable="true" kind="Persistent" fieldName="_invoice" isDependent="false" isManaged="false" />
+        </classHasNavigationalProperties>
+      </navigationalProperties>
     </DomainClass>
   </Types>
   <domainContext>
@@ -200,6 +350,8 @@
         <entitySetProperty name="UserGroups" namespace="AriUMModel" type="UserGroup" label="UserGroups : IQueryable&lt;AriUMModel.UserGroup&gt;" />
         <entitySetProperty name="Customers" namespace="AriUMModel" type="Customer" label="Customers : IQueryable&lt;AriUMModel.Customer&gt;" />
         <entitySetProperty name="Products" namespace="AriUMModel" type="Product" label="Products : IQueryable&lt;AriUMModel.Product&gt;" />
+        <entitySetProperty name="Invoices" namespace="AriUMModel" type="Invoice" label="Invoices : IQueryable&lt;AriUMModel.Invoice&gt;" />
+        <entitySetProperty name="InvoiceLines" namespace="AriUMModel" type="InvoiceLine" label="InvoiceLines : IQueryable&lt;AriUMModel.InvoiceLine&gt;" />
       </domainContainer>
     </domainModelHasDomainContext>
   </domainContext>

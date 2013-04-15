@@ -1,0 +1,58 @@
+﻿<div class="row-fluid">
+    <div class="span12">
+        <h3>Factura</h3>
+    </div>
+</div>
+<div class="row-fluid">
+    <div id="formInvoice" class="span12">
+        <div class="row-fluid">
+            <div class="span2">
+                <label for="txtId">ID</label>
+                <input class="span12 k-text" type="text" name="Id" id="txtId" readonly="true" />
+            </div>
+            <div class="span10">
+                <label for="txtCustomer">Cliente</label>
+                <input name="Customer" id="txtCustomer" style="width:inherit;"/>
+                <button id="sCustomer" class="btn-primary" title="Buscar clientes" onclick="formInvoiceSearch('Customer');">
+                    <i class="icon-search icon-white"></i>
+                </button>
+                <input type="hidden" id="txtCustomerId" />
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row-fluid">
+    <div class="span2"></div>
+    <div class="span3">
+        <label for="txtInvoiceDate">Fecha</label>
+        <input id="txtInvoiceDate" name="InvoiceDate"/>
+    </div>
+    <div class="span1">
+        <label for="txtYear">Año</label>
+        <input class="span12 k-text" type="text" name="Year" id="txtYear" readonly="true"/>
+    </div>
+    <div class="span1">
+        <label for="txtSerial">Serie</label>
+        <input class="span12 k-text" type="text" name="Serial" id="txtSerial" readonly="true"/>
+    </div>
+    <div class="span1">
+        <label for="txtInvoiceNumber">Numero</label>
+        <input class="span12 k-text" type="text" name="InvoiceNumber" id="txtInvoiceNumber" readonly="true"/>
+    </div>
+    <div class="span2">
+        <label for="txtTotal">Total</label>
+        <input class="span12 k-text" type="number" name="Total" id="txtTotal" readonly="true"/>
+    </div>
+</div>
+<div class="row-fluid">
+    <div class="pull-right">
+        <button id="accept" class="btn btn-primary" onclick="formInvoiceAccept();" title="Guardar cambios">
+            <i class="icon-ok icon-white"></i>
+        </button>
+        <button id="cancel" class="btn btn-primary" onclick="formInvoiceCancel();" title="Salir">
+            <i class="icon-arrow-left icon-white"></i>
+        </button>
+    </div>
+</div>
+
+                    

@@ -84,6 +84,22 @@ namespace AriUMModel
 	    	}
 		}
 		
+		public IQueryable<Invoice> Invoices 
+		{
+	    	get
+	    	{
+	        	return this.GetAll<Invoice>();
+	    	}
+		}
+		
+		public IQueryable<InvoiceLine> InvoiceLines 
+		{
+	    	get
+	    	{
+	        	return this.GetAll<InvoiceLine>();
+	    	}
+		}
+		
 		public static BackendConfiguration GetBackendConfiguration()
 		{
 			BackendConfiguration backend = new BackendConfiguration();
@@ -111,6 +127,16 @@ namespace AriUMModel
 		}
 
 		IQueryable<Product> Products 
+		{ 
+			get;
+		}
+
+		IQueryable<Invoice> Invoices 
+		{ 
+			get;
+		}
+
+		IQueryable<InvoiceLine> InvoiceLines 
 		{ 
 			get;
 		}
@@ -357,6 +383,15 @@ namespace AriUMModel
 		    }
 		}
 		
+		private IList<Invoice> _invoices = new List<Invoice>();
+		public virtual IList<Invoice> Invoices 
+		{ 
+		    get
+		    {
+		        return this._invoices;
+		    }
+		}
+		
 	}
 }
 
@@ -400,6 +435,172 @@ namespace AriUMModel
 		    set
 		    {
 		        this._price = value;
+		    }
+		}
+		
+	}
+}
+
+namespace AriUMModel	
+{
+	public partial class Invoice
+	{
+		private int _invoiceId;
+		public virtual int InvoiceId 
+		{ 
+		    get
+		    {
+		        return this._invoiceId;
+		    }
+		    set
+		    {
+		        this._invoiceId = value;
+		    }
+		}
+		
+		private DateTime _invoiceDate;
+		public virtual DateTime InvoiceDate 
+		{ 
+		    get
+		    {
+		        return this._invoiceDate;
+		    }
+		    set
+		    {
+		        this._invoiceDate = value;
+		    }
+		}
+		
+		private string _serial;
+		public virtual string Serial 
+		{ 
+		    get
+		    {
+		        return this._serial;
+		    }
+		    set
+		    {
+		        this._serial = value;
+		    }
+		}
+		
+		private int _invoiceNumber;
+		public virtual int InvoiceNumber 
+		{ 
+		    get
+		    {
+		        return this._invoiceNumber;
+		    }
+		    set
+		    {
+		        this._invoiceNumber = value;
+		    }
+		}
+		
+		private decimal _total;
+		public virtual decimal Total 
+		{ 
+		    get
+		    {
+		        return this._total;
+		    }
+		    set
+		    {
+		        this._total = value;
+		    }
+		}
+		
+		private int _year;
+		public virtual int Year 
+		{ 
+		    get
+		    {
+		        return this._year;
+		    }
+		    set
+		    {
+		        this._year = value;
+		    }
+		}
+		
+		private Customer _customer;
+		public virtual Customer Customer 
+		{ 
+		    get
+		    {
+		        return this._customer;
+		    }
+		    set
+		    {
+		        this._customer = value;
+		    }
+		}
+		
+		private IList<InvoiceLine> _invoiceLines = new List<InvoiceLine>();
+		public virtual IList<InvoiceLine> InvoiceLines 
+		{ 
+		    get
+		    {
+		        return this._invoiceLines;
+		    }
+		}
+		
+	}
+}
+
+namespace AriUMModel	
+{
+	public partial class InvoiceLine
+	{
+		private int _invoiceLineId;
+		public virtual int InvoiceLineId 
+		{ 
+		    get
+		    {
+		        return this._invoiceLineId;
+		    }
+		    set
+		    {
+		        this._invoiceLineId = value;
+		    }
+		}
+		
+		private decimal _quantity;
+		public virtual decimal Quantity 
+		{ 
+		    get
+		    {
+		        return this._quantity;
+		    }
+		    set
+		    {
+		        this._quantity = value;
+		    }
+		}
+		
+		private decimal _amount;
+		public virtual decimal Amount 
+		{ 
+		    get
+		    {
+		        return this._amount;
+		    }
+		    set
+		    {
+		        this._amount = value;
+		    }
+		}
+		
+		private Invoice _invoice;
+		public virtual Invoice Invoice 
+		{ 
+		    get
+		    {
+		        return this._invoice;
+		    }
+		    set
+		    {
+		        this._invoice = value;
 		    }
 		}
 		

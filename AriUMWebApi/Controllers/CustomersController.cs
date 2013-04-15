@@ -17,12 +17,23 @@ namespace AriUMWebApi.Controllers
         {
             using (AriUMContext ctx = new AriUMContext("AriUMDBConnection"))
             {
-                IEnumerable<Customer> customer = CntWebApiVerbs.GetCustomers(ctx);
-                IEnumerable<Customer> cS = ctx.CreateDetachedCopy<IEnumerable<Customer>>(customer);
+                IEnumerable<Customer> customers = CntWebApiVerbs.GetCustomers(ctx);
+                IEnumerable<Customer> cS = ctx.CreateDetachedCopy<IEnumerable<Customer>>(customers);
                 return cS;
             }
         }
 
+        public IEnumerable<Customer> Get(string order)
+        {
+            using (AriUMContext ctx = new AriUMContext("AriUMDBConnection"))
+            {
+                IEnumerable<Customer> customers = (from c in ctx.Customers
+                                                   orderby c.Name
+                                                   select c).ToList<Customer>();
+                IEnumerable<Customer> cS = ctx.CreateDetachedCopy<IEnumerable<Customer>>(customers);
+                return cS;
+            }
+        }
 
         // GET api/customers/5
         public virtual Customer Get(int id)

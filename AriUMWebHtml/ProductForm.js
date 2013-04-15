@@ -10,8 +10,8 @@
     });
 }
 function buildProductForm() {
-    var c = "#ProductFormContainer ";
-    $(c + "#txtPrice").kendoNumericTextBox();
+    //var c = "#ProductFormContainer ";
+    //$(c + "#txtPrice").kendoNumericTextBox();
 }
 
 function formProductNew() {

@@ -1,0 +1,67 @@
+﻿<div class="row-fluid">
+    <div class="span12">
+        <h3>Usuario</h3>
+    </div>
+</div>
+
+<div class="row-fluid">
+    <div id="formInvoiceLine" class="span12">
+        <div class="row-fluid">
+            <div class="span2">
+                <label for="txtId">ID</label>
+                <input class="span12 k-text" type="text" name="Id" id="txtId" readonly="true" />
+            </div>
+            <div class="span10">
+                <label for="txtName">Nombre</label>
+                <input class="span12 k-text" type="text" name="Name" id="txtName" required 
+                       data-required-msg="Se necesita un nombre" />
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="span2"></div>
+            <div class="span10">
+                <label for="txtEmail">Correo electrónico</label>
+                <input class="span12 k-text" type="email" name="Email" id="txtEmail" required 
+                       data-required-msg="Se necesita un correo" 
+                       data-email-msg="Dirección incorrecta" />
+            </div>
+        </div>
+        <div class="row-fluid"  style="margin-bottom:10px;">
+            <div class="span2"></div>
+            <div class="span10">
+                <label for="txtInvoiceLineGroup">Grupo</label>
+                <input name="InvoiceLineGroup" id="txtInvoiceLineGroup" style="width:inherit;"/>
+                <button id="sInvoiceLineGroup" class="btn-primary" title="Buscar grupos" onclick="formInvoiceLineSearch('InvoiceLineGroup');">
+                    <i class="icon-search icon-white"></i>
+                </button>
+                <input type="hidden" id="txtInvoiceLineGroupId" />
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="span2"></div>
+            <div class="span10">
+                <label for="txtPassword1">Contraseña</label>
+                <input class="span12 k-text" type="password" name="Password1" id="txtPassword1" />
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="span2"></div>
+            <div class="span10">
+                <label for="txtPassword2">Repita la contraseña</label>
+                <input class="span12 k-text" type="password" name="Password2" id="txtPassword2" />
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="pull-right">
+                <button id="accept" class="btn btn-primary" onclick="formInvoiceLineAccept();" title="Guardar cambios">
+                    <i class="icon-ok icon-white"></i>
+                </button>
+                <button id="cancel" class="btn btn-primary" onclick="formInvoiceLineCancel();" title="Salir">
+                    <i class="icon-arrow-left icon-white"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+                    

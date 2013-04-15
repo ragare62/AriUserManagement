@@ -107,21 +107,21 @@ function deleteResponse(arg) {
 }
 function gridCustomerSelect(id, name) {
     switch (caller) {
-        case "UserForm":
-            var c = "#UserFormContainer ";
+        case "InvoiceForm":
+            var c = "#InvoiceFormContainer ";
             $(c + "#txtCustomer").val(name);
             $(c + "#txtCustomerId").val(id);
             $("#CustomerGridContainer").hide();
-            $("#UserFormContainer").show();
+            $("#InvoiceFormContainer").show();
             break;
     }
     caller = "";
 }
 function gridCustomerExit() {
     switch (caller) {
-        case "UserForm":
+        case "InvoiceForm":
             $("#CustomerGridContainer").hide();
-            $("#UserFormContainer").show();
+            $("#InvoiceFormContainer").show();
             break;
     }
     caller = "";

@@ -73,6 +73,8 @@
     <Content Include="SQL\2013-1-0-1AriUMDBConnection%282013-04-12 12-38-41%29.rlinq.sql" />
     <Content Include="SQL\2013-1-0-1AriUMDBConnection%282013-04-12 16-43-24%29.rlinq.sql" />
     <Content Include="SQL\2013-1-0-1AriUMDBConnection%282013-04-12 17-09-59%29.rlinq.sql" />
+    <Content Include="SQL\2013-1-0-1AriUMDBConnection%282013-04-15 08-56-00%29.rlinq.sql" />
+    <Content Include="SQL\2013-1-0-1AriUMDBConnection%282013-04-15 10-06-39%29.rlinq.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Condition="Exists('$(MSBuildExtensionsPath)\OpenAccess.targets')" Project="$(MSBuildExtensionsPath)\OpenAccess.targets" />

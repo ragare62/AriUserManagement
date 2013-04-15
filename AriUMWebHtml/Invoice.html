@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <title>Facturas</title>
+        <!-- Bootstrap styles -->
+        <link href="Content/bootstrap.min.css" rel="stylesheet" media="screen" />
+        <!-- Kendo styles -->
+        <link href="Content/kendo/2012.3.1114/kendo.common.min.css" rel="stylesheet" />
+        <link href="Content/kendo/2012.3.1114/kendo.bootstrap.min.css" rel="stylesheet" />
+        <!-- Ariadna styles -->
+        <link href="Content/ariadna.css" rel="stylesheet" />
+
+        <!-- JQuery -->
+        <script src="Scripts/kendo/2012.3.1114/jquery.min.js"></script>
+        <!-- Bootstrap -->
+        <script src="Scripts/bootstrap.min.js"></script>
+        <!-- Bootbox -->
+        <script src="Scripts/bootbox.js"></script>
+        <!-- Moment -->
+        <script src="Scripts/moment.js"></script>
+        <!-- Kendo -->
+        <script src="Scripts/kendo/2012.3.1114/kendo.web.min.js"></script>
+        <script src="Scripts/kendo/2012.3.1114/cultures/kendo.culture.es-ES.min.js"></script>
+        <!-- Ariadna  -->
+        <script src="Scripts/ariadna/ariadna.um.js"></script>
+        <script src="Scripts/ariadna/ariadna.localization.es-ES.js"></script>
+        <!-- Configuration via JSON -->
+        <script src="config.js"></script>
+    </head>
+    <body>
+        <header id="header">
+        </header>
+        <div id="body" style="min-height:400px;">
+            <div id="InvoiceGridContainer" class="container-fluid">
+            </div>
+            <div id="InvoiceFormContainer" class="container-fluid">
+            </div>
+            <!-- Search customer from invoice -->
+            <div id="CustomerGridContainer" class="container-fluid">
+            </div>
+            <div id="CustomerFormContainer" class="container-fluid">
+            </div>
+        </div>
+        <footer id="footer">
+        </footer>
+
+        <script type="text/javascript" src="InvoiceGrid.js"></script>
+        <script type="text/javascript" src="InvoiceForm.js"></script>
+        <script type="text/javascript" src="CustomerGrid.js"></script>
+        <script type="text/javascript" src="CustomerForm.js"></script>
+        <script type="text/javascript" src="InvoiceLineGrid.js"></script>
+        <script type="text/javascript" src="InvoiceLineForm.js"></script>
+        <script type="text/javascript">
+            (function ($) {
+                $(document).ready(function () {
+                    loadDefaults();
+                    loadHeaderFooter();
+                    loadInvoiceGrid();
+                    loadInvoiceForm();
+                    loadCustomerGrid();
+                    loadCustomerForm();
+                    // Hide what must be hided
+                    // Hide the form show the grid
+                    $("#InvoiceFormContainer").hide();
+                    $("#InvoiceGridContainer").show();
+                    // Hide InvoiceLine search support
+                    $("#CustomerGridContainer").hide();
+                    $("#CustomerFormContainer").hide()
+                });
+            })(jQuery);
+        </script>
+    </body>
+</html>
+    

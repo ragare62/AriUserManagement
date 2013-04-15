@@ -17,6 +17,7 @@ function gup(name) {
         return results[1];
 }
 
+
 // Función común en el arranque de cualqueir página
 function loadDefaults() {
     // culture Spanish - Spain

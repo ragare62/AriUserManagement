@@ -151,5 +151,77 @@ namespace AriUMModel
             return true;
         }
         #endregion 
+
+        #region Invoice
+        public static IList<Invoice> GetInvoices(AriUMContext ctx)
+        {
+            return (from i in ctx.Invoices
+                    select i).ToList<Invoice>();
+        }
+
+        public static Invoice GetInvoice(int id, AriUMContext ctx)
+        {
+            return (from p in ctx.Invoices
+                    where p.InvoiceId == id
+                    select p).FirstOrDefault<Invoice>();
+        }
+
+        public static Invoice PostInvoice(Invoice invoice, AriUMContext ctx)
+        {
+            ctx.Add(invoice);
+            ctx.SaveChanges();
+            return invoice;
+        }
+
+        public static Invoice PutInvoice(Invoice invoice, AriUMContext ctx)
+        {
+            ctx.AttachCopy<Invoice>(invoice);
+            ctx.SaveChanges();
+            return invoice;
+        }
+
+        public static bool DeleteInvoice(Invoice invoice, AriUMContext ctx)
+        {
+            ctx.Delete(invoice);
+            ctx.SaveChanges();
+            return true;
+        }
+        #endregion 
+
+        #region InvoiceLine
+        public static IList<InvoiceLine> GetInvoiceLines(AriUMContext ctx)
+        {
+            return (from il in ctx.InvoiceLines
+                    select il).ToList<InvoiceLine>();
+        }
+
+        public static InvoiceLine GetInvoiceLine(int id, AriUMContext ctx)
+        {
+            return (from p in ctx.InvoiceLines
+                    where p.InvoiceLineId == id
+                    select p).FirstOrDefault<InvoiceLine>();
+        }
+
+        public static InvoiceLine PostInvoiceLine(InvoiceLine invoiceLine, AriUMContext ctx)
+        {
+            ctx.Add(invoiceLine);
+            ctx.SaveChanges();
+            return invoiceLine;
+        }
+
+        public static InvoiceLine PutInvoiceLine(InvoiceLine invoiceLine, AriUMContext ctx)
+        {
+            ctx.AttachCopy<InvoiceLine>(invoiceLine);
+            ctx.SaveChanges();
+            return invoiceLine;
+        }
+
+        public static bool DeleteInvoiceLine(InvoiceLine invoiceLine, AriUMContext ctx)
+        {
+            ctx.Delete(invoiceLine);
+            ctx.SaveChanges();
+            return true;
+        }
+        #endregion 
     }
 }
