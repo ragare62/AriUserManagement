@@ -97,7 +97,6 @@ function formInvoiceEdit(id) {
 }
 function formInvoiceAccept() {
     var c = "#InvoiceFormContainer ";
-    var invoiceId = 0;
     var validator = $(c + "#formInvoice").kendoValidator().data("kendoValidator");
     if (validator.validate()) {
         var Invoice = formInvoiceUnloadData();
@@ -115,7 +114,8 @@ function formInvoiceAccept() {
             dataType: 'json',
             data: Invoice,
             success: function (data, textStatus) {
-                invoiceId = data.InvoiceId;
+                var invoiceId = data.InvoiceId;
+                var invoiceNumber = data.InvoiceNumber;
                 gridInvoiceRefresh();
                 if (!isNew) {
                     // Hide the form show the grid
@@ -124,10 +124,12 @@ function formInvoiceAccept() {
                     $("#InvoiceLineGridContainer").hide();
                     $("#InvoiceGridContainer").show();
                 } else {
+                    $(c + "#txtId").val(invoiceId);
+                    $(c + "#txtInvoiceNumber").val(invoiceNumber);
                     $("#InvoiceLineGridContainer").show();
                     loadInvoiceLineGrid(invoiceId);
-                    isNew = false;
                 }
+                isNew = false;
             }
         }
         $.ajax(options);
@@ -186,6 +188,7 @@ function formInvoiceSearch(entitity) {
             caller = "InvoiceForm";
             loadCustomerGrid();
             $("#InvoiceFormContainer").hide();
+            $("#InvoiceLineGridContainer").hide();
             $("#CustomerGridContainer").show()
             break;
     }

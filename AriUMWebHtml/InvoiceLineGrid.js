@@ -61,9 +61,9 @@ function builInvoiceLineGrid(invoiceId) {
         columns: [
             { field: "InvoiceLineId", title: "ID" },
             { field: "Product.Name", title: "Producto" },
-            { field: "Product.Price", title: "Precio" },
-            { field: "Quantity", title: "Cantidad" },
-            { field: "Amount", title: "Importe" },{
+            { field: "Product.Price", title: "Precio", format: "{0:c}", attributes: { style: "text-align:right;" } },
+            { field: "Quantity", title: "Cantidad", attributes: { style: "text-align:right;" } },
+            { field: "Amount", title: "Importe", format: "{0:c}", attributes: { style: "text-align:right;" } }, {
                 template: tEditInvoiceLine
             }
         ],

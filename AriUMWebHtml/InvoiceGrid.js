@@ -64,7 +64,7 @@ function builInvoiceGrid() {
             { field: "InvoiceNumber", title: "Número" },
             { field: "Customer.Name", title: "Cliente", template: "#=Customer?Customer.Name:''#", filterable: false },
             //{ field:"Customer", title: "Cliente", template:"#=Customer?Customer.Name:''#"},
-            { field: "Total", title: "Total"},
+            { field: "Total", title: "Total", format: "{0:c}", attributes: { style: "text-align:right;" } },
             {
                 template: tEditInvoice
             }

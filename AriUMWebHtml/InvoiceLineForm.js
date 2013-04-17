@@ -69,6 +69,7 @@ function formInvoiceLineNew(invoiceId) {
     isNew = true;
     $(c + "#txtId").val("");
     $(c + "#txtProduct").val("");
+    $(c + "#txtProductId").val("");
     $(c + "#txtPrice").val("");
     $(c + "#txtQuantity").val("");
     $(c + "#txtAmount").val("");
@@ -114,9 +115,11 @@ function formInvoiceLineAccept() {
             data: InvoiceLine,
             success: function (data, textStatus) {
                 gridInvoiceLineRefresh();
+                formInvoiceLineUpdateInvoiceTotals();
             }
         }
         $.ajax(options);
+        isNew = false;
         $("#InvoiceFormContainer").show();
         // Hide the form show the grid
         $("#InvoiceLineFormContainer").hide();
@@ -200,4 +203,22 @@ function formInvoiceLineQuantityLostFocus() {
             $(c + "#txtAmount").val(amount);
         }
     }
+}
+//
+function formInvoiceLineUpdateInvoiceTotals() {
+    var c = "#InvoiceLineFormContainer ";
+    var invoiceId = $(c + "#txtInvoiceId").val();
+    $.ajax({
+        type: "GET",
+        url: controller_url.InvoiceLines + "?InvoiceId=" + invoiceId,
+        dataType: "JSON",
+        success: function (data, textStatus) {
+            // calculate total invoice
+            var total = 0.0;
+            data.forEach(function (element) {
+                total += element.Amount;
+            });
+            $("#InvoiceFormContainer #txtTotal").val(total);
+        }
+    });
 }

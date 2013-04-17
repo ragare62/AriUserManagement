@@ -113,6 +113,7 @@ function gridCustomerSelect(id, name) {
             $(c + "#txtCustomerId").val(id);
             $("#CustomerGridContainer").hide();
             $("#InvoiceFormContainer").show();
+            $("#InvoiceLineGridContainer").show();
             break;
     }
     caller = "";
@@ -122,6 +123,7 @@ function gridCustomerExit() {
         case "InvoiceForm":
             $("#CustomerGridContainer").hide();
             $("#InvoiceFormContainer").show();
+            $("#InvoiceLineGridContainer").show();
             break;
     }
     caller = "";

@@ -69,6 +69,14 @@ namespace AriUMWebApi.Controllers
             }
             else
             {
+                if (invoiceLine.Product == null)
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "No se puede crear una línea sin producto");
+                }
+                if (invoiceLine.Invoice == null)
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "No se puede crear una línea de factura sin información de su cabecera");
+                }
                 using (AriUMContext ctx = new AriUMContext("AriUMDBConnection"))
                 {
                     InvoiceLine i = CntWebApiVerbs.PostInvoiceLine(invoiceLine, ctx);

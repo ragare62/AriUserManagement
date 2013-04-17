@@ -112,8 +112,11 @@ namespace AriUMWebApi.Controllers
                     }
                     else
                     {
-                        CntWebApiVerbs.PutInvoice(invoice, ctx);
-                        return Request.CreateResponse(HttpStatusCode.NoContent);
+                        i = CntWebApiVerbs.PutInvoice(invoice, ctx);
+                        FetchStrategy fs = new FetchStrategy();
+                        fs.LoadWith<Invoice>(x => x.Customer);
+                        Invoice idt = ctx.CreateDetachedCopy<Invoice>(i, fs);
+                        return Request.CreateResponse<Invoice>(HttpStatusCode.OK, idt);
                     }
                 }
             }
