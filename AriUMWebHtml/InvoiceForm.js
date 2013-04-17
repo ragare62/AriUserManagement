@@ -1,5 +1,5 @@
 ﻿// Form datasources (Autocomplete fields)
-var CustomerAutoDS = new kendo.data.DataSource({
+var InvoiceFormCustomerAutoDS = new kendo.data.DataSource({
     transport: {
         read: {
             url: controller_url.Customers + "?order=name",
@@ -30,10 +30,10 @@ function buildInvoiceForm() {
     // building autocomplete
     $(c + "#txtCustomer").kendoAutoComplete({
         dataTextField: "Name",
-        dataSource: CustomerAutoDS,
+        dataSource: InvoiceFormCustomerAutoDS,
         select: function (e) {
             var dataItem = this.dataItem(e.item.index());
-            $("#txtCustomerId").val(dataItem.CustomerId);
+            $(c + "#txtCustomerId").val(dataItem.CustomerId);
         }
     });
     // build date picker
@@ -79,6 +79,9 @@ function formInvoiceEdit(id) {
     // Hide the grid show the form
     $("#InvoiceGridContainer").hide();
     $("#InvoiceFormContainer").show();
+    // showing the lines associated to this invoice
+    $("#InvoiceLineGridContainer").show();
+    loadInvoiceLineGrid(id);
     isNew = false;
     var url = controller_url.Invoices + id;
     var options = {
@@ -94,6 +97,7 @@ function formInvoiceEdit(id) {
 }
 function formInvoiceAccept() {
     var c = "#InvoiceFormContainer ";
+    var invoiceId = 0;
     var validator = $(c + "#formInvoice").kendoValidator().data("kendoValidator");
     if (validator.validate()) {
         var Invoice = formInvoiceUnloadData();
@@ -111,18 +115,29 @@ function formInvoiceAccept() {
             dataType: 'json',
             data: Invoice,
             success: function (data, textStatus) {
+                invoiceId = data.InvoiceId;
                 gridInvoiceRefresh();
+                if (!isNew) {
+                    // Hide the form show the grid
+                    $("#InvoiceFormContainer").hide();
+                    $("#InvoiceLineFormContainer").hide();
+                    $("#InvoiceLineGridContainer").hide();
+                    $("#InvoiceGridContainer").show();
+                } else {
+                    $("#InvoiceLineGridContainer").show();
+                    loadInvoiceLineGrid(invoiceId);
+                    isNew = false;
+                }
             }
         }
         $.ajax(options);
-        // Hide the form show the grid
-        $("#InvoiceFormContainer").hide();
-        $("#InvoiceGridContainer").show();
     }
 }
 function formInvoiceCancel() {
     // Hide the form show the grid
     $("#InvoiceFormContainer").hide();
+    $("#InvoiceLineFormContainer").hide();
+    $("#InvoiceLineGridContainer").hide();
     $("#InvoiceGridContainer").show();
 }
 function formInvoiceUnloadData() {
@@ -136,10 +151,6 @@ function formInvoiceUnloadData() {
         Invoice.Customer.CustomerId = parseInt(v);
         Invoice.Customer.Name = t;
     }
-    //Invoice.InvoiceDate = new Date.parse($(c + "#txtInvoiceDate").val());
-    //Invoice.InvoiceDate = moment($(c + "#txtInvoiceDate").val(),"DD/MM/YYYY").toDate();
-    //Invoice.InvoiceDate = $(c + "#txtInvoiceDate").val();
-    //Invoice.InvoiceDate = new Date(2013, 4, 25);
     Invoice.InvoiceDate = moment($(c + "#txtInvoiceDate").val(), "DD/MM/YYYY").format("YYYY-MM-DD");
     Invoice.Year = $(c + "#txtYear").val();
     Invoice.Serial = $(c + "#txtSerial").val();
@@ -147,12 +158,16 @@ function formInvoiceUnloadData() {
     Invoice.Total = $(c + "#txtTotal").val();
     return Invoice;
 }
+//
 function formInvoiceLoadData(Invoice) {
     var c = "#InvoiceFormContainer ";
     $(c + "#txtId").val(Invoice.InvoiceId);
     if (Invoice.Customer != null) {
         $(c + "#txtCustomer").val(Invoice.Customer.Name);
-        $(c + "#txtCustomerId").val(InvoiceCustomer.CustomerId);
+        $(c + "#txtCustomerId").val(Invoice.Customer.CustomerId);
+    } else {
+        $(c + "#txtCustomer").val("");
+        $(c + "#txtCustomerId").val("");
     }
     $(c + "#txtInvoiceDate").val(moment(Invoice.InvoiceDate).format("DD/MM/YYYY"));
     $(c + "#txtInvoiceDate").prop("diasable", true); // better than attr??

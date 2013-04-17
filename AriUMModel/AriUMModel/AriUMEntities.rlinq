@@ -94,6 +94,9 @@
         <orm:field name="_price" property="Price" uniqueId="32945680-fdf2-47a8-857b-931a09bea231" type="System.Decimal">
           <orm:column name="Price" sql-type="decimal" nullable="false" length="10" scale="2" ado-type="Numeric" />
         </orm:field>
+        <orm:field name="_invoiceLines" property="InvoiceLines" behavior="readwrite" uniqueId="07293e60-8b82-4d9f-bdc9-ddcd918ad1d4" type="AriUMModel.InvoiceLine">
+          <orm:collection element-class="AriUMModel.InvoiceLine" inverse-field="_product" order-by="" uniqueId="b0d8635d-669b-46dd-a440-2c941344c949" />
+        </orm:field>
       </orm:class>
       <orm:class name="Invoice" uniqueId="61b5fb62-3ee8-4764-ba84-a4d15ad42470">
         <orm:table name="Invoice" />
@@ -140,15 +143,26 @@
         <orm:field name="_invoiceLineId" property="InvoiceLineId" uniqueId="59c544e0-5321-4b2d-916b-94324ff790e7" type="System.Int32">
           <orm:column name="InvoiceLineId" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" converter="OpenAccessRuntime.Data.IntConverter" backend-calculated="true" ado-type="Int32" />
         </orm:field>
-        <orm:field name="_quantity" property="Quantity" uniqueId="e039f581-46ab-4b3d-9d55-e27e3e36b557" type="System.Decimal">
-          <orm:column name="Quantity" sql-type="decimal" nullable="false" length="20" scale="10" ado-type="Numeric" />
+        <orm:field name="_quantity" property="Quantity" uniqueId="e039f581-46ab-4b3d-9d55-e27e3e36b557" type="System.Int32">
+          <orm:column name="Quantity" sql-type="integer" nullable="false" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
         </orm:field>
         <orm:field name="_amount" property="Amount" uniqueId="50281b66-a504-4109-a01a-79b9f2e2e332" type="System.Decimal">
           <orm:column name="Amount" sql-type="decimal" nullable="false" length="20" scale="10" ado-type="Numeric" />
         </orm:field>
+        <orm:field name="_price" property="Price" uniqueId="91c6600e-d716-44df-8279-5395d6a2c3ab" type="System.Decimal">
+          <orm:column name="Price" sql-type="decimal" nullable="false" length="20" scale="10" ado-type="Numeric" />
+        </orm:field>
         <orm:field name="_invoice" property="Invoice" behavior="readwrite" uniqueId="46ff9c31-30d9-4e41-bfc4-9a780dae68aa" type="AriUMModel.Invoice">
           <orm:reference uniqueId="6886b5be-95cc-4031-9e46-27c0e2adf7d1" />
         </orm:field>
+        <orm:field name="_product" property="Product" behavior="readwrite" uniqueId="8bd43b68-ac84-4731-8795-cb776f97c4bf" type="AriUMModel.Product">
+          <orm:reference uniqueId="b0d8635d-669b-46dd-a440-2c941344c949" />
+        </orm:field>
+        <orm:index name="idx_InvoiceLine_InvoiceId">
+          <orm:columnMapping>
+            <orm:column name="InvoiceId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
+          </orm:columnMapping>
+        </orm:index>
       </orm:class>
     </orm:namespace>
     <orm:schema schema="">
@@ -179,11 +193,6 @@
         <orm:column name="Country" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
         <orm:column name="CodPostal" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
       </orm:table>
-      <orm:table name="InvoiceLine">
-        <orm:column name="InvoiceLineId" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" converter="OpenAccessRuntime.Data.IntConverter" backend-calculated="true" ado-type="Int32" />
-        <orm:column name="Quantity" sql-type="decimal" nullable="false" length="20" scale="10" ado-type="Numeric" />
-        <orm:column name="Amount" sql-type="decimal" nullable="false" length="20" scale="10" ado-type="Numeric" />
-      </orm:table>
       <orm:table name="Invoice">
         <orm:column name="InvoiceId" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" converter="OpenAccessRuntime.Data.IntConverter" backend-calculated="true" ado-type="Int32" />
         <orm:column name="InvoiceDate" sql-type="datetime" nullable="false" length="0" scale="0" converter="OpenAccessRuntime.Data.Timestamp2DateTimeConverter" ado-type="DateTime" />
@@ -195,6 +204,18 @@
         <orm:index name="idx_Invoice_CustomerId">
           <orm:columnMapping>
             <orm:column name="CustomerId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
+          </orm:columnMapping>
+        </orm:index>
+      </orm:table>
+      <orm:table name="InvoiceLine">
+        <orm:column name="InvoiceLineId" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" converter="OpenAccessRuntime.Data.IntConverter" backend-calculated="true" ado-type="Int32" />
+        <orm:column name="Quantity" sql-type="integer" nullable="false" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
+        <orm:column name="Amount" sql-type="decimal" nullable="false" length="20" scale="10" ado-type="Numeric" />
+        <orm:column name="InvoiceId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
+        <orm:column name="Price" sql-type="decimal" nullable="false" length="20" scale="10" ado-type="Numeric" />
+        <orm:index name="idx_InvoiceLine_InvoiceId">
+          <orm:columnMapping>
+            <orm:column name="InvoiceId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
           </orm:columnMapping>
         </orm:index>
       </orm:table>
@@ -285,6 +306,11 @@
       <Property Id="04f805af-4155-4a77-a5bd-6ff65fc2ffce" name="ProductId" type="System.Int32" label="ProductId : System.Int32" identity="true" fieldName="_productId" />
       <Property Id="e13df134-4f56-4012-ba5a-2d2a93100bd1" name="Name" label="Name : String" fieldName="_name" />
       <Property Id="32945680-fdf2-47a8-857b-931a09bea231" name="Price" type="Decimal" label="Price : Decimal" fieldName="_price" />
+      <navigationalProperties>
+        <classHasNavigationalProperties Id="6ccfd2d7-56d1-456e-96ce-b42ea27ac4b0">
+          <NavigationalProperty Id="07293e60-8b82-4d9f-bdc9-ddcd918ad1d4" name="InvoiceLines" type="IList&lt;InvoiceLine&gt;" label="InvoiceLines : IList&lt;InvoiceLine&gt;" nullable="true" kind="Persistent" fieldName="_invoiceLines" isDependent="false" isManaged="false" />
+        </classHasNavigationalProperties>
+      </navigationalProperties>
     </DomainClass>
     <DomainClass Id="61b5fb62-3ee8-4764-ba84-a4d15ad42470" name="Invoice" namespace="AriUMModel" showPropertiesCompartment="true" identityMechanism="DatabaseServerCalculated" showNavigationCompartment="true" showImplementationCompartment="true">
       <Property Id="3bf5e2b2-ede8-45b4-92f0-900c29c0a4b2" name="InvoiceId" type="System.Int32" label="InvoiceId : System.Int32" identity="true" fieldName="_invoiceId" />
@@ -319,8 +345,9 @@
     </DomainClass>
     <DomainClass Id="8ccc6c97-55aa-4eb4-9565-809f00ede902" name="InvoiceLine" namespace="AriUMModel" showPropertiesCompartment="true" identityMechanism="DatabaseServerCalculated" showNavigationCompartment="true" showImplementationCompartment="true">
       <Property Id="59c544e0-5321-4b2d-916b-94324ff790e7" name="InvoiceLineId" type="System.Int32" label="InvoiceLineId : System.Int32" identity="true" fieldName="_invoiceLineId" />
-      <Property Id="e039f581-46ab-4b3d-9d55-e27e3e36b557" name="Quantity" type="Decimal" label="Quantity : Decimal" fieldName="_quantity" />
+      <Property Id="e039f581-46ab-4b3d-9d55-e27e3e36b557" name="Quantity" type="Int32" label="Quantity : Int32" fieldName="_quantity" />
       <Property Id="50281b66-a504-4109-a01a-79b9f2e2e332" name="Amount" type="Decimal" label="Amount : Decimal" fieldName="_amount" />
+      <Property Id="91c6600e-d716-44df-8279-5395d6a2c3ab" name="Price" type="Decimal" label="Price : Decimal" fieldName="_price" />
       <AssociationTargets>
         <Association Id="6886b5be-95cc-4031-9e46-27c0e2adf7d1" SourceMultiplicity="ZeroOne" name="InvoiceLineHasInvoice">
           <DomainClassMoniker name="/AriUMContext/Invoice" />
@@ -335,10 +362,26 @@
             </associationDefinesSourceProperty>
           </sourceNavigationalProperty>
         </Association>
+        <Association Id="b0d8635d-669b-46dd-a440-2c941344c949" SourceMultiplicity="ZeroOne" name="InvoiceLineHasProduct">
+          <DomainClassMoniker name="/AriUMContext/Product" />
+          <targetNavigationalProperty>
+            <associationDefinesTargetProperty Id="7bb88759-4e0f-4f60-85f0-ccb72ba5a6b4">
+              <NavigationalPropertyMoniker name="/AriUMContext/Product/InvoiceLines" />
+            </associationDefinesTargetProperty>
+          </targetNavigationalProperty>
+          <sourceNavigationalProperty>
+            <associationDefinesSourceProperty Id="03a23d3c-db5a-4892-9224-67826def6132">
+              <NavigationalPropertyMoniker name="/AriUMContext/InvoiceLine/Product" />
+            </associationDefinesSourceProperty>
+          </sourceNavigationalProperty>
+        </Association>
       </AssociationTargets>
       <navigationalProperties>
         <classHasNavigationalProperties Id="a5e4da05-e5ed-44fd-a1b9-1209cf548aa3">
           <NavigationalProperty Id="46ff9c31-30d9-4e41-bfc4-9a780dae68aa" name="Invoice" type="Invoice" label="Invoice : Invoice" nullable="true" kind="Persistent" fieldName="_invoice" isDependent="false" isManaged="false" />
+        </classHasNavigationalProperties>
+        <classHasNavigationalProperties Id="e3415b4f-e16b-46bd-8677-09dc10f9504e">
+          <NavigationalProperty Id="8bd43b68-ac84-4731-8795-cb776f97c4bf" name="Product" type="Product" label="Product : Product" nullable="true" kind="Persistent" fieldName="_product" isDependent="false" isManaged="false" />
         </classHasNavigationalProperties>
       </navigationalProperties>
     </DomainClass>

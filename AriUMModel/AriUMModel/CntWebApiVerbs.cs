@@ -175,7 +175,27 @@ namespace AriUMModel
 
         public static Invoice PutInvoice(Invoice invoice, AriUMContext ctx)
         {
-            ctx.AttachCopy<Invoice>(invoice);
+            //Customer c = invoice.Customer;
+            //invoice.Customer = null;
+            //ctx.AttachCopy<Invoice>(invoice);
+            //invoice.Customer = c;
+            int customerId = 0;
+            int invoiceId = invoice.InvoiceId;
+            if (invoice.Customer != null)
+            {
+                customerId = invoice.Customer.CustomerId;
+                invoice.Customer = null;
+            }
+            ctx.AttachCopy <Invoice>(invoice);
+            if (customerId != 0)
+            {
+                invoice = (from i in ctx.Invoices
+                           where i.InvoiceId == invoiceId
+                           select i).FirstOrDefault<Invoice>();
+                invoice.Customer = (from cus in ctx.Customers
+                                    where cus.CustomerId == customerId
+                                    select cus).FirstOrDefault<Customer>();
+            }
             ctx.SaveChanges();
             return invoice;
         }
@@ -204,6 +224,20 @@ namespace AriUMModel
 
         public static InvoiceLine PostInvoiceLine(InvoiceLine invoiceLine, AriUMContext ctx)
         {
+            if (invoiceLine.Invoice != null)
+            {
+                Invoice invoice = (from i in ctx.Invoices
+                                   where i.InvoiceId == invoiceLine.Invoice.InvoiceId
+                                   select i).FirstOrDefault<Invoice>();
+                invoiceLine.Invoice = invoice;
+            }
+            if (invoiceLine.Product != null)
+            {
+                Product product = (from p in ctx.Products
+                                   where p.ProductId == invoiceLine.Product.ProductId
+                                   select p).FirstOrDefault<Product>();
+                invoiceLine.Product = product;
+            }
             ctx.Add(invoiceLine);
             ctx.SaveChanges();
             return invoiceLine;
@@ -211,7 +245,29 @@ namespace AriUMModel
 
         public static InvoiceLine PutInvoiceLine(InvoiceLine invoiceLine, AriUMContext ctx)
         {
+            int invoiceLineId = invoiceLine.InvoiceLineId;
+            int productId = 0;
+            int invoiceId = 0;
+            if (invoiceLine.Product != null)
+            {
+                productId = invoiceLine.Product.ProductId;
+                invoiceLine.Product = null;
+            }
+            if (invoiceLine.Invoice != null)
+            {
+                invoiceId = invoiceLine.Invoice.InvoiceId;
+                invoiceLine.Invoice = null;
+            }
             ctx.AttachCopy<InvoiceLine>(invoiceLine);
+            invoiceLine = (from il in ctx.InvoiceLines
+                           where il.InvoiceLineId == invoiceLineId
+                           select il).FirstOrDefault<InvoiceLine>();
+            invoiceLine.Product = (from p in ctx.Products
+                                   where p.ProductId == productId
+                                   select p).FirstOrDefault<Product>();
+            invoiceLine.Invoice = (from i in ctx.Invoices
+                                   where i.InvoiceId == invoiceId
+                                   select i).FirstOrDefault<Invoice>();
             ctx.SaveChanges();
             return invoiceLine;
         }

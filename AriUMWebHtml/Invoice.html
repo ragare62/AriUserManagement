@@ -32,14 +32,25 @@
         <header id="header">
         </header>
         <div id="body" style="min-height:400px;">
+            <!-- Invoice header -->
             <div id="InvoiceGridContainer" class="container-fluid">
             </div>
             <div id="InvoiceFormContainer" class="container-fluid">
+            </div>
+            <!-- Invoice lines -->
+            <div id="InvoiceLineGridContainer" class="container-fluid">
+            </div>
+            <div id="InvoiceLineFormContainer" class="container-fluid">
             </div>
             <!-- Search customer from invoice -->
             <div id="CustomerGridContainer" class="container-fluid">
             </div>
             <div id="CustomerFormContainer" class="container-fluid">
+            </div>
+            <!-- Search product from invoice line -->
+            <div id="ProductGridContainer" class="container-fluid">
+            </div>
+            <div id="ProductFormContainer" class="container-fluid">
             </div>
         </div>
         <footer id="footer">
@@ -51,6 +62,8 @@
         <script type="text/javascript" src="CustomerForm.js"></script>
         <script type="text/javascript" src="InvoiceLineGrid.js"></script>
         <script type="text/javascript" src="InvoiceLineForm.js"></script>
+        <script type="text/javascript" src="ProductGrid.js"></script>
+        <script type="text/javascript" src="ProductForm.js"></script>
         <script type="text/javascript">
             (function ($) {
                 $(document).ready(function () {
@@ -58,15 +71,24 @@
                     loadHeaderFooter();
                     loadInvoiceGrid();
                     loadInvoiceForm();
+                    loadInvoiceLineGrid();
+                    loadInvoiceLineForm();
                     loadCustomerGrid();
                     loadCustomerForm();
+                    loadProductGrid();
+                    loadProductForm();
                     // Hide what must be hided
                     // Hide the form show the grid
                     $("#InvoiceFormContainer").hide();
                     $("#InvoiceGridContainer").show();
+                    // Hide invoice lines 
+                    $("#InvoiceLineGridContainer").hide();
+                    $("#InvoiceLineFormContainer").hide()
                     // Hide InvoiceLine search support
                     $("#CustomerGridContainer").hide();
                     $("#CustomerFormContainer").hide()
+                    $("#ProductGridContainer").hide();
+                    $("#ProductFormContainer").hide()
                 });
             })(jQuery);
         </script>

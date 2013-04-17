@@ -1,8 +1,8 @@
 ﻿// Form datasources (Autocomplete fields)
-var InvoiceLineGroupAutoDS = new kendo.data.DataSource({
+var InvoiceLineProductAutoDS = new kendo.data.DataSource({
     transport: {
         read: {
-            url: controller_url.InvoiceLineGroups + "?order=name",
+            url: controller_url.Products + "?order=name",
             dataType: "json",
             type: "GET",
             contentType: "application/json",
@@ -16,24 +16,27 @@ var InvoiceLineGroupAutoDS = new kendo.data.DataSource({
     },
     schema: {
         model: {
-            id: "InvoiceLineGroupId",
+            id: "ProductId",
             fields: {
-                InvoiceLineGroupId: { type: "number" },
+                ProductId: { type: "number" },
                 Name: { type: "string" }
             }
         }
     },
 });
+
 // Build user form
 function buildInvoiceLineForm() {
     var c = "#InvoiceLineFormContainer ";
     // building autocomplete
-    $(c + "#txtInvoiceLineGroup").kendoAutoComplete({
+    $(c + "#txtProduct").kendoAutoComplete({
         dataTextField: "Name",
-        dataSource: InvoiceLineGroupAutoDS,
+        dataSource: InvoiceLineProductAutoDS,
         select: function (e) {
             var dataItem = this.dataItem(e.item.index());
-            $("#txtInvoiceLineGroupId").val(dataItem.InvoiceLineGroupId);
+            $(c + "#txtProduct").val(dataItem.Name);
+            $(c + "#txtProductId").val(dataItem.ProductId);
+            formInvoiceLineProductLostFocus();
         }
     });
 }
@@ -46,25 +49,34 @@ function loadInvoiceLineForm() {
         success: function (html, textStatus) {
             $("#InvoiceLineFormContainer").html(html);
             buildInvoiceLineForm();
+            $("#txtProduct").focusout(function () {
+                formInvoiceLineProductLostFocus();
+            });
+            $("#txtQuantity").focusout(function () {
+                formInvoiceLineQuantityLostFocus();
+            });
         },
     });
 }
 
-
-function formInvoiceLineNew() {
+function formInvoiceLineNew(invoiceId) {
     var c = "#InvoiceLineFormContainer ";
+    $(c + "#txtInvoiceId").val(invoiceId);
+    $("#InvoiceFormContainer").hide();
     // Hide the grid show the form
     $("#InvoiceLineGridContainer").hide();
     $("#InvoiceLineFormContainer").show();
     isNew = true;
     $(c + "#txtId").val("");
-    $(c + "#txtName").val("");
-    $(c + "#txtEmail").val("");
-    $(c + "#txtInvoiceLineGroup").val("");
-    $(c + "#txtName").focus();
+    $(c + "#txtProduct").val("");
+    $(c + "#txtPrice").val("");
+    $(c + "#txtQuantity").val("");
+    $(c + "#txtAmount").val("");
+    $(c + "#txtProduct").focus();
 }
-function formInvoiceLineEdit(id) {
+function formInvoiceLineEdit(id, invoiceId) {
     var c = "#InvoiceLineFormContainer ";
+    $("#InvoiceFormContainer").hide();
     // Hide the grid show the form
     $("#InvoiceLineGridContainer").hide();
     $("#InvoiceLineFormContainer").show();
@@ -76,7 +88,8 @@ function formInvoiceLineEdit(id) {
         dataType: 'json',
         success: function (data, textStatus) {
             formInvoiceLineLoadData(data);
-            $(c + "#txtName").focus();
+            $(c + "#txtInvoiceId").val(invoiceId);
+            $(c + "#txtProduct").focus();
         }
     };
     $.ajax(options);
@@ -104,12 +117,14 @@ function formInvoiceLineAccept() {
             }
         }
         $.ajax(options);
+        $("#InvoiceFormContainer").show();
         // Hide the form show the grid
         $("#InvoiceLineFormContainer").hide();
         $("#InvoiceLineGridContainer").show();
     }
 }
 function formInvoiceLineCancel() {
+    $("#InvoiceFormContainer").show();
     // Hide the form show the grid
     $("#InvoiceLineFormContainer").hide();
     $("#InvoiceLineGridContainer").show();
@@ -118,55 +133,71 @@ function formInvoiceLineUnloadData() {
     var c = "#InvoiceLineFormContainer ";
     var InvoiceLine = new Object();
     InvoiceLine.InvoiceLineId = $(c + "#txtId").val();
-    InvoiceLine.Name = $(c + "#txtName").val();
-    InvoiceLine.Email = $(c + "#txtEmail").val();
-    var v = $(c + "#txtInvoiceLineGroupId").val();
-    var t = $(c + "#txtInvoiceLineGroup").val();
+    // related invoice id is in a hidden field
+    InvoiceLine.Invoice = new Object();
+    InvoiceLine.Invoice.InvoiceId = $(c + "#txtInvoiceId").val();
+    var v = $(c + "#txtProductId").val();
+    var t = $(c + "#txtProduct").val();
     if (v != "" && t != "") {
-        InvoiceLine.InvoiceLineGroup = new Object();
-        InvoiceLine.InvoiceLineGroup.InvoiceLineGroupId = parseInt(v);
-        InvoiceLine.InvoiceLineGroup.Name = t;
+        InvoiceLine.Product = new Object();
+        InvoiceLine.Product.ProductId = parseInt(v);
+        InvoiceLine.Product.Name = t;
     }
-    var p = $(c + "#txtPassword1").val();
-    if (p != "") {
-        InvoiceLine.Password = p;
-    }
+    InvoiceLine.Price = parseFloat($(c + "#txtPrice").val());
+    InvoiceLine.Quantity = parseInt($(c + "#txtQuantity").val());
+    InvoiceLine.Amount = parseFloat($(c + "#txtAmount").val());
     return InvoiceLine;
 }
 function formInvoiceLineLoadData(InvoiceLine) {
     var c = "#InvoiceLineFormContainer ";
     $(c + "#txtId").val(InvoiceLine.InvoiceLineId);
-    $(c + "#txtName").val(InvoiceLine.Name);
-    $(c + "#txtEmail").val(InvoiceLine.Email);
-    if (InvoiceLine.InvoiceLineGroup != null) {
-        $(c + "#txtInvoiceLineGroup").val(InvoiceLine.InvoiceLineGroup.Name);
-        $(c + "#txtInvoiceLineGroupId").val(InvoiceLine.InvoiceLineGroup.InvoiceLineGroupId);
+    if (InvoiceLine.Product != null) {
+        $(c + "#txtProduct").val(InvoiceLine.Product.Name);
+        $(c + "#txtProductId").val(InvoiceLine.Product.ProductId);
     }
-    $(c + "#txtPassword1").val(InvoiceLine.Password);
-    $(c + "#txtPassword2").val(InvoiceLine.Password);
+    $(c + "#txtPrice").val(InvoiceLine.Price);
+    $(c + "#txtQuantity").val(InvoiceLine.Quantity);
+    $(c + "#txtAmount").val(InvoiceLine.Amount);
 }
 function formInvoiceLineDataOk() {
-    var c = "#InvoiceLineFormContainer ";
-    var pass1 = $(c + "#txtPassword1").val();
-    var pass2 = $(c + "#txtPassword2").val();
-    if (pass1 != "" || pass2 != "") {
-        if (pass1 != pass2) {
-            var message = "<h4 class='text-warning'>AVISO:</h4>" +
-                          "<p classs='text-warning'> Las contraseñas no coinciden</p>";
-            bootbox.alert(message, "Aceptar");
-            return false;
-        }
-    }
     return true;
 }
 function formInvoiceLineSearch(entitity) {
     switch (entitity) {
-        case "InvoiceLineGroup":
+        case "Product":
             mode = "S";
             caller = "InvoiceLineForm";
-            loadInvoiceLineGroupGrid();
+            loadProductGrid();
             $("#InvoiceLineFormContainer").hide();
-            $("#InvoiceLineGroupGridContainer").show()
+            $("#ProductGridContainer").show()
             break;
+    }
+}
+//
+function formInvoiceLineProductLostFocus() {
+    var c = "#InvoiceLineFormContainer ";
+    var productId = $(c + "#txtProductId").val();
+    if (productId != "" && $(c + "#txtProduct").val() != "") {
+        $.ajax({
+            type: "GET",
+            url: controller_url.Products + productId,
+            dataType: "json",
+            success: function (data, textStatus) {
+                $(c + "#txtPrice").val(data.Price);
+                formInvoiceLineQuantityLostFocus();
+                $(c + "#txtQuantity").focus();
+            }
+        });
+    }
+}
+function formInvoiceLineQuantityLostFocus() {
+    var c = "#InvoiceLineFormContainer ";
+    var quantity = parseInt($(c + "#txtQuantity").val(), 10);
+    if (quantity != 0) {
+        var price = parseFloat($(c + "#txtPrice").val(), 10);
+        if (price != 0) {
+            var amount = parseFloat(quantity * price,10).toFixed(2);
+            $(c + "#txtAmount").val(amount);
+        }
     }
 }

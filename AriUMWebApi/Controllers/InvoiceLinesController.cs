@@ -18,7 +18,23 @@ namespace AriUMWebApi.Controllers
             using (AriUMContext ctx = new AriUMContext("AriUMDBConnection"))
             {
                 IEnumerable<InvoiceLine> invoiceLine = CntWebApiVerbs.GetInvoiceLines(ctx);
-                IEnumerable<InvoiceLine> iS = ctx.CreateDetachedCopy<IEnumerable<InvoiceLine>>(invoiceLine);
+                FetchStrategy fs = new FetchStrategy();
+                fs.LoadWith<InvoiceLine>(x => x.Product, x => x.Invoice);
+                IEnumerable<InvoiceLine> iS = ctx.CreateDetachedCopy<IEnumerable<InvoiceLine>>(invoiceLine, fs);
+                return iS;
+            }
+        }
+
+        public IEnumerable<InvoiceLine> GetLinesFromInvoice(int InvoiceId)
+        {
+            using (AriUMContext ctx = new AriUMContext("AriUMDBConnection"))
+            {
+                IEnumerable<InvoiceLine> invoiceLine = (from il in ctx.InvoiceLines
+                                                        where il.Invoice.InvoiceId == InvoiceId
+                                                        select il).ToList<InvoiceLine>();
+                FetchStrategy fs = new FetchStrategy();
+                fs.LoadWith<InvoiceLine>(x => x.Product, x => x.Invoice);
+                IEnumerable<InvoiceLine> iS = ctx.CreateDetachedCopy<IEnumerable<InvoiceLine>>(invoiceLine, fs);
                 return iS;
             }
         }
@@ -36,8 +52,10 @@ namespace AriUMWebApi.Controllers
                 }
                 else
                 {
-                    InvoiceLine u = ctx.CreateDetachedCopy<InvoiceLine>(invoiceLine);
-                    return u;
+                    FetchStrategy fs = new FetchStrategy();
+                    fs.LoadWith<InvoiceLine>(x => x.Product, x => x.Invoice);
+                    InvoiceLine il = ctx.CreateDetachedCopy<InvoiceLine>(invoiceLine, fs);
+                    return il;
                 }
             }
         }

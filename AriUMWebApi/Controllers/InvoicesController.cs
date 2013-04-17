@@ -5,8 +5,8 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using AriUMModel;
-using Telerik.OpenAccess;
 using Telerik.OpenAccess.FetchOptimization;
+using Telerik.OpenAccess;
 
 namespace AriUMWebApi.Controllers
 {
@@ -18,8 +18,10 @@ namespace AriUMWebApi.Controllers
             using (AriUMContext ctx = new AriUMContext("AriUMDBConnection"))
             {
                 IEnumerable<Invoice> invoice = CntWebApiVerbs.GetInvoices(ctx);
-                IEnumerable<Invoice> iS = ctx.CreateDetachedCopy<IEnumerable<Invoice>>(invoice);
-                return iS;
+                FetchStrategy fs = new FetchStrategy();
+                fs.LoadWith<Invoice>(x => x.Customer);
+                IEnumerable<Invoice> cS = ctx.CreateDetachedCopy<IEnumerable<Invoice>>(invoice, fs);
+                return cS;
             }
         }
 
@@ -36,8 +38,10 @@ namespace AriUMWebApi.Controllers
                 }
                 else
                 {
-                    Invoice u = ctx.CreateDetachedCopy<Invoice>(invoice);
-                    return u;
+                    FetchStrategy fs = new FetchStrategy();
+                    fs.LoadWith<Invoice>(x => x.Customer);
+                    Invoice c = ctx.CreateDetachedCopy<Invoice>(invoice, fs);
+                    return c;
                 }
             }
         }
@@ -53,8 +57,29 @@ namespace AriUMWebApi.Controllers
             {
                 using (AriUMContext ctx = new AriUMContext("AriUMDBConnection"))
                 {
+                    if (invoice.Customer != null)
+                    {
+                        //
+                        Customer customer = (from c in ctx.Customers
+                                             where c.CustomerId == invoice.Customer.CustomerId
+                                             select c).FirstOrDefault<Customer>();
+                        if (customer != null)
+                        {
+                            invoice.Customer = customer;
+                        }
+                        else
+                        {
+                        }
+                    }
+                    // Calculate invoice number
+                    int maxInvoiceNumber = (from inv in ctx.Invoices
+                                            where inv.Year == invoice.Year
+                                            select inv.InvoiceNumber).Max();
+                    invoice.InvoiceNumber = maxInvoiceNumber + 1;
                     Invoice i = CntWebApiVerbs.PostInvoice(invoice, ctx);
-                    Invoice idt = ctx.CreateDetachedCopy<Invoice>(i);
+                    FetchStrategy fs = new FetchStrategy();
+                    fs.LoadWith<Invoice>(x => x.Customer);
+                    Invoice idt = ctx.CreateDetachedCopy<Invoice>(i,fs);
                     var response = Request.CreateResponse<Invoice>(HttpStatusCode.Created, idt);
                     response.Headers.Location = GetInvoiceLocation(idt.InvoiceId);
                     return response;

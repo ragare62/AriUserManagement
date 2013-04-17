@@ -8,11 +8,11 @@
         <div class="row-fluid">
             <div class="span2">
                 <label for="txtId">ID</label>
-                <input class="span12 k-text" type="text" name="Id" id="txtId" readonly="true" />
+                <input class="span12 k-text" type="text" name="Id" id="txtId" readonly="true"/>
             </div>
             <div class="span10">
                 <label for="txtCustomer">Cliente</label>
-                <input name="Customer" id="txtCustomer" style="width:inherit;"/>
+                <input name="Customer" id="txtCustomer" style="width:inherit;" required validationMessage="Se necesita un cliente"/>
                 <button id="sCustomer" class="btn-primary" title="Buscar clientes" onclick="formInvoiceSearch('Customer');">
                     <i class="icon-search icon-white"></i>
                 </button>

@@ -9,7 +9,7 @@ function templatesInvoiceLineGrid() {
         tEditInvoiceLine = kendo.template($("#tEditInvoiceLineS").html());
 }
 
-function loadInvoiceLineGrid() {
+function loadInvoiceLineGrid(invoiceId) {
     $.ajax({
         type: 'GET',
         url: "InvoiceLineGrid.html",
@@ -17,50 +17,53 @@ function loadInvoiceLineGrid() {
         success: function (html, textStatus) {
             $("#InvoiceLineGridContainer").html(html);
             templatesInvoiceLineGrid();
-            builInvoiceLineGrid();
+            builInvoiceLineGrid(invoiceId);
+            $("#InvoiceLineGridContainer #txtInvoiceId").val(invoiceId)
         },
     });
 }
 
 // gridInvoiceLine datasource
-var gridInvoiceLineDS = new kendo.data.DataSource({
-    transport: {
-        read: {
-            url: controller_url.InvoiceLines,
-            dataType: "json",
-            type: "GET",
-            contentType: "application/json"
-        },
-        parameterMap: function (data, type) {
-            if (type != "GET")
-                return kendo.stringify(data);
-        }
-    },
-    schema: {
-        model: {
-            id: "InvoiceLineId",
-            fields: {
-                InvoiceLineId: { type: "number" },
-                Name: { type: "string" },
-                Email: { type: "string" },
-                Password: { type: "string" },
-                InvoiceLineGroup: {}
+function gridInvoiceLineDS(invoiceId) {
+    return new kendo.data.DataSource({
+        transport: {
+            read: {
+                url: controller_url.InvoiceLines + "?InvoiceId=" + invoiceId,
+                dataType: "json",
+                type: "GET",
+                contentType: "application/json"
+            },
+            parameterMap: function (data, type) {
+                if (type != "GET")
+                    return kendo.stringify(data);
             }
-        }
-    },
-    pageSize: 5
-});
+        },
+        schema: {
+            model: {
+                id: "InvoiceLineId",
+                fields: {
+                    Invoice: {type:"object"},
+                    InvoiceLineId: { type: "number" },
+                    Product: { type: "object" },
+                    Quantity: { type: "number" },
+                    Amount: { type: "number" }
+                }
+            }
+        },
+        pageSize: 5
+    });
+}
 
 // build gridInvoiceLine
-function builInvoiceLineGrid() {
+function builInvoiceLineGrid(invoiceId) {
     $("#gridInvoiceLine").kendoGrid({
-        dataSource: gridInvoiceLineDS,
+        dataSource: gridInvoiceLineDS(invoiceId),
         columns: [
             { field: "InvoiceLineId", title: "ID" },
-            { field: "Name", title: "Name" },
-            { field: "Email", titile: "Correo" },
-            { field: "InvoiceLineGroup", title: "Grupo", template: "#=InvoiceLineGroup?InvoiceLineGroup.Name:''#" },
-            {
+            { field: "Product.Name", title: "Producto" },
+            { field: "Product.Price", title: "Precio" },
+            { field: "Quantity", title: "Cantidad" },
+            { field: "Amount", title: "Importe" },{
                 template: tEditInvoiceLine
             }
         ],
@@ -78,6 +81,11 @@ function builInvoiceLineGrid() {
         : ari_columnMenu_es_ES
     });
 }
+
+function gridInvoiceLineNew() {
+    formInvoiceLineNew($("#txtInvoiceId").val());
+}
+
 function gridInvoiceLineRefresh() {
     var ds = $("#gridInvoiceLine").data("kendoGrid").dataSource;
     var totalPages = ds.totalPages();
@@ -87,9 +95,9 @@ function gridInvoiceLineRefresh() {
 }
 function gridInvoiceLineDelete(id, name) {
     deleteId = id;
-    bootbox.confirm("<h4>¿Desea eliminar este registro? (" + name + ")</h4>", "Cancelar", "Aceptar", deleteResponse);
+    bootbox.confirm("<h4>¿Desea eliminar este registro? (" + name + ")</h4>", "Cancelar", "Aceptar", deleteInvoiceLineResponse);
 }
-function deleteResponse(arg) {
+function deleteInvoiceLineResponse(arg) {
     if (arg) {
         var url = controller_url.InvoiceLines + deleteId;
         var options = {

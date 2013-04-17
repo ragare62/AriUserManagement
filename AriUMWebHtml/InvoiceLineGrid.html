@@ -3,7 +3,8 @@ InvoiceLineGrid:
 -->
 <div class="row-fluid">
     <div class="span12">
-         <h3 id="InvoiceLineGridTitle">Usuarios</h3>
+         <h3 id="InvoiceLineGridTitle">Lineas de factura</h3>
+         <input id="txtInvoiceId" type="hidden" />
     </div>
 </div>
 <div class="row-fluid">
@@ -13,16 +14,16 @@ InvoiceLineGrid:
 </div>
 <!-- Templates used in this page -->
 <script type="text/x-kendo-template" id="tNewInvoiceLine">
-    <button class="btn btn-primary" onclick="formInvoiceLineNew();" title="Nuevo registro">
+    <button class="btn btn-primary" onclick="gridInvoiceLineNew();" title="Nuevo registro">
         <i class="icon-plus icon-white"></i>
     </button>
 </script>
 <script type="tex/x-kendo-template" id="tEditInvoiceLine">
     <div class="pull-right">
-        <button class="btn btn-primary" onclick="formInvoiceLineEdit(#=InvoiceLineId#);" title="Editar registro">
+        <button class="btn btn-primary" onclick="formInvoiceLineEdit(#=InvoiceLineId#,#=Invoice.InvoiceId#);" title="Editar registro">
             <i class="icon-pencil icon-white"></i>
         </button>
-        <button class="btn btn-primary" onclick="gridInvoiceLineDelete(#=InvoiceLineId#,'#=Name#');" title="Eliminar registro">
+        <button class="btn btn-primary" onclick="gridInvoiceLineDelete(#=InvoiceLineId#,'#=Product.Name# [#=Amount#]');" title="Eliminar registro">
             <i class="icon-minus icon-white"></i>
         </button>
     </div>

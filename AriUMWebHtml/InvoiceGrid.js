@@ -45,7 +45,7 @@ var gridInvoiceDS = new kendo.data.DataSource({
                 Year: { type: "number" },
                 Serial: { type: "string" },
                 InvoiceNumber:{type: "number"},
-                Customer: {}
+                Customer: {type: "object"}
             }
         }
     },
@@ -62,7 +62,8 @@ function builInvoiceGrid() {
             { field: "Year", title: "Año" },
             { field: "Serial", title: "Serie" },
             { field: "InvoiceNumber", title: "Número" },
-            { field:"Customer", title: "Cliente", template:"#=Customer?Customer.Name:''#"},
+            { field: "Customer.Name", title: "Cliente", template: "#=Customer?Customer.Name:''#", filterable: false },
+            //{ field:"Customer", title: "Cliente", template:"#=Customer?Customer.Name:''#"},
             { field: "Total", title: "Total"},
             {
                 template: tEditInvoice

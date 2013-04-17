@@ -438,6 +438,15 @@ namespace AriUMModel
 		    }
 		}
 		
+		private IList<InvoiceLine> _invoiceLines = new List<InvoiceLine>();
+		public virtual IList<InvoiceLine> InvoiceLines 
+		{ 
+		    get
+		    {
+		        return this._invoiceLines;
+		    }
+		}
+		
 	}
 }
 
@@ -565,8 +574,8 @@ namespace AriUMModel
 		    }
 		}
 		
-		private decimal _quantity;
-		public virtual decimal Quantity 
+		private int _quantity;
+		public virtual int Quantity 
 		{ 
 		    get
 		    {
@@ -591,6 +600,19 @@ namespace AriUMModel
 		    }
 		}
 		
+		private decimal _price;
+		public virtual decimal Price 
+		{ 
+		    get
+		    {
+		        return this._price;
+		    }
+		    set
+		    {
+		        this._price = value;
+		    }
+		}
+		
 		private Invoice _invoice;
 		public virtual Invoice Invoice 
 		{ 
@@ -601,6 +623,19 @@ namespace AriUMModel
 		    set
 		    {
 		        this._invoice = value;
+		    }
+		}
+		
+		private Product _product;
+		public virtual Product Product 
+		{ 
+		    get
+		    {
+		        return this._product;
+		    }
+		    set
+		    {
+		        this._product = value;
 		    }
 		}
 		

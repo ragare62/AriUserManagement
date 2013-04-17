@@ -103,12 +103,21 @@ function deleteResponse(arg) {
 }
 function gridProductSelect(id, name) {
     switch (caller) {
-
+        case "InvoiceLineForm":
+            var c = "#InvoiceLineFormContainer ";
+            $(c + "#txtProduct").val(name);
+            $(c + "#txtProductId").val(id);
+            $("#ProductGridContainer").hide();
+            $("#InvoiceLineFormContainer").show();
+            formInvoiceLineProductLostFocus();
+            break;
     }
     caller = "";
+    mode = "";
 }
 function gridProductExit() {
     switch (caller) {
     }
     caller = "";
+    mode = "";
 }

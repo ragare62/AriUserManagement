@@ -46,10 +46,10 @@ var ari_filterable_es_ES = {
         date: {
             eq: "Igual a",
             neq: "No igual a",
-            gte: "Antes o igual que",
-            gt: "Antes de",
-            lte: "Después o igual que",
-            lt: "Después de"
+            gte: "Después o igual que",
+            gt: "Después de",
+            lte: "Antes o igual que",
+            lt: "Antes de"
         },
         //filter menu for foreign key values
         enums: {
