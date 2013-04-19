@@ -24,6 +24,7 @@ var UserGroupAutoDS = new kendo.data.DataSource({
         }
     },
 });
+
 // Build user form
 function buildUserForm() {
     var c = "#UserFormContainer ";
@@ -50,7 +51,6 @@ function loadUserForm() {
     });
 }
 
-
 function formUserNew() {
     var c = "#UserFormContainer ";
     // Hide the grid show the form
@@ -59,6 +59,7 @@ function formUserNew() {
     isNew = true;
     $(c + "#txtId").val("");
     $(c + "#txtName").val("");
+    $(c + "#txtLogin").val("");
     $(c + "#txtEmail").val("");
     $(c + "#txtUserGroup").val("");
     $(c + "#txtName").focus();
@@ -84,6 +85,7 @@ function formUserEdit(id) {
 function formUserAccept() {
     var c = "#UserFormContainer ";
     var validator = $(c + "#formUser").kendoValidator().data("kendoValidator");
+    if (!formUserDataOk()) return;
     if (validator.validate()) {
         var User = formUserUnloadData();
         var url = controller_url.Users;
@@ -119,6 +121,7 @@ function formUserUnloadData() {
     var User = new Object();
     User.UserId = $(c + "#txtId").val();
     User.Name = $(c + "#txtName").val();
+    User.Login = $(c + "#txtLogin").val();
     User.Email = $(c + "#txtEmail").val();
     var v = $(c + "#txtUserGroupId").val();
     var t = $(c + "#txtUserGroup").val();
@@ -128,22 +131,21 @@ function formUserUnloadData() {
         User.UserGroup.Name = t;
     }
     var p = $(c + "#txtPassword1").val();
-    if (p != "") {
-        User.Password = p;
-    }
+    User.Password = p;
     return User;
 }
 function formUserLoadData(User) {
     var c = "#UserFormContainer ";
     $(c + "#txtId").val(User.UserId);
     $(c + "#txtName").val(User.Name);
+    $(c + "#txtLogin").val(User.Login);
     $(c + "#txtEmail").val(User.Email);
     if (User.UserGroup != null) {
         $(c + "#txtUserGroup").val(User.UserGroup.Name);
         $(c + "#txtUserGroupId").val(User.UserGroup.UserGroupId);
     }
-    $(c + "#txtPassword1").val(User.Password);
-    $(c + "#txtPassword2").val(User.Password);
+    $(c + "#txtPassword1").val("");
+    $(c + "#txtPassword2").val("");
 }
 function formUserDataOk() {
     var c = "#UserFormContainer ";

@@ -24,6 +24,11 @@ namespace AriUMModel
 
         public static  User PostUser(User user, AriUMContext ctx)
         {
+            // Password control
+            if (user.Password != "" && user.Password != null)
+            {
+                user.Password = CntWebApiSecurity.GetHashCode(user.Password);
+            }
             ctx.Add(user);
             ctx.SaveChanges();
             return user;
@@ -31,6 +36,11 @@ namespace AriUMModel
 
         public static  User PutUser(User user, AriUMContext ctx)
         {
+            // Password control
+            if (user.Password != "" && user.Password != null)
+            {
+                user.Password = CntWebApiSecurity.GetHashCode(user.Password);
+            }
             ctx.AttachCopy<User>(user);
             ctx.SaveChanges();
             return user;

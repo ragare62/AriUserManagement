@@ -100,6 +100,14 @@ namespace AriUMModel
 	    	}
 		}
 		
+		public IQueryable<WebApiTicket> WebApiTickets 
+		{
+	    	get
+	    	{
+	        	return this.GetAll<WebApiTicket>();
+	    	}
+		}
+		
 		public static BackendConfiguration GetBackendConfiguration()
 		{
 			BackendConfiguration backend = new BackendConfiguration();
@@ -137,6 +145,11 @@ namespace AriUMModel
 		}
 
 		IQueryable<InvoiceLine> InvoiceLines 
+		{ 
+			get;
+		}
+
+		IQueryable<WebApiTicket> WebApiTickets 
 		{ 
 			get;
 		}
@@ -200,16 +213,16 @@ namespace AriUMModel
 		    }
 		}
 		
-		private int? _user_group_id;
-		public virtual int? User_group_id 
+		private string _login;
+		public virtual string Login 
 		{ 
 		    get
 		    {
-		        return this._user_group_id;
+		        return this._login;
 		    }
 		    set
 		    {
-		        this._user_group_id = value;
+		        this._login = value;
 		    }
 		}
 		
@@ -223,6 +236,15 @@ namespace AriUMModel
 		    set
 		    {
 		        this._userGroup = value;
+		    }
+		}
+		
+		private IList<WebApiTicket> _webApiTickets = new List<WebApiTicket>();
+		public virtual IList<WebApiTicket> WebApiTickets 
+		{ 
+		    get
+		    {
+		        return this._webApiTickets;
 		    }
 		}
 		
@@ -636,6 +658,78 @@ namespace AriUMModel
 		    set
 		    {
 		        this._product = value;
+		    }
+		}
+		
+	}
+}
+
+namespace AriUMModel	
+{
+	public partial class WebApiTicket
+	{
+		private int _webApiTicketId;
+		public virtual int WebApiTicketId 
+		{ 
+		    get
+		    {
+		        return this._webApiTicketId;
+		    }
+		    set
+		    {
+		        this._webApiTicketId = value;
+		    }
+		}
+		
+		private DateTime _start;
+		public virtual DateTime Start 
+		{ 
+		    get
+		    {
+		        return this._start;
+		    }
+		    set
+		    {
+		        this._start = value;
+		    }
+		}
+		
+		private DateTime _end;
+		public virtual DateTime End 
+		{ 
+		    get
+		    {
+		        return this._end;
+		    }
+		    set
+		    {
+		        this._end = value;
+		    }
+		}
+		
+		private string _code;
+		public virtual string Code 
+		{ 
+		    get
+		    {
+		        return this._code;
+		    }
+		    set
+		    {
+		        this._code = value;
+		    }
+		}
+		
+		private User _user;
+		public virtual User User 
+		{ 
+		    get
+		    {
+		        return this._user;
+		    }
+		    set
+		    {
+		        this._user = value;
 		    }
 		}
 		

@@ -87,9 +87,9 @@ function gridUserRefresh() {
 }
 function gridUserDelete(id, name) {
     deleteId = id;
-    bootbox.confirm("<h4>¿Desea eliminar este registro? (" + name + ")</h4>", "Cancelar", "Aceptar", deleteResponse);
+    bootbox.confirm("<h4>¿Desea eliminar este registro? (" + name + ")</h4>", "Cancelar", "Aceptar", deleteUserResponse);
 }
-function deleteResponse(arg) {
+function deleteUserResponse(arg) {
     if (arg) {
         var url = controller_url.Users + deleteId;
         var options = {

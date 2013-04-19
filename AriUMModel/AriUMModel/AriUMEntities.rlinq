@@ -15,18 +15,19 @@
           <orm:column name="nme" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
         </orm:field>
         <orm:field name="_email" property="Email" uniqueId="7f3b30ee-d9ef-42f6-b833-21b2f2ffcc4d" type="System.String">
-          <orm:column name="email" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+          <orm:column name="Email" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
         </orm:field>
         <orm:field name="_password" property="Password" uniqueId="cc41e9bc-b2dd-455f-bda9-66bfb24999ea" type="System.String">
           <orm:column name="passwd" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
         </orm:field>
-        <orm:field name="_user_group_id" property="User_group_id" behavior="readwrite" uniqueId="4eba6fdd-69c1-4e4c-a2c7-8f6889bcbf3a" type="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]">
-          <orm:column name="user_group_id" sql-type="integer" nullable="true" length="0" scale="0" ado-type="" />
+        <orm:field name="_login" property="Login" uniqueId="4f5f6adb-9c29-46b7-ac1c-0d7c5d8b1beb" type="System.String">
+          <orm:column name="Login" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
         </orm:field>
         <orm:field name="_userGroup" property="UserGroup" behavior="readwrite" uniqueId="138e2cb2-a1dc-42fd-9100-fb1491d8e61a" type="AriUMModel.UserGroup">
-          <orm:reference uniqueId="5404109f-41a6-42e3-bbd2-c6c1f215d6ae">
-            <orm:column name="user_group_id" sql-type="integer" nullable="true" length="0" scale="0" ado-type="" />
-          </orm:reference>
+          <orm:reference uniqueId="5404109f-41a6-42e3-bbd2-c6c1f215d6ae" />
+        </orm:field>
+        <orm:field name="_webApiTickets" property="WebApiTickets" behavior="readwrite" uniqueId="644c1ae2-11d8-44c8-a545-fe7c981e7d32" type="AriUMModel.WebApiTicket">
+          <orm:collection element-class="AriUMModel.WebApiTicket" inverse-field="_user" order-by="" uniqueId="7ce48470-dd2d-40c8-bac8-dd9f837fae2f" />
         </orm:field>
       </orm:class>
       <orm:class name="UserGroup" uniqueId="4af136ee-741e-4285-96b1-7f4e4f3796a0">
@@ -164,15 +165,30 @@
           </orm:columnMapping>
         </orm:index>
       </orm:class>
+      <orm:class name="WebApiTicket" uniqueId="8cca2d7b-dc34-4ce6-95bd-6c64b038351b">
+        <orm:table name="WebApiTicket" />
+        <orm:identity>
+          <orm:key-generator name="autoinc" />
+          <orm:single-field field-name="_webApiTicketId" />
+        </orm:identity>
+        <orm:field name="_webApiTicketId" property="WebApiTicketId" uniqueId="2dd45766-0f3e-4668-a2e5-86f5ecf17591" type="System.Int32">
+          <orm:column name="WebApiTicketId" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" converter="OpenAccessRuntime.Data.IntConverter" backend-calculated="true" ado-type="Int32" />
+        </orm:field>
+        <orm:field name="_start" property="Start" uniqueId="9fa130ed-1fe2-4922-a02b-f963d0f85de2" type="System.DateTime">
+          <orm:column name="Start" sql-type="datetime" nullable="false" length="0" scale="0" converter="OpenAccessRuntime.Data.Timestamp2DateTimeConverter" ado-type="DateTime" />
+        </orm:field>
+        <orm:field name="_end" property="End" uniqueId="9f3ea9dd-c609-4511-866d-a5b460ea3330" type="System.DateTime">
+          <orm:column name="End" sql-type="datetime" nullable="false" length="0" scale="0" converter="OpenAccessRuntime.Data.Timestamp2DateTimeConverter" ado-type="DateTime" />
+        </orm:field>
+        <orm:field name="_code" property="Code" uniqueId="cb5b457d-fab7-44f4-9542-b9ce9c8388fc" type="System.String">
+          <orm:column name="Code" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        </orm:field>
+        <orm:field name="_user" property="User" behavior="readwrite" uniqueId="571ade2c-7d4f-4282-8ecf-0d394bfc4e9e" type="AriUMModel.User">
+          <orm:reference uniqueId="7ce48470-dd2d-40c8-bac8-dd9f837fae2f" />
+        </orm:field>
+      </orm:class>
     </orm:namespace>
     <orm:schema schema="">
-      <orm:table name="usr">
-        <orm:column name="user_id" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" converter="OpenAccessRuntime.Data.IntConverter" backend-calculated="true" ado-type="Int32" />
-        <orm:column name="nme" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
-        <orm:column name="email" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
-        <orm:column name="passwd" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
-        <orm:column name="user_group_id" sql-type="integer" nullable="true" length="0" scale="0" ado-type="" />
-      </orm:table>
       <orm:table name="UserGroup">
         <orm:column name="user_group_id" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" converter="OpenAccessRuntime.Data.IntConverter" backend-calculated="true" ado-type="Int32" />
         <orm:column name="nme" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
@@ -218,6 +234,20 @@
             <orm:column name="InvoiceId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
           </orm:columnMapping>
         </orm:index>
+      </orm:table>
+      <orm:table name="usr">
+        <orm:column name="user_id" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" converter="OpenAccessRuntime.Data.IntConverter" backend-calculated="true" ado-type="Int32" />
+        <orm:column name="nme" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        <orm:column name="Email" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        <orm:column name="passwd" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        <orm:column name="user_group_id" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
+        <orm:column name="Login" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+      </orm:table>
+      <orm:table name="WebApiTicket">
+        <orm:column name="WebApiTicketId" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" converter="OpenAccessRuntime.Data.IntConverter" backend-calculated="true" ado-type="Int32" />
+        <orm:column name="Start" sql-type="datetime" nullable="false" length="0" scale="0" converter="OpenAccessRuntime.Data.Timestamp2DateTimeConverter" ado-type="DateTime" />
+        <orm:column name="End" sql-type="datetime" nullable="false" length="0" scale="0" converter="OpenAccessRuntime.Data.Timestamp2DateTimeConverter" ado-type="DateTime" />
+        <orm:column name="Code" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
       </orm:table>
     </orm:schema>
     <orm:relational-naming-settings>
@@ -265,7 +295,7 @@
       <Property Id="d020bd7d-71d1-47e6-b543-9173141db6ce" name="Name" label="Name : String" fieldName="_name" />
       <Property Id="7f3b30ee-d9ef-42f6-b833-21b2f2ffcc4d" name="Email" label="Email : String" fieldName="_email" />
       <Property Id="cc41e9bc-b2dd-455f-bda9-66bfb24999ea" name="Password" label="Password : String" fieldName="_password" />
-      <Property Id="4eba6fdd-69c1-4e4c-a2c7-8f6889bcbf3a" name="User_group_id" type="Int32" label="User_group_id : Int32" nullable="true" kind="Persistent" fieldName="_user_group_id" />
+      <Property Id="4f5f6adb-9c29-46b7-ac1c-0d7c5d8b1beb" name="Login" label="Login : String" fieldName="_login" />
       <AssociationTargets>
         <Association Id="5404109f-41a6-42e3-bbd2-c6c1f215d6ae" SourceMultiplicity="ZeroOne" name="UserHasUserGroup">
           <DomainClassMoniker name="/AriUMContext/UserGroup" />
@@ -279,6 +309,9 @@
       <navigationalProperties>
         <classHasNavigationalProperties Id="6ab92b4c-3909-453a-8df2-69b39b80487e">
           <NavigationalProperty Id="138e2cb2-a1dc-42fd-9100-fb1491d8e61a" name="UserGroup" type="UserGroup" label="UserGroup : UserGroup" nullable="true" kind="Persistent" fieldName="_userGroup" isDependent="false" isManaged="false" />
+        </classHasNavigationalProperties>
+        <classHasNavigationalProperties Id="e770d173-a46b-4605-9eec-864e3ffb081e">
+          <NavigationalProperty Id="644c1ae2-11d8-44c8-a545-fe7c981e7d32" name="WebApiTickets" type="IList&lt;WebApiTicket&gt;" label="WebApiTickets : IList&lt;WebApiTicket&gt;" nullable="true" kind="Persistent" fieldName="_webApiTickets" isDependent="false" isManaged="false" />
         </classHasNavigationalProperties>
       </navigationalProperties>
     </DomainClass>
@@ -385,6 +418,32 @@
         </classHasNavigationalProperties>
       </navigationalProperties>
     </DomainClass>
+    <DomainClass Id="8cca2d7b-dc34-4ce6-95bd-6c64b038351b" name="WebApiTicket" namespace="AriUMModel" showPropertiesCompartment="true" identityMechanism="DatabaseServerCalculated" showNavigationCompartment="true" showImplementationCompartment="true">
+      <Property Id="2dd45766-0f3e-4668-a2e5-86f5ecf17591" name="WebApiTicketId" type="System.Int32" label="WebApiTicketId : System.Int32" identity="true" fieldName="_webApiTicketId" />
+      <Property Id="9fa130ed-1fe2-4922-a02b-f963d0f85de2" name="Start" type="DateTime" label="Start : DateTime" fieldName="_start" />
+      <Property Id="9f3ea9dd-c609-4511-866d-a5b460ea3330" name="End" type="DateTime" label="End : DateTime" fieldName="_end" />
+      <Property Id="cb5b457d-fab7-44f4-9542-b9ce9c8388fc" name="Code" label="Code : String" fieldName="_code" />
+      <AssociationTargets>
+        <Association Id="7ce48470-dd2d-40c8-bac8-dd9f837fae2f" SourceMultiplicity="ZeroOne" name="WebApiTicketHasUser">
+          <DomainClassMoniker name="/AriUMContext/User" />
+          <targetNavigationalProperty>
+            <associationDefinesTargetProperty Id="60036717-6a00-47d2-b9a4-18b3aabe92b8">
+              <NavigationalPropertyMoniker name="/AriUMContext/User/WebApiTickets" />
+            </associationDefinesTargetProperty>
+          </targetNavigationalProperty>
+          <sourceNavigationalProperty>
+            <associationDefinesSourceProperty Id="41cfc759-e6ed-4001-a674-3f403fdcaf8e">
+              <NavigationalPropertyMoniker name="/AriUMContext/WebApiTicket/User" />
+            </associationDefinesSourceProperty>
+          </sourceNavigationalProperty>
+        </Association>
+      </AssociationTargets>
+      <navigationalProperties>
+        <classHasNavigationalProperties Id="7083afb3-98cc-45af-8ec5-b9a3140a5f7c">
+          <NavigationalProperty Id="571ade2c-7d4f-4282-8ecf-0d394bfc4e9e" name="User" type="User" label="User : User" nullable="true" kind="Persistent" fieldName="_user" isDependent="false" isManaged="false" />
+        </classHasNavigationalProperties>
+      </navigationalProperties>
+    </DomainClass>
   </Types>
   <domainContext>
     <domainModelHasDomainContext Id="be944f3b-0231-4ef4-9a06-8b484afbfd69">
@@ -395,6 +454,7 @@
         <entitySetProperty name="Products" namespace="AriUMModel" type="Product" label="Products : IQueryable&lt;AriUMModel.Product&gt;" />
         <entitySetProperty name="Invoices" namespace="AriUMModel" type="Invoice" label="Invoices : IQueryable&lt;AriUMModel.Invoice&gt;" />
         <entitySetProperty name="InvoiceLines" namespace="AriUMModel" type="InvoiceLine" label="InvoiceLines : IQueryable&lt;AriUMModel.InvoiceLine&gt;" />
+        <entitySetProperty name="WebApiTickets" namespace="AriUMModel" type="WebApiTicket" label="WebApiTickets : IQueryable&lt;AriUMModel.WebApiTicket&gt;" />
       </domainContainer>
     </domainModelHasDomainContext>
   </domainContext>

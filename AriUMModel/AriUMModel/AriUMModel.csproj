@@ -48,6 +48,7 @@
       <DependentUpon>AriUMEntities.rlinq</DependentUpon>
     </Compile>
     <Compile Include="CntContext.cs" />
+    <Compile Include="CntWebApiSecurity.cs" />
     <Compile Include="CntWebApiVerbs.cs" />
     <Compile Include="IContext.cs" />
     <Compile Include="IWebApiVerbs.cs" />
@@ -78,6 +79,10 @@
     <Content Include="SQL\2013-1-0-1AriUMDBConnection%282013-04-16 12-32-34%29.rlinq.sql" />
     <Content Include="SQL\2013-1-0-1AriUMDBConnection%282013-04-16 12-34-24%29.rlinq.sql" />
     <Content Include="SQL\2013-1-0-1AriUMDBConnection%282013-04-16 16-28-02%29.rlinq.sql" />
+    <Content Include="SQL\2013-1-0-1AriUMDBConnection%282013-04-18 16-46-14%29.rlinq.sql" />
+    <Content Include="SQL\2013-1-0-1AriUMDBConnection%282013-04-18 16-47-11%29.rlinq.sql" />
+    <Content Include="SQL\2013-1-0-1AriUMDBConnection%282013-04-18 16-48-42%29.rlinq.sql" />
+    <Content Include="SQL\2013-1-0-1AriUMDBConnection%282013-04-18 17-14-13%29.rlinq.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Condition="Exists('$(MSBuildExtensionsPath)\OpenAccess.targets')" Project="$(MSBuildExtensionsPath)\OpenAccess.targets" />

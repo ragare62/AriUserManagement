@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <title>Write Cookie test</title>
+        <script src="Scripts/jquery-1.9.1.js"></script>
+        <script src="Scripts/modernizr.custom.34586.js"></script>
+    </head>
+    <body>
+        <div>
+            <h3>This is a cookie write test, clic the button below</h3>
+        </div>
+        <div>
+            <button id="btnWriteCookie" onclick="writeCookie()">Write Cookie</button>
+        </div>
+        <script type="text/javascript">
+            (function ($) {
+                $(document).ready(function () {
+                });
+            })(jQuery);
+        </script>
+        <script type="text/javascript">
+            function writeCookie() {
+                var jo = new Object();
+                jo.Name = "This is a name";
+                jo.Address = "This is the address";
+                jo.Phone = new Object();
+                jo.Phone.Type = "Mobile";
+                jo.Phone.Number = "99945678";
+                setCookie("Ariadna", JSON.stringify(jo), 365);
+                alert("Cookie writed!");
+                alert(navigator.cookieEnabled);
+            }
+            function setCookie(c_name, value, exdays) {
+                var exdate = new Date();
+                exdate.setDate(exdate.getDate() + exdays);
+                var c_value = escape(value) + ((exdays == null) ? "" : ";expires=" + exdate.toUTCString());
+                document.cookie = c_name + "=" + c_value;
+            }
+            function getCookie(c_name) {
+                var c_value = document.cookie;
+                var c_start = c_value.indexOf(" " + c_name + "=");
+                if (c_start == -1) {
+                    c_start = c_value.idexOf(c_name + "=");
+                }
+                if (c_start == -1) {
+                    c_value = null;
+                } else {
+                    c_start = c_value.indexOf("=", c_start + 1);
+                    var c_end = c_value.indexOf(";", c_start);
+                    if (c_end == -1) {
+                        c_end = c_value.length;
+                    }
+                    c_value = escape(c_value.substring(c_start, c_end));
+                }
+                return c_value;
+            }
+        </script>
+    </body>
+</html>
