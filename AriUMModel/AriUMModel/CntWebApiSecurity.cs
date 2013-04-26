@@ -30,14 +30,44 @@ namespace AriUMModel
         }
         #endregion Criptography
 
-        public static WebApiTicket Login(string login, string password)
+        public static WebApiTicket Login(string login, string password, int minutes, AriUMContext ctx)
         {
             WebApiTicket tk = null;
+            // First verify if a user with this credentials exists
+            User user = (from u in ctx.Users
+                         where u.Login == login
+                         select u).FirstOrDefault<User>();
+            if (user != null)
+            {
+                // User exists. Does the password match?
+                if (user.Password == GetHashCode(password))
+                {
+                    // Go to get the ticket
+                    string code = GenerateTicket();
+                    tk = new WebApiTicket()
+                    {
+                      Code = code,
+                      Start = DateTime.Now,
+                      User = user 
+                    };
+                    tk.End = tk.Start.AddMinutes(minutes);
+                }
+            }
             return tk;
         }
-        public static bool CheckTicket(string code)
+        public static bool CheckTicket(string code, AriUMContext ctx)
         {
-            return true;
+            // Current date time
+            DateTime curtime = DateTime.Now;
+            // look for a ticket with this code and active
+            WebApiTicket tk = (from t in ctx.WebApiTickets
+                               where t.Code == code
+                               && t.End > curtime
+                               select t).FirstOrDefault<WebApiTicket>();
+            if (tk != null)
+                return true;
+            else
+                return false;
         }
 
         /// <summary>

@@ -17,10 +17,10 @@ namespace AriUMWebApi.Controllers
         {
             using (AriUMContext ctx = new AriUMContext("AriUMDBConnection"))
             {
-                IEnumerable<Invoice> invoice = CntWebApiVerbs.GetInvoices(ctx);
+                IEnumerable<Invoice> invoices = CntWebApiVerbs.GetInvoices(ctx);
                 FetchStrategy fs = new FetchStrategy();
                 fs.LoadWith<Invoice>(x => x.Customer);
-                IEnumerable<Invoice> cS = ctx.CreateDetachedCopy<IEnumerable<Invoice>>(invoice, fs);
+                IEnumerable<Invoice> cS = ctx.CreateDetachedCopy<IEnumerable<Invoice>>(invoices, fs);
                 return cS;
             }
         }

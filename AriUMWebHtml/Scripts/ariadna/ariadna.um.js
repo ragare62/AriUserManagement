@@ -25,8 +25,7 @@ function loadDefaults() {
     // tratamiento común de AJAX
     $.ajaxSetup({
         error: function (xhr, textStatus, errorThrown) {
-            var message = "<h4 class='text-error'>Se ha producido un error:</h4>" +
-                          "<p classs='text-warning'>" + xhr.responseText + "</p>";
+            var message = ari_formatErrorMessage(JSON.parse(xhr.responseText));
             bootbox.alert(message, "Aceptar");
         }
     });
@@ -55,6 +54,12 @@ function loadHeaderFooter() {
 
 function ari_windowOpen(url) {
     window.open(url, '_self');
+}
+
+function ari_formatErrorMessage(msg) {
+    var s = "<h4 class='text-error'>" + msg.Message + "</h4>";
+    s += "<p class='text-warning'>" + msg.ExceptionMessage + "</p>";
+    return s;
 }
 
 function ari_generalLinker(entity) {
