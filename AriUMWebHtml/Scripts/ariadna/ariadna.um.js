@@ -58,7 +58,9 @@ function ari_windowOpen(url) {
 
 function ari_formatErrorMessage(msg) {
     var s = "<h4 class='text-error'>" + msg.Message + "</h4>";
-    s += "<p class='text-warning'>" + msg.ExceptionMessage + "</p>";
+    if (msg.ExceptionMessage != undefined) {
+        s += "<p class='text-warning'>" + msg.ExceptionMessage + "</p>";
+    }
     return s;
 }
 
@@ -87,7 +89,9 @@ function setCookie(c_name, value, exdays) {
     exdate.setDate(exdate.getDate() + exdays);
     var c_value = escape(value) + ((exdays == null) ? "" : "; expires=" + exdate.toUTCString());
     document.cookie = c_name + "=" + c_value;
+    alert(c_name + "=" + c_value);
 }
+
 function getCookie(c_name) {
     var i, x, y, ARRcookies = document.cookie.split(";");
     for (i = 0; i < ARRcookies.length; i++) {
@@ -100,9 +104,15 @@ function getCookie(c_name) {
     }
 }
 
+function deleteCookie(c_name) {
+    document.cookie = encodeURIComponent(c_name) + "=deleted; expires=" + new Date(0).toUTCString();
+}
+
+
+
+
 function are_cookies_enabled() {
     var cookieEnabled = (navigator.cookieEnabled) ? true : false;
-
     if (typeof navigator.cookieEnabled == "undefined" && !cookieEnabled) {
         document.cookie = "testcookie";
         cookieEnabled = (document.cookie.indexOf("testcookie") != -1) ? true : false;

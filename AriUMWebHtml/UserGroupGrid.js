@@ -17,10 +17,10 @@ function templateUserGroupGrid() {
 var gridUserGroupDS = new kendo.data.DataSource({
     transport: {
         read: {
-            url: controller_url.UserGroups,
+            url: controller_url.UserGroups + "?tk=" + getCookie("ari_webTicket"),
             dataType: "json",
             type: "GET",
-            contentType: "application/json"
+            contentType: "application/json",
         },
         parameterMap: function (data, type) {
             if (type != "GET")
@@ -62,6 +62,14 @@ function loadUserGroupGrid() {
 
 // build gridUserGroup
 function builUserGroupGrid() {
+    // Handler for error
+    function gridUserGroupDS_Error(e) {
+        var message = ari_formatErrorMessage(JSON.parse(e.xhr.responseText));
+        bootbox.alert(message, "Aceptar");
+    }
+    //bin the handler to the event
+    gridUserGroupDS.bind("error", gridUserGroupDS_Error);
+
     $("#gridUserGroup").kendoGrid({
         dataSource: gridUserGroupDS,
         columns: [

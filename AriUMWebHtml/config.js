@@ -13,6 +13,7 @@ var controller_url = {
     Customers: "http://localhost:50827/api/customers/",
     Products: "http://localhost:50827/api/products/",
     Invoices: "http://localhost:50827/api/invoices/",
-    InvoiceLines: "http://localhost:50827/api/invoicelines/"
+    InvoiceLines: "http://localhost:50827/api/invoicelines/",
+    Login: "http://localhost:50827/api/login/"
 };
 

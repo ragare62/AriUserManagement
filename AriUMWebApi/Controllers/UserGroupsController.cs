@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Threading.Tasks;
 using System.Web.Http;
 using AriUMModel;
-using Telerik.OpenAccess;
 using Telerik.OpenAccess.FetchOptimization;
 
 namespace AriUMWebApi.Controllers
@@ -18,14 +16,22 @@ namespace AriUMWebApi.Controllers
         /// Get all user groups from the server
         /// </summary>
         /// <returns>A list of all user groups</returns>
-        public IEnumerable<UserGroup> Get()
+        public HttpResponseMessage Get(string tk)
         {
             using (AriUMContext ctx = new AriUMContext("AriUMDBConnection"))
             {
-                IEnumerable<UserGroup> userGroups = CntWebApiVerbs.GetUserGroups(ctx);
-                FetchStrategy fs = new FetchStrategy();
-                IEnumerable<UserGroup> uGs = ctx.CreateDetachedCopy<IEnumerable<UserGroup>>(userGroups, fs);
-                return uGs;
+                // verify ticket
+                if (CntWebApiSecurity.CheckTicket(tk, ctx))
+                {
+                    IEnumerable<UserGroup> userGroups = CntWebApiVerbs.GetUserGroups(ctx);
+                    FetchStrategy fs = new FetchStrategy();
+                    IEnumerable<UserGroup> uGs = ctx.CreateDetachedCopy<IEnumerable<UserGroup>>(userGroups, fs);
+                    return Request.CreateResponse<IEnumerable<UserGroup>>(HttpStatusCode.OK, uGs);
+                }
+                else
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.Unauthorized, "Se necesita tique de autorización (Grupo de usuarios)");
+                }
             }
         }
 
@@ -34,7 +40,7 @@ namespace AriUMWebApi.Controllers
         /// </summary>
         /// <param name="order">Indicates what order you want , so far it orders by name only</param>
         /// <returns></returns>
-        public IEnumerable<UserGroup> GetOrdered(string order)
+        public IEnumerable<UserGroup> GetOrdered(string tk, string order)
         {
             using (AriUMContext ctx = new AriUMContext("AriUMDBConnection"))
             {
@@ -53,7 +59,7 @@ namespace AriUMWebApi.Controllers
         /// </summary>
         /// <param name="id">User groups' id you want</param>
         /// <returns>Use group object (XML/JSON)</returns>
-        public virtual UserGroup Get(int id)
+        public virtual UserGroup Get(int id, string tk)
         {
 
             using (AriUMContext ctx = new AriUMContext("AriUMDBConnection"))
@@ -77,7 +83,7 @@ namespace AriUMWebApi.Controllers
         /// </summary>
         /// <param name="name">The name of the object</param>
         /// <returns>User group object</returns>
-        public virtual UserGroup GetByName(string name)
+        public virtual UserGroup GetByName(string name, string tk)
         {
             using (AriUMContext ctx = new AriUMContext("AriUMDBConnection"))
             {
@@ -102,7 +108,7 @@ namespace AriUMWebApi.Controllers
         /// </summary>
         /// <param name="userGroup">The user group that yo want to create</param>
         /// <returns>Url related to the new object</returns>
-        public virtual HttpResponseMessage Post(UserGroup userGroup)
+        public virtual HttpResponseMessage Post(UserGroup userGroup, string tk)
         {
             if (userGroup == null)
             {
@@ -134,7 +140,7 @@ namespace AriUMWebApi.Controllers
         /// <param name="id">The id of the user group to be updated</param>
         /// <param name="userGroup">User group with the modifications you want</param>
         /// <returns></returns>
-        public virtual HttpResponseMessage Put(int id, UserGroup userGroup)
+        public virtual HttpResponseMessage Put(int id, UserGroup userGroup, string tk)
         {
             if (userGroup == null || id != userGroup.UserGroupId)
             {
@@ -164,7 +170,7 @@ namespace AriUMWebApi.Controllers
         /// </summary>
         /// <param name="id">Id of the user group to be deleted</param>
         /// <returns></returns>
-        public virtual HttpResponseMessage Delete(int id)
+        public virtual HttpResponseMessage Delete(int id, string tk)
         {
             using (AriUMContext ctx = new AriUMContext("AriUMDBConnection"))
             {

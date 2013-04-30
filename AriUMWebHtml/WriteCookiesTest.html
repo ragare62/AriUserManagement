@@ -13,6 +13,9 @@
         <div>
             <button id="btnWriteCookie" onclick="writeCookie()">Write Cookie</button>
         </div>
+        <div>
+            <button id="Button1" onclick="eraseCookie()">Delete Cookie</button>
+        </div>
         <script type="text/javascript">
             (function ($) {
                 $(document).ready(function () {
@@ -31,6 +34,16 @@
                 alert("Cookie writed!");
                 alert(navigator.cookieEnabled);
             }
+
+            function eraseCookie() {
+                deleteCookie("Ariadna");
+            }
+
+
+            function deleteCookie(c_name) {
+                document.cookie = encodeURIComponent(c_name) + "=deleted; expires=" + new Date(0).toUTCString();
+            }
+
             function setCookie(c_name, value, exdays) {
                 var exdate = new Date();
                 exdate.setDate(exdate.getDate() + exdays);
