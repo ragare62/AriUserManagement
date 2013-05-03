@@ -58,6 +58,8 @@ function loadInvoiceForm() {
 }
 
 
+
+
 function formInvoiceNew() {
     var c = "#InvoiceFormContainer ";
     // Hide the grid show the form
