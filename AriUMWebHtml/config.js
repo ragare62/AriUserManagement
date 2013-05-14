@@ -14,6 +14,8 @@ var controller_url = {
     Products: "http://localhost:50827/api/products/",
     Invoices: "http://localhost:50827/api/invoices/",
     InvoiceLines: "http://localhost:50827/api/invoicelines/",
-    Login: "http://localhost:50827/api/login/"
+    Login: "http://localhost:50827/api/login/",
+    Upload: "http://localhost:50827/api/uploads/"
 };
+
 

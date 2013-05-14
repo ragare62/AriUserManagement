@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <title>AriUM Scaffolding</title>
+        <!-- Bootstrap styles -->
+        <link href="Content/bootstrap.min.css" rel="stylesheet" media="screen" />
+        <!-- Kendo styles -->
+        <link href="Content/kendo/2012.3.1114/kendo.common.min.css" rel="stylesheet" />
+        <link href="Content/kendo/2012.3.1114/kendo.bootstrap.min.css" rel="stylesheet" />
+        <!-- Ariadna styles -->
+        <link href="Content/ariadna.css" rel="stylesheet" />
+        <!-- JQuery -->
+        <script src="Scripts/kendo/2012.3.1114/jquery.min.js"></script>
+        <!-- Bootstrap -->
+        <script src="Scripts/bootstrap.min.js"></script>
+        <!-- Bootbox -->
+        <script src="Scripts/bootbox.js"></script>
+        <!-- Kendo -->
+        <script src="Scripts/kendo/2012.3.1114/kendo.web.min.js"></script>
+        <script src="Scripts/kendo/2012.3.1114/cultures/kendo.culture.es-ES.min.js"></script>
+        <!-- Ariadna  -->
+        <script src="Scripts/ariadna/ariadna.um.js"></script>
+        <script src="Scripts/ariadna/ariadna.localization.es-ES.js"></script>
+        <!-- Config -->
+        <script src="config.js"></script>
+    </head>
+    <body>
+        <header id="header">
+        </header>
+        <div id="cuerpo" style="min-height:400px;">
+            <div class="container-fluid">
+                <div class="row-fluid">
+                        <div class="span12">
+                            <input name="files" id="#files" type="file" />
+                        </div>
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+        </footer>
+        <script type="text/javascript">
+            (function ($) {
+                $(document).ready(function () {
+
+                    $("#files").kendoUpload({
+                        async: {
+                            saveUrl: "http://localhost:50827/api/uploads/",
+                            autoUpload: true
+                        }
+                    });
+                })
+            })(jQuery);
+        </script>
+    </body>
+</html>

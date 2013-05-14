@@ -65,6 +65,7 @@
     <None Include="AriUMEntities.rlinq.diagram">
       <DependentUpon>AriUMEntities.rlinq</DependentUpon>
     </None>
+    <None Include="web.config" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
