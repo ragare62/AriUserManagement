@@ -31,7 +31,9 @@ namespace AriUMWebApi.Controllers
 
                 string guid = Guid.NewGuid().ToString();
 
-                File.Move(finfo.FullName, Path.Combine(root, provider.FileData.First().Headers.ContentDisposition.FileName.Replace("\"", "")));
+                //File.Move(finfo.FullName, Path.Combine(root, provider.FileData.First().Headers.ContentDisposition.FileName.Replace("\"", "")));
+                File.Copy(finfo.FullName, Path.Combine(root, provider.FileData.First().Headers.ContentDisposition.FileName.Replace("\"", "")),true);
+                File.Delete(finfo.FullName);
 
                 return new HttpResponseMessage()
                 {

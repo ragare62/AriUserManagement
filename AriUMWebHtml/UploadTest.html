@@ -7,7 +7,7 @@
         <link href="Content/bootstrap.min.css" rel="stylesheet" media="screen" />
         <!-- Kendo styles -->
         <link href="Content/kendo/2012.3.1114/kendo.common.min.css" rel="stylesheet" />
-        <link href="Content/kendo/2012.3.1114/kendo.bootstrap.min.css" rel="stylesheet" />
+        <link href="Content/kendo/2012.3.1114/kendo.metro.min.css" rel="stylesheet" />
         <!-- Ariadna styles -->
         <link href="Content/ariadna.css" rel="stylesheet" />
         <!-- JQuery -->
@@ -32,7 +32,8 @@
             <div class="container-fluid">
                 <div class="row-fluid">
                         <div class="span12">
-                            <input name="files" id="#files" type="file" />
+                             <label>Select the files you want to upload</label>
+                            <input name="files" id="filesu" type="file" />
                         </div>
                 </div>
             </div>
@@ -43,7 +44,7 @@
             (function ($) {
                 $(document).ready(function () {
 
-                    $("#files").kendoUpload({
+                    $("#filesu").kendoUpload({
                         async: {
                             saveUrl: "http://localhost:50827/api/uploads/",
                             autoUpload: true

@@ -6,7 +6,7 @@ var UserGroupAutoDS = new kendo.data.DataSource({
             dataType: "json",
             type: "GET",
             contentType: "application/json",
-            silverFiltering: true,
+            serverFiltering: true,
             serverPaging: true
         },
         parameterMap: function (data, type) {
