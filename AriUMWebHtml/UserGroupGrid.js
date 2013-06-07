@@ -17,7 +17,7 @@ function templateUserGroupGrid() {
 var gridUserGroupDS = new kendo.data.DataSource({
     transport: {
         read: {
-            url: controller_url.UserGroups + "?tk=" + getCookie("ari_webTicket"),
+            url: controller_url.UserGroups,
             dataType: "json",
             type: "GET",
             contentType: "application/json",

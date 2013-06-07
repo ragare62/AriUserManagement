@@ -16,22 +16,14 @@ namespace AriUMWebApi.Controllers
         /// Get all user groups from the server
         /// </summary>
         /// <returns>A list of all user groups</returns>
-        public HttpResponseMessage Get(string tk)
+        public HttpResponseMessage Get()
         {
             using (AriUMContext ctx = new AriUMContext("AriUMDBConnection"))
             {
-                // verify ticket
-                if (CntWebApiSecurity.CheckTicket(tk, ctx))
-                {
                     IEnumerable<UserGroup> userGroups = CntWebApiVerbs.GetUserGroups(ctx);
                     FetchStrategy fs = new FetchStrategy();
                     IEnumerable<UserGroup> uGs = ctx.CreateDetachedCopy<IEnumerable<UserGroup>>(userGroups, fs);
                     return Request.CreateResponse<IEnumerable<UserGroup>>(HttpStatusCode.OK, uGs);
-                }
-                else
-                {
-                    return Request.CreateErrorResponse(HttpStatusCode.Unauthorized, "Se necesita tique de autorización (Grupo de usuarios)");
-                }
             }
         }
 
@@ -40,7 +32,7 @@ namespace AriUMWebApi.Controllers
         /// </summary>
         /// <param name="order">Indicates what order you want , so far it orders by name only</param>
         /// <returns></returns>
-        public IEnumerable<UserGroup> GetOrdered(string tk, string order)
+        public IEnumerable<UserGroup> GetOrdered(string order)
         {
             using (AriUMContext ctx = new AriUMContext("AriUMDBConnection"))
             {
@@ -59,7 +51,7 @@ namespace AriUMWebApi.Controllers
         /// </summary>
         /// <param name="id">User groups' id you want</param>
         /// <returns>Use group object (XML/JSON)</returns>
-        public virtual UserGroup Get(int id, string tk)
+        public virtual UserGroup Get(int id)
         {
 
             using (AriUMContext ctx = new AriUMContext("AriUMDBConnection"))
@@ -83,7 +75,7 @@ namespace AriUMWebApi.Controllers
         /// </summary>
         /// <param name="name">The name of the object</param>
         /// <returns>User group object</returns>
-        public virtual UserGroup GetByName(string name, string tk)
+        public virtual UserGroup GetByName(string name)
         {
             using (AriUMContext ctx = new AriUMContext("AriUMDBConnection"))
             {
@@ -108,7 +100,7 @@ namespace AriUMWebApi.Controllers
         /// </summary>
         /// <param name="userGroup">The user group that yo want to create</param>
         /// <returns>Url related to the new object</returns>
-        public virtual HttpResponseMessage Post(UserGroup userGroup, string tk)
+        public virtual HttpResponseMessage Post(UserGroup userGroup)
         {
             if (userGroup == null)
             {
@@ -170,7 +162,7 @@ namespace AriUMWebApi.Controllers
         /// </summary>
         /// <param name="id">Id of the user group to be deleted</param>
         /// <returns></returns>
-        public virtual HttpResponseMessage Delete(int id, string tk)
+        public virtual HttpResponseMessage Delete(int id)
         {
             using (AriUMContext ctx = new AriUMContext("AriUMDBConnection"))
             {

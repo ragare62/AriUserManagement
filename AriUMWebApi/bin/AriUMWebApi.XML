@@ -396,34 +396,34 @@
             </summary>
             <param name="documentPath">The physical path to XML document.</param>
         </member>
-        <member name="M:AriUMWebApi.Controllers.UserGroupsController.Get(System.String)">
+        <member name="M:AriUMWebApi.Controllers.UserGroupsController.Get">
             <summary>
             Get all user groups from the server
             </summary>
             <returns>A list of all user groups</returns>
         </member>
-        <member name="M:AriUMWebApi.Controllers.UserGroupsController.GetOrdered(System.String,System.String)">
+        <member name="M:AriUMWebApi.Controllers.UserGroupsController.GetOrdered(System.String)">
             <summary>
             Get all user groups ordered alphabetically
             </summary>
             <param name="order">Indicates what order you want , so far it orders by name only</param>
             <returns></returns>
         </member>
-        <member name="M:AriUMWebApi.Controllers.UserGroupsController.Get(System.Int32,System.String)">
+        <member name="M:AriUMWebApi.Controllers.UserGroupsController.Get(System.Int32)">
             <summary>
             Get an individual user group
             </summary>
             <param name="id">User groups' id you want</param>
             <returns>Use group object (XML/JSON)</returns>
         </member>
-        <member name="M:AriUMWebApi.Controllers.UserGroupsController.GetByName(System.String,System.String)">
+        <member name="M:AriUMWebApi.Controllers.UserGroupsController.GetByName(System.String)">
             <summary>
             Gets the user group with a given name
             </summary>
             <param name="name">The name of the object</param>
             <returns>User group object</returns>
         </member>
-        <member name="M:AriUMWebApi.Controllers.UserGroupsController.Post(AriUMModel.UserGroup,System.String)">
+        <member name="M:AriUMWebApi.Controllers.UserGroupsController.Post(AriUMModel.UserGroup)">
             <summary>
             Creates a new user group
             </summary>
@@ -438,7 +438,7 @@
             <param name="userGroup">User group with the modifications you want</param>
             <returns></returns>
         </member>
-        <member name="M:AriUMWebApi.Controllers.UserGroupsController.Delete(System.Int32,System.String)">
+        <member name="M:AriUMWebApi.Controllers.UserGroupsController.Delete(System.Int32)">
             <summary>
             Deletes the user group with a given id
             </summary>
